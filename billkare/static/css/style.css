@@ -1,0 +1,300 @@
+/********** Template CSS **********/
+:root {
+    --primary: #06BBCC;
+    --light: #F0FBFC;
+    --dark: #181d38;
+}
+
+.fw-medium {
+    font-weight: 600 !important;
+}
+
+.fw-semi-bold {
+    font-weight: 700 !important;
+}
+
+body{
+    background-color: rgb(224, 221, 221);
+}
+
+/*** Spinner ***/
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/*** Button ***/
+.btn {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    transition: .5s;
+}
+
+.btn.btn-primary,
+.btn.btn-secondary {
+    color: #FFFFFF;
+}
+
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    border-radius: 0px;
+}
+
+
+   /*** Navbar ***/
+ .navbar .dropdown-toggle::after {
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    vertical-align: middle;
+    margin-left: 8px;
+
+  
+   
+ 
+}
+
+.navbar-light .navbar-nav .nav-link {
+    margin-right: 30px;
+    padding: 10px 0;
+    color: rgb(107, 215, 219);
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    outline: none;
+    
+}
+
+@media (min-width: 992px) {
+    
+    .navbar .nav-item:hover {
+        transform:scale(1) ;
+        z-index:100;
+       display:flex;
+       background:rgb(212, 238, 243);
+        transition: 0.5s;
+        opacity: 1;
+    }
+   
+}
+
+.navbar-light .navbar-nav .nav-link.active
+{
+    color: var(--primary);
+}
+
+@media (max-width: 991.98px) {
+    .navbar-light .navbar-nav .nav-link  {
+        margin-right: 0;
+        padding: 10px 0;
+        
+       
+    }
+
+    .navbar-light .navbar-nav {
+        border-top: 1px solid #fff;
+    }
+}
+
+.navbar-light .navbar-brand,
+.navbar-light a.btn {
+    height: 75px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(244, 250, 242);
+    font-weight: 900;
+}
+.navbar-light.sticky-top {
+    top: -100px;
+    transition: .5s;
+}
+
+
+
+
+/*** Header ***/
+.carousel-caption {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    text-align: start;
+    background: rgba(5, 74, 131, 0.712);
+    z-index: 0;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 15%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 4rem;
+    height: 4rem;
+    background-color: var(--dark);
+    border: 15px solid var(--dark);
+    border-radius: 50px;
+}
+
+.carousel-caption .breadcrumb-item+.breadcrumb-item::before {
+    content: "\f111";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: var(--primary);
+   
+}
+
+@media (max-width: 768px) {
+    #header-carousel .carousel-item {
+        position:relative;
+        min-height: 450px;
+        
+    }
+    
+    #header-carousel .carousel-item img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        width: 3rem;
+        height: 3rem;
+        border-width: 12px;
+    }
+}
+/** header **/
+
+*** curved ***/
+section{
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    display:flex;
+    overflow:hidden;
+}
+section:before{
+    content: '';
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height:80%;
+    background: linear-gradient(45deg,#5e6fce,#cc52b8);
+    border-radius: 0 0 50% 50%/0 0 100% 100%;
+    transform: scaleX(1.5);
+}
+section .content
+{
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    max-width: 900px;
+
+}
+/**card **/
+.bill .card{
+    max-width: 50%; 
+    margin-top:50px;
+    border-radius: 25px;
+
+   
+}
+.bill .card a{
+    float:right;
+}
+
+/**endcard **/
+/*** Footer ***/
+footer {
+    background: #151616f3 ;
+	position:relative;
+	width: 100%;
+   	bottom:0px;
+}
+footer h2{color: #FFF; font-size: 20px;}
+footer p{color: #FFF; text-indent: 25px; font-size: 13px;}
+.link-list li {
+    border-top: 1px solid #353535;
+}
+.link-list a {
+    color: #eee;
+    display: inline-block;
+    font-size: 11px;
+    padding: 6px 0;
+    text-transform: uppercase;
+}
+.link-list li i {
+    color: #bbb;
+    float: right;
+    margin-top: 10px;
+}
+
+address {
+    color: #eee;
+    font-style: normal;
+    line-height: 1.42857;
+    margin-bottom: 20px;
+    margin-left: 50px;
+}
+
+
+.copy {
+    background: #222 none repeat scroll 0 0;
+    padding: 2px;
+}
+.copy a i {
+    color: #fff;
+    float: right;
+    font-size: 24px;
+    width: 50px;
+}
+.copy a {
+    color: #fff;
+    padding-top: 5px;
+}
+
+.footer .btn.btn-link::before {
+    position: relative;
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
