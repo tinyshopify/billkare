@@ -1,0 +1,118 @@
+{% extends "user_base.html" %}
+{%load static %}
+{% load userfilter %}
+
+{% block body %}
+
+<div class="container h-100"> 
+  <div class="bill">
+      <div class="card mx-auto mt-7">
+        <div class="card-header"> <h5>Hi,{{user.email}}</h5></div>
+        <div class="card-body">
+           <div class="card-text mb-4">
+            <h5>Your next payday is {{data.Due_date}} date.There are {{data.days_more}} days before your next payday</h5>
+           </div>
+           
+
+          <div class="card-text mb-4"> 
+            <label class="col-sm-7" for="label3">Your current bank balance</label>
+              <input type="button" id="balance" class="btn btn-success btn-lg" value="{{data.current_balace}}">    
+          </div>
+          <div class="card-text mb-4"> 
+            <label class="col-sm-7" for="label2">Based on your transaction history, Your estimated spend before next payday is 
+            </label>
+            <input type="button" class="btn btn-success btn-lg" id="add_amount" name="add_amount" value="{{data.Estimated_spend}}">   
+            <div class="card-text mt-2" style="float:right ;">
+                  <input type="checkbox" id="loan_correct" name="correct" value="correct">
+                  <label for="correct"> That Sounds Correct</label><br>
+                  <input type="checkbox" id="checkbox_2" name="Addtional_spend" value="Addtional_spend" onclick="popup()">
+                  <label for="Addtional_spend"> I have a upcomming Addtional spend</label><br> 
+           </div>
+           <div class="mx-auto"  id="checkBundle" style="display:none;float:right">
+            <label for="addtionalspend"><b>Addtional Spend:</b></label>
+            <input type="text" class="mt-2" name="addtionalspend" id="extra_amount" required onchange="totalamount()"><br>
+          </div>
+        </div>
+        </div>
+      </div>
+    
+      <div class="card mx-auto">
+        <div class="card-body">
+          <div class="card-footer">
+            <form method="post" id="task-form">
+              {% csrf_token %}
+            <label class="col-sm-7">Your potential shortage before next paycheck is
+            </label>
+           
+              <input type="button" class="btn btn-warning btn-lg" id="shortage" name="shortage" value="{{data.shortage}}"> 
+              <input type="submit"  class="btn btn-primary" style="border-radius: 4px;display:none;float:right;"  id="update_shortage" value="update"></button>
+        </form>
+      </div>
+        </div>
+        <div class="col-sm-7" style="float:right;">
+          <a href="{% url 'check_membership' %}"  class="btn btn-success w-50 py-3" style="border-radius: 4px;">Next</a>  
+      </div>
+      </div>
+      
+      
+      
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <script>
+     function popup() {
+       var popwindow = document.getElementById("checkBundle");
+       var checkBox=document.getElementById('checkbox_2');
+       var shortagevalue;
+       if (checkBox.checked == true) {
+           popwindow.style.display = "block";
+           document.getElementById("extra_amount").value=0;
+           document.getElementById("update_shortage").style.display="block";
+      } else {
+            popwindow.style.display = "none";
+            document.getElementById("update_shortage").style.display="none";
+        //     shortagevalue=(parseInt(document.getElementById("add_amount").value) - parseInt(document.getElementById("balance").value));
+        //     if (shortagevalue > 0){document.getElementById("shortage").value =shortagevalue; 
+            
+        //   }
+        //     else{document.getElementById("shortage").value =0}
+            
+        }
+      
+   };
+   function totalamount()
+   {
+    var checkBox=document.getElementById('checkbox_2');
+    var value=parseInt(document.getElementById("extra_amount").value);
+    var value2=parseInt(document.getElementById("add_amount").value);
+    var bal3=parseInt(document.getElementById("balance").value);
+    
+    if (checkBox.checked == true) {
+  
+      shortagevalue =((value2+value) - bal3);
+      if (shortagevalue > 0){document.getElementById("shortage").value =shortagevalue; }
+      else{document.getElementById("shortage").value =0}
+    }
+    // else
+    // {
+    //   document.getElementById("shortage").value =(value2 - bal3);
+    // }
+   }
+   $(document).on('submit','#task-form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:"{% url 'update_shortage' %}" ,
+            data:
+            {   
+                extra_amount:$("#extra_amount").val(),
+                shortage:$("#shortage").val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            success:function(){
+                  alert('Saved');
+                    }
+            })
+        });
+  </script>
+ {% endblock body %}

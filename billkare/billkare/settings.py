@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 #from decouple import config
 import os
+import sqlite3
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,13 +37,17 @@ ALLOWED_HOSTS = [ ]
 # Application definition
 
 INSTALLED_APPS = [
-    'paybill',
+    'User_Account',
+    'Loan',
+    'plaidlink',
+    'membership',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+   
     
 ]
 
@@ -69,6 +74,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'Survey.context_processors.surveyquestions',
+                
             ],
         },
     },
@@ -86,7 +93,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
+AUTH_USER_MODEL = 'User_Account.SLTAuth' 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -138,12 +145,22 @@ STATICFILES_DIRS=[
 ]
 
 #STATIC_ROOT = os.path.join(BASE_DIR, "static_root/")
+Filepath=os.path.join(BASE_DIR, "csvfiles/")
 
+# media files configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR /'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# from django.contrib.messages import constants as messages
+# MESSAGE_TAGS = {
+#     messages.ERROR: 'danger',
+# }
 
 LOGIN_URL = '/LoginPage'
 
@@ -153,16 +170,9 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'nandhini28nec@gmail.com'
 EMAIL_HOST_PASSWORD = 'NAndhini@1990'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-#SMTP configuration create .env file write above config
-#EMAIL_HOST = config('EMAIL_HOST')
-#EMAIL_PORT = config('EMAIL_PORT', cast=int)
-#EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-#EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-#EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 
-#E-mail send through smtp server
-#EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend" 
 
 #Writes e-mail content in files
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend" 

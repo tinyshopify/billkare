@@ -1,0 +1,86 @@
+{% extends "user_base.html" %}
+{%load static %}
+{% load userfilter %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-lg-4">
+        <img src="{% static 'images/pay in time.jpg' %}" alt="Image" />
+    </div>
+    <div class="col-lg-8">
+        <div class="container h-100"> 
+        <div class="bill">
+            <div class="card align-items-center mx-auto mt-7">
+                <div class="text-center">
+                    <h3 class=" text-dark">Payment Summary</h3>
+                   
+                </div>
+                <div class="card-body">
+                    <div class="card-text mb-4">
+                        <label for="fname"> Bill</label>
+                        <input type="text" id="fname" name="firstname" value="{{data.Loan_Type}}">
+                        </div>
+                        <div class="card-text mb-4">
+                            <label for="email">Total Due Amount</label>
+                            <input type="text" id="email" name="email" value="{{data.PaymentDue_amount|currency}}">
+                            </div>
+                            <div class="card-text mb-4">
+                                <label for="adr">Your planned payment </label>
+                                <input type="text" id="adr" name="address" value="{{data.Planned_payment|currency}}">
+                                </div>
+                                <div class="card-text mb-4">
+                                    <label for="city">Your payment</label>
+                                    <input type="text" id="city" name="city" value="{{data.user_payment|currency}}">
+                                    </div> 
+                                <div class="card-text mb-4">
+                                    <label for="city">Funding from Catche</label>
+                                    <input type="text" id="city" name="city" value="{{data.cathe_fund|currency}}">
+                                </div> 
+                                <div class="card-text mb-4">
+                                    <label for="city">Fund return date</label>
+                                    <input type="text" id="city" name="city" value="{{data.fund_return_date}}">
+                                </div>   
+                                <div class="card-text mb-4">
+                                    <label for="city">Fund return amount</label>
+                                    <input type="text" id="city" name="city" value="{{data.fund_return_amount|currency}}">
+                                </div>    
+                    <!-- <label for="fname"><i class="fa fa-user"></i> Bill</label>
+                    <input type="text" id="fname" name="firstname" value="{{data.Loan_Type}}"> -->
+                    <!-- <label for="email"><i class="fa fa-envelope"></i>Total Due Amount</label>
+                    <input type="text" id="email" name="email" value="{{data.PaymentDue_amount}}"> -->
+                    <!-- <label for="adr"><i class="fa fa-address-card-o"></i>Your planned payment </label>
+                    <input type="text" id="adr" name="address" value="{{data.Planned_payment}}"> -->
+                    <!-- <label for="city"><i class="fa fa-institution"></i> Your payment</label>
+                    <input type="text" id="city" name="city" value="{{data.user_payment}}"> -->
+                    <!-- <label for="city"><i class="fa fa-institution"></i>Funding from Catche</label>
+                    <input type="text" id="city" name="city" value="{{data.cathe_fund}}"> -->
+                    <!-- <label for="city"><i class="fa fa-institution"></i>Fund return date</label>
+                    <input type="text" id="city" name="city" value="{{data.fund_return_date}}"> -->
+                    <!-- <label for="city"><i class="fa fa-institution"></i>Fund return amount</label>
+                    <input type="text" id="city" name="city" value="{{data.fund_return_amount}}"> -->
+                    <div  class="row mt-4">
+                        
+                       <div class="col-sm-6">
+                        <button class="btn btn-success " style="border-radius: 4px;" href="{% url 'home' %}" id="confirm">confirm your funding</button>
+                       </div>
+                       <div class="col-sm-6">
+                        <a class="btn btn-success w-50 py-3" style="border-radius: 4px;" href="{% url 'home' %}" >cancel</a>
+                       </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+            </div>
+        </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <script>$("#confirm").click(function() {
+    // alert("button clicked")
+   
+ 
+        alert("Thank you! You confirmed Your Payment");
+    
+});</script>
+{% endblock body %}

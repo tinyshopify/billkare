@@ -1,0 +1,49 @@
+{% extends "user_base.html" %}
+{%load static %}
+{% load userfilter %}
+
+{% block body %}
+<div class="container h-100"> 
+    <div class="bill">
+        
+        <div class="card align-items-center mx-auto mt-7">
+            <div class="text-center">
+               <h4 > <p>You choose basic membership that provide $200 funding</p>
+                    <p>Your potential shortage is {{data|currency}} shortage.</p></h4>
+                
+            </div>
+            <div class="card-body">
+            
+               <h5 class=" text-danger"> <div class="card-text mb-4">
+                    <input type="checkbox" id="premium" name="check_box1" value="Premium" data-target="{% url 'no_membership' %}">
+                    <label class="col-sm " for="check_2" >Upgrade to premium membership ($18.99 per month) to cover up to $800?
+                    </label>
+                </div>
+                <div class="text-center">
+                    <h5>OR</h5> 
+                </div>
+                <div class="card-text mb-4">
+                    <input type="checkbox" id="basic" class = "chk" name="check_box1" value="Basic">
+                    <label class="col-sm" for="check_3" >Proceed
+                    </label>
+                </div>
+               
+            </h5>
+             
+            </div>
+        </div>
+
+        </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+        <script type="text/javascript">
+              $("input[name='check_box1']").change(function()
+        {
+                value=$("input[name='check_box1']:checked").val();
+
+            if (value==='Premium'){window.location.href= $(this).data("target")}
+            else{alert("You are eligible for funding all your bills up to  $200 dollars with no additional fees")}
+        });
+        
+        </script>
+{%endblock %}
