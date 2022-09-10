@@ -11,9 +11,9 @@ from plaid.model.link_token_account_filters import LinkTokenAccountFilters
 
 from plaid.model.products import Products
 
-client_id = '62f79beeabd0340014152003'
+client_id = '62f79beeabd03400141520036'
 
-secret = '77804cbff47224e1f1b3682aae0355'
+secret = '77804cbff47224e1f1b3682aae03556'
 
 configuration = plaid.Configuration(
     host=plaid.Environment.Sandbox,
@@ -23,7 +23,7 @@ configuration = plaid.Configuration(
     }
 )
 """
-secret = '7dc061496d3a4b6cc0aec4692e8c333'
+secret = '7dc061496d3a4b6cc0aec4692e8c3336'
 
 configuration = plaid.Configuration(
     host=plaid.Environment.Development,
