@@ -1,0 +1,158 @@
+{% extends "user_base.html" %}
+{%load static %}
+{% load userfilter %}
+
+{% block body %}
+<!-- <div class="row">
+    <div class="col-lg-6"> -->
+        <div class="container h-100" > 
+        <div class="bill">
+            <div class="card mx-auto mt-7" id="eligible_1">
+                <div class="text-center">
+                    <h3 class=" text-primary">Good News!</h3>
+                   <h4 class="mb-4">your are eligilble to fund your bills upto {{limit|currency}} without additional fees.</h4>
+                </div>
+                <p class="mb-4">Currently we are only able to fund <b class="text-danger">one</b> bill at a time.</p>
+                <p>These are your incoming bill before next pay date.
+                    Choose one account you would like to fund:
+                    </p>
+                <div class="card-body ">
+                  
+                    <table id="example"> 
+                        <tr class="mb-4"><th>Loan Type</th><th>Payments Due</th></tr>
+                        {% for i in data %} 
+                        <tr><td>
+                            <input type="radio" id="check_1" name="check_box1" value="{{i.Loan_Type}}">
+                            <label class="col-sm" for="check_1" > {{i.Loan_Type}}</label>
+                            </td>
+                            <td>
+                                <label class="col-sm" for="check_1" id="pay_due_{{i.Loan_Type}}"> {{i.PaymentDue_amount}}</label>
+                            </td>
+                        </tr>
+                        {%endfor%}
+                       <tr><td>
+                          <input type="radio" id="no_need" name="check_box1" value="no_need" data-target="{% url 'transaction_details' %}" >
+                          <label class="col-sm" for="check_box1"> I don’t need funding</label>
+                     </td></tr> 
+                    </table>
+                </div>
+
+                <div class="card-footer mb-4 " id="bill_table" style="display: none;">
+                    <form method="post" id="task-form">
+                        {% csrf_token %}
+                    <table> 
+                        <tr class="mb-4"><th>Bill</th><th>Payments Due</th><th> your planned payments 
+                        </th><th>funding from Catche</th><th>Funding from you</th></tr>
+                        <tr >
+                            <td id="bill1"></td>
+                            <td id="due"></td>
+                            <td id="Plan_pay"></td>
+                           
+                            <td id="fund_catche"></td>
+                            <td ><input type="text" name="fund_you" id="fund_you" value=" "></td>
+                        </tr>
+                    </table>
+                    <input type="submit"  class="btn btn-primary" style="border-radius: 4px;display:block;float:right;"  id="update_shortage" value="submit"></button>
+                   </form>
+                </div>
+                
+                <div class="col-sm-12" id="next" >
+                    <input type="hidden" value="{{limit}}" id="limit">
+                    <!-- <a class="btn btn-success btn-lg" style="float:right" href="{% url 'Eligible_for_fund_cont1' %}" onclick="return thefunction();">Next</a> -->
+                </div>
+             
+            </div>
+
+<!-- open excrow account -->
+            
+            
+        <!-- </div> -->
+  <!-- </div> -->
+  <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+  <script type="text/javascript">
+       
+        $("input[name='check_box1']").change(function()
+        {
+                value=$("input[name='check_box1']:checked").val();
+                due=$('#pay_due_'+ value).text();
+                limit=$('#limit').val();
+                // fund_cathe=$('#fund_catche').text();
+                
+                function reload_input() {
+                    $("#fund_you").val('');
+                    $("#fund_you").focus();
+                    $('#fund_catche').html(0);
+                    $('#Plan_pay').html(0);
+                }
+            if (value==='no_need')
+            {
+                document.getElementById('bill_table').style.display='none';
+                window.location.href= $(this).data("target")
+            }
+            else{
+    
+                document.getElementById('bill_table').style.display='block';
+                $('#bill1').html(value);
+                $('#due').html(due);
+                
+                $("input[name='fund_you']").change(function(){
+                    fund_you=$('#fund_you').val();
+                    
+                    fund_cathe= parseInt(due) - parseInt(fund_you);
+                   
+                   
+                    
+                        $('#fund_catche').html(fund_cathe);
+                        Plan_pay=parseInt(fund_cathe)+ parseInt(fund_you);
+                        $('#Plan_pay').html(Plan_pay);
+                       
+                    setTimeout(function() {
+                
+                            if (fund_cathe > limit){alert("your are eligilble to fund your bills upto "+"$"+limit+" increase you fund or upgrade");reload_input();}
+                            if( Plan_pay < parseInt(due)){
+                                if (confirm("scheduled payment is less than Payments due. it may cause late fee from biller, you want to change the amount of contribution?"))
+                                {
+                                    // swal(" ","scheduled payment is less than Payments due. it may cause late fee from biller, you want to change the amount of contribution ", " ");
+                                    reload_input();
+                                  
+                                }}
+                        else if(Plan_pay > parseInt(due))
+                                { 
+                                    // alert("scheduled payment is higher than Payments due.Enter the correct amount ");
+                                 // swal(" ","scheduled payment is higher than Payments due.Enter the correct amount ", "warning");
+                                    reload_input();
+                                    
+                                }
+                    },8)
+                    
+                
+                });
+            }
+         $(document).on('submit','#task-form',function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:"{% url 'Payment_summary' %}", 
+            data:
+            {   
+                bill1:$("#bill1").html(),
+                fund_catche:$('#fund_catche').html(),
+                Plan_pay:$("#Plan_pay").html(),
+                fund_you:$("#fund_you").val(),
+                due:$('#due').html(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+            },
+            success:function(){
+                  alert('Saved');
+                  $("#next").html(
+    "<a class='btn btn-success btn-lg' style='float:right' href='{% url 'Eligible_for_fund_cont1' %}'>Next</a>");
+                    }
+            })
+        });
+    });
+   
+</script>
+
+ {% endblock body %}
+

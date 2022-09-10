@@ -1,0 +1,82 @@
+{% extends "user_base.html" %}
+{%load static %}
+{% load userfilter %}
+
+{% block body %}
+
+    <div class="container h-100"> 
+    <div class="bill">
+        
+        <div class="card align-items-center mx-auto mt-7">
+            <div class="text-center">
+                <h3 class=" text-primary">Your potential shortage is {{data.shortage|currency}}</h3>
+                
+            </div>
+            <div class="card-body">
+            
+                <div class="card-text mb-4">
+                <p class="col-sm " for="check_1" ><b>Basic membership:</b> Catche will gap the shortage of your bill up to $200 with a guaranteed minimum of $50 when you meet our income deposit criteria.</p>
+                </div>
+                <div class="card-text mb-4">
+                    <p class="col-sm " for="check_1" ><b>Premium membership:</b>Catche will gap the shortage of your bill up to $800 with a guaranteed minimum of $200 when you meet our income deposit criteria.</p>
+                    </div>
+               <form  action="{% url 'add_membership' %}" method="POST" id="form1" enctype="multipart/form-data" autocomplete="off" >
+                        {% csrf_token %}
+                <div class="card-text mb-4">
+                    <input type="checkbox" id="premium" name="check_box1" class = "chk" value="Premium">
+                    <label class="col-sm " for="check_2" >Upgrade to premium membership ($18.99 per month) to cover up to $800?
+                    </label>
+                </div>
+                <div class="text-center">
+                    <h5>OR</h5> 
+                </div>
+                <div class="card-text mb-4">
+                    <input type="checkbox" id="basic" class = "chk" name="check_box1" value="Basic">
+                    <label class="col-sm" for="check_3" >Upgrade to our basic  membership ($6.99 per month) to cover up to $200?
+                    </label>
+                </div>
+                <div class="text-center">
+                    <h5>OR</h5> 
+                </div>
+                <div class="card-text mb-4">
+                    <input type="checkbox" id="check_3" class = "chk" name="check_box1" value="no_need" data-target="{% url 'transaction_details' %}">
+                    <label class="col-sm" for="check_3" >I don’t need funding, go back to my home screen
+                    </label>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success" id="button_click" style="border-radius: 4px; float:right;">Next</button>
+                </div>
+            </form>
+            </div>
+        </div>
+
+        </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+        <script type="text/javascript">
+              $("input[type='checkbox'].chk").change(function()
+        {
+                value=$('.chk:checked').val();
+                if (value==='no_need'){window.location.href= $(this).data("target")}      
+            
+        });
+        $("#button_click").click(function() {
+                    // alert("button clicked")
+                    var a = $("input[type='checkbox'].chk");
+                    
+                    let checked=a.filter(":checked").length
+                    // alert(checked)
+                    if((checked > 1) || (checked < 1))
+                    {
+                        alert("You need to select one membership")
+                        $('#form1').submit(false);
+                    }
+                    $('#form1').submit(true);
+                    
+                });
+       
+
+       
+        </script>
+
+{%endblock %}

@@ -23,8 +23,13 @@
             $('.sticky-top').css('top', '-100px');
         }
     });
+    $(document).ready(function() {
+        $('.datepicker').datepicker();
+    });
     
-   
-  
 })(jQuery);
+               
 
+
+ 
+    
