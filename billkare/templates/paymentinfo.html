@@ -1,0 +1,74 @@
+{% extends "user_base.html" %}
+{%load static %}
+{% load userfilter %}
+
+{% block body %}
+
+<div class="row">
+    <!-- <div class="col-lg-4">
+        <img src="{% static 'images/pay in time.jpg' %}" alt="Image" />
+    </div> -->
+    <div class="col-lg-12">
+        <div class="container h-100"> 
+           
+        <div class="bill">
+            <div class="card align-items-center mx-auto mt-7">
+                <div class="text-center">
+                    <h3 class=" text-dark">Your Payment Information</h3>
+                   
+                </div>
+                <div class="card-body">
+                 
+                    <div class="card-text mb-4">
+                        <label for="bill" class="col-sm-7"> Bill</label>
+                        <label id="bill" "> {{data.Loan_Type}}</label>
+                        <!-- <input type="text" id="fname" name="firstname" value=""> -->
+                    </div>
+                    <form  action="{% url 'paymentInfo' %}"  method="POST" id="form1" enctype="multipart/form-data" autocomplete="off" >
+                        {% csrf_token %}
+                    <div class="card-text mb-4">
+                            <label for="due_amount" class="col-sm-7">Account</label>
+                            <input type="text" id="accno" name="accno">
+                    </div>
+                     <div class="card-text mb-4">
+                                <label for="plan_pay" class="col-sm-7">Monthly Payment </label>
+                                <label id="plan_pay" >{{data.PaymentDue_amount|currency}}</label>
+                     </div>
+                    <div class="card-text mb-4">
+                                    <label for="your_pay" class="col-sm-7">Due Date</label>
+                                    <label id="your_pay" >{{data.user_payment|currency}}</label>
+                    </div> 
+                    <div class="card-text mb-4">
+                                    <label for="catche_fund" class="col-sm-7">Payment Address</label>
+                                    <input type="text" id="address" name="address"> 
+                    </div> 
+                    <div class="card-text mb-4">
+                                    <label class="text-dark mb-4"><b>Delivery Options:</b></label>
+                                   
+                    
+                        
+                        <input type="checkbox" id="regular" class = "chk" name="check_box1" value="regular">
+                        <label for="basic" >Regular (5-7 days) no additional cost</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" id="Expedited" class = "chk" name="check_box1" value="Expedited">
+                        <label for="check_box1" >Expedited (3 days)  $5.99</label>
+                            
+                  
+                    </div> 
+                    <div  class="row mt-4">
+                        
+                       <div class="col-sm-6">
+                        <a class="btn btn-success" style="border-radius: 4px;" id="back" href="{% url 'loan_payment' %}">Go Back</a>
+                       </div>
+                       <div class="col-sm-6">
+                        <button type="submit" class="btn btn-success" style="border-radius: 4px;" id="viewsummary" >view Payment Summary</a>
+                       </div>
+                    </div>
+                </form>  
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+  </div>
+
+{% endblock body %}

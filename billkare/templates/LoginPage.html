@@ -1,35 +1,37 @@
-{% extends "cardtemplate.html" %}
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
 {%load static %}
 
-{% block content %}
-                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Pay in time</p>
-                  {% include 'includes/alerts.html' %}
-                  <form class="mx-1 mx-md-4" action="{% url 'LoginPage' %}" method = "POST">
-                    {% csrf_token %}
-                      <table>
-                        {{ login_form.as_table}}
-                      </table>
-                      
-                      <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 mt-2">
-                        <input type="submit" value="Login" class="btn btn-success btn-lg"> </input>
-                      </div>
-                      <div class="d-flex justify-content-center mb-5">
-                        <a href="{% url 'forgotPassword' %}" class="float-right">Forgot password?</a>
-          
-                      </div>
-                      <div class="d-flex justify-content-center mb-5">
-                          Are you new user?<a href="{% url 'signup' %}">Register Here</a>
-                        </label>
-                      </div>
-                  </form>
-                  
-                </div>
-                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-  
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                    class="img-fluid" alt="Sample image">
-  
-                </div>        
+{% block body %}
 
+<div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      
+                <div class="col-lg-8 ">
+                  <img src="{%static 'images\photo1.jpg' %}" class="img-fluid" alt="Sample image">
+                 
+                </div>  
+                <div class="col-lg-4">
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Pay in time</p>
+                   {% include 'includes/alerts.html' %}
+                            <form class="mx-1 mx-md-4" action="{% url 'LoginPage' %}" method = "POST">
+                              {% csrf_token %}
+                                  {{ login_form.as_p}}
+                                
+                                <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 mt-2">
+                                  <input type="submit" value="Check and Pay" class="btn btn-dark btn-lg"> </input>
+                                </div>
+                                <div class="d-flex justify-content-center mb-3">
+                                  <a href="{% url 'forgotPassword' %}" class="float-right">Forgot password?</a>
+                    
+                                </div>
+                                <div class="d-flex justify-content-center mb-5">
+                                    Are you new user?<a href="{% url 'signup' %}">Register Here</a>
+                                  </label>
+                                </div>
+                            </form>
+                          </div>      
+</div>
+</div>
 {%endblock %}

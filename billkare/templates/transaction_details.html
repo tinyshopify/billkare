@@ -6,23 +6,68 @@
 
 <div class="container h-100"> 
   <div class="bill">
-      <div class="card mx-auto mt-7">
-        <div class="card-header"> <h5>Hi,{{user.email}}</h5></div>
+      <div class="card mx-auto mt-7 border-right">
+        <div class="card-header"> <h5>Welcome,{{user.first_name}}</h5></div>
+       
         <div class="card-body">
-           <div class="card-text mb-4">
-            <h5>Your next payday is {{data.Due_date}} date.There are {{data.days_more}} days before your next payday</h5>
+          {% if messages %}
+            {% include 'includes/alerts.html' %}
+          {% else %}
+          <!-- <div class="card-text mb-4">
+            <h5>Loan Type is {{data.loanType}}</h5>
            </div>
-           
+           <div class="card-text mb-4">
+            <h5>Mortgage loan amount from transactions {{data.mortgage_due_amount}}. </h5>
+           </div>
+           <div class="card-text mb-4">
+            <h5>Your next payday is {{data.mortgage_due_date}} date</h5>
+           </div>
+
+           <div class="card-text mb-4">
+            <h5>Loan Type is Auto</h5>
+           </div>
+           <div class="card-text mb-4">
+            <h5>Mortgage loan amount from transactions {{data.auto_loan_amount}}. </h5>
+           </div>
+           <div class="card-text mb-4">
+            <h5>Your next payday is {{data.mortgage_due_date}} date</h5>
+           </div> -->
+           <div class="card-text mb-4"> 
+            <label class="col-sm-7" for="label3">Your current loans:</label>
+               
+          </div>
+           <div class="card-text mb-4">
+            <table id="example"> 
+                <tr class="mb-4"><th>Loan Type</th><th>Payments Due</th><th>Due date</th><th>days more</th></tr>
+                {% for i in data1 %} 
+                <tr><td>
+                    <!-- <input type="radio" id="check_1" name="check_box1" value="{{i.Loan_Type}}"> -->
+                    <label class="col-sm" for="check_1" > {{i.Loan_Type}}</label>
+                    </td>
+                    <td>
+                        <label class="col-sm" for="check_1"> {{i.PaymentDue_amount}}</label>
+                    </td>
+                    <td>
+                      <label class="col-sm" for="check_1"> {{i.Due_date}}</label>
+                  </td>
+                  <td>
+                    <label class="col-sm" for="check_1"> {{i.days_more}}</label>
+                </td>
+                </tr>
+                {%endfor%} 
+            </table>
+        </div>
+           {% endif %}
 
           <div class="card-text mb-4"> 
             <label class="col-sm-7" for="label3">Your current bank balance</label>
-              <input type="button" id="balance" class="btn btn-success btn-lg" value="{{data.current_balace}}">    
+              <input type="button" id="balance"  value="{{data.balance}}">    
           </div>
           <div class="card-text mb-4"> 
             <label class="col-sm-7" for="label2">Based on your transaction history, Your estimated spend before next payday is 
             </label>
-            <input type="button" class="btn btn-success btn-lg" id="add_amount" name="add_amount" value="{{data.Estimated_spend}}">   
-            <div class="card-text mt-2" style="float:right ;">
+            <input type="button"  id="add_amount" name="add_amount" value="{{data.estimated_balance}}">   
+            <div class="card-text mt-2">
                   <input type="checkbox" id="loan_correct" name="correct" value="correct">
                   <label for="correct"> That Sounds Correct</label><br>
                   <input type="checkbox" id="checkbox_2" name="Addtional_spend" value="Addtional_spend" onclick="popup()">
@@ -30,7 +75,7 @@
            </div>
            <div class="mx-auto"  id="checkBundle" style="display:none;float:right">
             <label for="addtionalspend"><b>Addtional Spend:</b></label>
-            <input type="text" class="mt-2" name="addtionalspend" id="extra_amount" required onchange="totalamount()"><br>
+            <input type="text" class="mt-2" name="addtionalspend" id="extra_amount"  required onchange="totalamount()"><br>
           </div>
         </div>
         </div>
@@ -43,15 +88,20 @@
               {% csrf_token %}
             <label class="col-sm-7">Your potential shortage before next paycheck is
             </label>
-           
-              <input type="button" class="btn btn-warning btn-lg" id="shortage" name="shortage" value="{{data.shortage}}"> 
-              <input type="submit"  class="btn btn-primary" style="border-radius: 4px;display:none;float:right;"  id="update_shortage" value="update"></button>
+              <input type="button" class="btn btn-light text-dark btn-lg" id="shortage" name="shortage" value="{{data.shortage_bill_amount}}"> 
+              <input type="submit"  class="btn btn-secondary" style="border-radius: 4px;display:none;float:right;"  id="update_shortage" value="update"></button>
         </form>
       </div>
         </div>
-        <div class="col-sm-7" style="float:right;">
-          <a href="{% url 'check_membership' %}"  class="btn btn-success w-50 py-3" style="border-radius: 4px;">Next</a>  
+        {% if messages %}
+        <div class="col-sm-7" id="btnfundmybill" style="float:right;" >
+          <a href="{% url 'check_membership' %}"  class="btn btn-dark w-50 py-3 disabled" style="border-radius: 4px;">Fund my bill</a>  
+        </div>
+          {% else %}
+        <div class="col-sm-7" id="btnfundmybill" style="float:right;" >
+          <a href="{% url 'check_membership' %}"  class="btn btn-dark w-50 py-3" style="border-radius: 4px;">Fund my bill</a>  
       </div>
+      {%endif%}
       </div>
       
       
@@ -114,5 +164,6 @@
                     }
             })
         });
+       
   </script>
  {% endblock body %}

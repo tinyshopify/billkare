@@ -1,14 +1,15 @@
+from logging import PlaceHolder
 from django import forms
 from django.forms.widgets import HiddenInput
-from .models import SLTAuth,SLTLogin
+from .models import User,login_history
 
 class AuthForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-    # bank_list=forms.ModelChoiceField(label=('Select your Salary bank'),queryset=BANKCHOICES.objects.all(),empty_label="(Select here)",
-    # to_field_name="bank_choices", widget = forms.Select(attrs = {'onchange' : "myFunction(this.value)"}))
+    password = forms.CharField(widget=forms.PasswordInput(),)
+    # help_text="Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.",)
+   
     class Meta():
-        model = SLTAuth
-        fields = ('email','password','first_name','last_name','phone_number',)
+        model = User
+        fields = ('first_name','last_name','phone_number','email','password',)
         
     def __init__(self, *args, **kwargs):
         super( AuthForm, self).__init__(*args, **kwargs)
@@ -16,10 +17,12 @@ class AuthForm(forms.ModelForm):
         self.fields['last_name'].widget.attrs['placeholder'] = 'Last Name'
         self.fields['phone_number'].widget.attrs['placeholder'] = ' Phone Number'
         self.fields['email'].widget.attrs['placeholder'] = ' Email Address'
+        self.fields['password'].widget.attrs['placeholder'] = ' Password'
         
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].widget.attrs['size'] = "width:500px"
+            self.fields[field].label = ""
 
     #          password validators
     #   -----------------------------------------
@@ -48,16 +51,16 @@ class AuthForm(forms.ModelForm):
 
 class LoginForm(forms.ModelForm):
      password = forms.CharField(widget=forms.PasswordInput())
-    #  bank_list=forms.ModelChoiceField(queryset=BANKCHOICES.objects.all(),empty_label="(Select here)",
-    #  to_field_name="bank_choices")
-     
      class Meta():
-        model = SLTLogin
+        model = login_history
         fields = ('user_email','password')
         
      def __init__(self, *args, **kwargs):
         super( LoginForm, self).__init__(*args, **kwargs)
+        self.fields['user_email'].widget.attrs['placeholder'] = 'Email Address'
+        self.fields['password'].widget.attrs['placeholder'] ='Password'
         
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
+            self.fields[field].label = ""
 

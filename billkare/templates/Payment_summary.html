@@ -10,6 +10,10 @@
     </div>
     <div class="col-lg-8">
         <div class="container h-100"> 
+            {% if registered %}
+            <h1 style="color:rgb(138, 14, 86)">Currently have no Payment summary</h1>
+           
+        {% else %}
         <div class="bill">
             <div class="card align-items-center mx-auto mt-7">
                 <div class="text-center">
@@ -17,55 +21,45 @@
                    
                 </div>
                 <div class="card-body">
+                 
                     <div class="card-text mb-4">
-                        <label for="fname"> Bill</label>
-                        <input type="text" id="fname" name="firstname" value="{{data.Loan_Type}}">
-                        </div>
-                        <div class="card-text mb-4">
-                            <label for="email">Total Due Amount</label>
-                            <input type="text" id="email" name="email" value="{{data.PaymentDue_amount|currency}}">
-                            </div>
-                            <div class="card-text mb-4">
-                                <label for="adr">Your planned payment </label>
-                                <input type="text" id="adr" name="address" value="{{data.Planned_payment|currency}}">
-                                </div>
-                                <div class="card-text mb-4">
-                                    <label for="city">Your payment</label>
-                                    <input type="text" id="city" name="city" value="{{data.user_payment|currency}}">
-                                    </div> 
-                                <div class="card-text mb-4">
-                                    <label for="city">Funding from Catche</label>
-                                    <input type="text" id="city" name="city" value="{{data.cathe_fund|currency}}">
-                                </div> 
-                                <div class="card-text mb-4">
-                                    <label for="city">Fund return date</label>
-                                    <input type="text" id="city" name="city" value="{{data.fund_return_date}}">
-                                </div>   
-                                <div class="card-text mb-4">
-                                    <label for="city">Fund return amount</label>
-                                    <input type="text" id="city" name="city" value="{{data.fund_return_amount|currency}}">
-                                </div>    
-                    <!-- <label for="fname"><i class="fa fa-user"></i> Bill</label>
-                    <input type="text" id="fname" name="firstname" value="{{data.Loan_Type}}"> -->
-                    <!-- <label for="email"><i class="fa fa-envelope"></i>Total Due Amount</label>
-                    <input type="text" id="email" name="email" value="{{data.PaymentDue_amount}}"> -->
-                    <!-- <label for="adr"><i class="fa fa-address-card-o"></i>Your planned payment </label>
-                    <input type="text" id="adr" name="address" value="{{data.Planned_payment}}"> -->
-                    <!-- <label for="city"><i class="fa fa-institution"></i> Your payment</label>
-                    <input type="text" id="city" name="city" value="{{data.user_payment}}"> -->
-                    <!-- <label for="city"><i class="fa fa-institution"></i>Funding from Catche</label>
-                    <input type="text" id="city" name="city" value="{{data.cathe_fund}}"> -->
-                    <!-- <label for="city"><i class="fa fa-institution"></i>Fund return date</label>
-                    <input type="text" id="city" name="city" value="{{data.fund_return_date}}"> -->
-                    <!-- <label for="city"><i class="fa fa-institution"></i>Fund return amount</label>
-                    <input type="text" id="city" name="city" value="{{data.fund_return_amount}}"> -->
+                        <label for="bill" class="col-sm-7"> Bill</label>
+                        <label id="bill" "> {{data.Loan_Type}}</label>
+                        <!-- <input type="text" id="fname" name="firstname" value=""> -->
+                    </div>
+                    <div class="card-text mb-4">
+                            <label for="due_amount" class="col-sm-7">Total Due Amount</label>
+                            <label id="due_amount"> {{data.PaymentDue_amount|currency}}</label>
+                    </div>
+                     <div class="card-text mb-4">
+                                <label for="plan_pay" class="col-sm-7">Your planned payment </label>
+                                <label id="plan_pay" >{{data.Planned_payment|currency}}</label>
+                     </div>
+                    <div class="card-text mb-4">
+                                    <label for="your_pay" class="col-sm-7">Your payment</label>
+                                    <label id="your_pay" >{{data.user_payment|currency}}</label>
+                    </div> 
+                    <div class="card-text mb-4">
+                                    <label for="catche_fund" class="col-sm-7">Funding from Catche</label>
+                                    <label id="catche_fund" >{{data.catche_fund|currency}}</label>   
+                    </div> 
+                    <div class="card-text mb-4">
+                                    <label for="return_date" class="col-sm-7">Fund return date</label>
+                                    <label id="return_date" >{{data.fund_return_date}}</label>
+                    </div>   
+                    <div class="card-text mb-4">
+                                    <label for="return_amt" class="col-sm-7">Fund return amount</label>
+                                    <label id="return_amt" >{{data.fund_return_amount|currency}}</label>
+                    </div>   
+                            
+                   
                     <div  class="row mt-4">
                         
                        <div class="col-sm-6">
-                        <button class="btn btn-success " style="border-radius: 4px;" href="{% url 'home' %}" id="confirm">confirm your funding</button>
+                        <a class="btn btn-success " style="border-radius: 4px;" id="confirm" href="{% url 'PaymentHistory' %}">confirm your funding</a>
                        </div>
                        <div class="col-sm-6">
-                        <a class="btn btn-success w-50 py-3" style="border-radius: 4px;" href="{% url 'home' %}" >cancel</a>
+                        <button class="btn btn-success" style="border-radius: 4px;" id="cancel1" onclick="cancel1()"  >cancel Payment</button>
                        </div>
                     </div>
                 </div>
@@ -74,13 +68,44 @@
             </div>
             </div>
         </div>
+        {% endif %}
   </div>
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
   <script>$("#confirm").click(function() {
-    // alert("button clicked")
-   
- 
-        alert("Thank you! You confirmed Your Payment");
+    Swal.fire({
+                                    title:"Thank You!",
+                                    text: "You confirmed you payment",
+                                    customClass: 'swal-wide',
+                                    confirmButtonText: 'ok',
+                                    timer: 90000,
+                                    });
+                                   
+        e.preventDefault();
+        // $(this).hide();
+        $.ajax({
+            url:"{% url 'PaymentHistory' %}", 
+        });
     
-});</script>
+});
+
+    function cancel1() {
+                    Swal.fire({  
+                        title: 'Do you want to cancel Payment?',  
+                        showDenyButton: true,  showCancelButton: true,  
+                        confirmButtonText: `yes`,  
+                        // denyButtonText: `Don't save`,
+                        }).then((result) => {  
+                            /* Read more about isConfirmed, isDenied below */  
+                            if (result.isConfirmed) {    
+                                Swal.fire('canceled!', '', 'success') 
+                                window.location.href="{% url 'cancelPayment' %}"
+                            } else if (result.isDenied) {    
+                                // Swal.fire('Changes are not saved', '', 'info')  
+                            }
+                        });
+};
+
+
+
+</script>
 {% endblock body %}

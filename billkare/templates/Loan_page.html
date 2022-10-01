@@ -85,19 +85,29 @@
                         document.getElementById('submit_1').style.display="block";
                         document.getElementById("id_PaymentDue_amount").removeAttribute('readonly');
                         document.getElementById("id_Due_date").removeAttribute('readonly');
-                        alert("Enter Payment Due amount and Date");
+                        swalalert("Enter Payment Due amount and Date");
                         document.getElementById("id_PaymentDue_amount").focus();
                        
                        
                       }
     function conform_update()
     {
-        if (confirm("Are You confirm to update?")) {
+        if (confirm(swalalert("Are You confirm to update?"))) {
             var frm = document.getElementsByName('loan_form1');
-             alert("Updated Successfully!")
+            swalalert("Updated Successfully!")
              frm.submit(); // Submit the form;
              } 
     }
+function swalalert(text){
+  
+  Swal.fire({
+  // title: 'warning!',
+  text: text,
+  customClass: 'swal-wide',
+  confirmButtonText: 'ok',
+ 
+  });
+};
 </script>
 </body>
 </html>

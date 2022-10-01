@@ -1,15 +1,28 @@
 
 
-import logging
+import datetime
+
 from django.db import models
+from django.utils.timezone import now
 import uuid
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 from django.core.validators import RegexValidator
 
 
 
-numeric = RegexValidator(r'^(\+\d{1,3})?,?\s?\d{8,13}', 'ENTER VAILD PHONE NUMBER.')
 
+numeric = RegexValidator(r'^(\+\d{1,3})?,?\s?\d{8,13}$', message="Phone number must be entered in the format:'+99999'.upto 15 digits allowed.")
+from django.core.validators import EmailValidator
+from django.utils.deconstruct import deconstructible
+
+@deconstructible
+class WhitelistEmailValidator(EmailValidator):
+
+    def validate_domain_part(self, domain_part):
+        return False
+
+    def __eq__(self, other):
+        return isinstance(other, WhitelistEmailValidator) and super().__eq__(other)
 
 
 class UserManager(BaseUserManager):
@@ -51,34 +64,30 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-# class BANKCHOICES(models.Model):
 
-#         bank_choices=models.CharField(max_length=50,verbose_name='choices')
-        
-#         def __str__(self):
-#          return self.bank_choices
-         
-#         @staticmethod
-#         def getbankname( bankid):
-#           return BANKCHOICES.objects.filter (id=bankid)
-         
+class TimeStampModel(models.Model):
+    isActive        = models.BooleanField(default=True,db_index=True)
+    creUser         =models.CharField(max_length=50,default=None,db_index=True)
+    CreatedTs       =models.DateTimeField(null=True,db_index=True)
+    UpdateTs        =models.DateTimeField(null=True,db_index=True)
+    creDate         =models.DateTimeField(auto_now_add=True,null=True,db_index=True)
+    InsUpdFlag      =models.CharField(max_length=50,null=True,db_index=True)
+   
+
+    class Meta:
+        abstract = True
+      
 
 
-
-class SLTAuth(AbstractBaseUser):
-    # sal_bname       = models.CharField(max_length=50,blank=True)
+class User(AbstractBaseUser,TimeStampModel):
+  
     first_name      = models.CharField(max_length=50)
     last_name       = models.CharField(max_length=50)
-   
-    email           = models.EmailField(max_length=100, unique=True)
-    phone_number    = models.CharField(max_length=30,validators=[numeric])
-    sourcelantics_id=models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
-    date_joined     = models.DateTimeField(auto_now_add=True)
-    last_login      = models.DateTimeField(auto_now_add=True)
-    is_admin        = models.BooleanField(default=False)
-    is_staff        = models.BooleanField(default=False)
-    is_active        = models.BooleanField(default=True)
-   
+    email           = models.EmailField(max_length=100, unique=True,validators=[WhitelistEmailValidator(whitelist=['gmail.com', 'yahoo.com', 'hotmail.com'])])
+    phone_number    = models.CharField(max_length=15,validators=[numeric],help_text="Phone number must be entered in the format:'+1234567890'")
+    catche_id         =models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
+    CreatedDate    = models.DateTimeField(auto_now_add=True)
+ 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
     objects = UserManager()
@@ -95,17 +104,15 @@ class SLTAuth(AbstractBaseUser):
 
     def has_module_perms(self, add_label):
         return True
-
+  
     
-class SLTLogin(models.Model):
-    user_email=models.EmailField(max_length=100)
+class login_history(models.Model):
+    user_email      =models.EmailField(max_length=100)
     last_login      = models.DateTimeField(auto_now_add=True)
-    # salary_bankname=models.CharField(max_length=50)
+    log_outtime     =models.DateTimeField(null=True,blank=True)
    
    
-class SLT_accesstocken(models.Model):
-     SLT_id= models.ForeignKey(SLTAuth,on_delete=models.CASCADE,default=uuid.uuid4 )
-     access_token=models.CharField(max_length=50,blank=True)
+
 
 
 

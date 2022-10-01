@@ -1,4 +1,5 @@
 from django.contrib import admin
-from .models import SLT_membership
+from .models import Subscription,CatcheSubscriptionlookup
 # Register your models here.
-admin.site.register(SLT_membership)
+admin.site.register(Subscription)
+admin.site.register(CatcheSubscriptionlookup)
