@@ -1,5 +1,5 @@
 import plaid
-
+import datetime
 from plaid.api import plaid_api
 from plaid.model.link_token_create_request import LinkTokenCreateRequest
 from plaid.model.link_token_create_request_user import LinkTokenCreateRequestUser
@@ -11,10 +11,12 @@ from plaid.model.link_token_account_filters import LinkTokenAccountFilters
 
 from plaid.model.products import Products
 
-client_id = '62f79beeabd03400141520036'
+from plaidlink.models import plaidUser,plaidUserHistory
 
-secret = '77804cbff47224e1f1b3682aae03556'
+client_id = '62f79beeabd0340014152003'
 
+secret = '77804cbff47224e1f1b3682aae0355'
+dt=datetime.datetime.utcnow()
 configuration = plaid.Configuration(
     host=plaid.Environment.Sandbox,
     api_key={
@@ -23,7 +25,7 @@ configuration = plaid.Configuration(
     }
 )
 """
-secret = '7dc061496d3a4b6cc0aec4692e8c3336'
+secret = '7dc061496d3a4b6cc0aec4692e8c333'
 
 configuration = plaid.Configuration(
     host=plaid.Environment.Development,
@@ -65,4 +67,15 @@ def get_link_token(client_user_id):
     link_token = response['link_token']
     return link_token
 
-
+def insertPlaidHistory(id,username):
+    instance=plaidUser(catche_id=id)
+    pobj=plaidUserHistory.objects.create(
+            catche_id_id      =id,
+            plaid_id_id      =instance.plaid_id,
+            access_token_id   =instance.access_token,
+            linkReason     ="connecting bank",
+            creUser=username,
+            CreatedTs = dt,
+            UpdateTs =dt,
+            InsUpdFlag ="I",)
+    print(pobj.EventID)

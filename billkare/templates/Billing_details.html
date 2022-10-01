@@ -1,52 +1,46 @@
-{% extends "base.html" %}
+{% extends "user_base.html" %}
 {%load static %}
 
 {% block body %}
 <div class="container h-100">
   <div class="bill">
       <div class="card mx-auto mt-7">
-        <div class="card-header"> Hi, {{user.email}}</div>
+        <div class="card-header h5">Hi,{{user.email}}<a href="#" class="btn btn-dark">{{paysum.days_more}} days more to next pay</a></div>
         <div class="card-body">
-           
-            <div class="card-text mb-4">
-              <label class="col-sm-7 " for="label1" >Upcomming bills<br>(Before Next Payday)</label>
-              <button type="button" class="btn btn-primary btn-lg">$150</button>
+          <div class="form-group row">
+            <label for="duedate" class="col-sm-4 col-form-label"><h5>Upcomming bills:</h5></label>
+            <div class="col-sm-8">
+              <input type="text" readonly class=" text-center btn-light" id="duedate" value="{{paysum.Loan_Type}}">
             </div>
-
-          <div class="card-text mb-4"> 
-              <label class="col-sm-7" for="label2">Payment due from last month</label>
-              <button type="button" class="btn btn-primary btn-lg">$50</button>    
           </div>
+          <div class="form-group row">
+            <label for="duedate" class="col-sm-4 col-form-label"><h5>Payment due from last month:</h5></label>
+            <div class="col-sm-8">
+              <input type="text" readonly class=" text-center  btn-light" id="duedate" value="{{paysum.PaymentDue_amount}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="duedate" class="col-sm-4 col-form-label"><h5>Last Payment date:</h5></label>
+            <div class="col-sm-8">
+              <input type="text" readonly class=" text-center btn-light" id="duedate" value="{{paysum.current_paydate}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="duedate" class="col-sm-4 col-form-label"><h5>Next Pay Day:</h5></label>
+            <div class="col-sm-8">
+              <input type="text" readonly class=" text-center  btn-light" id="duedate" value="{{paysum.fund_return_date}}">
+            </div>
+          </div>
+          
+          
         </div>
       </div>
 
       <div class="card mx-auto">
-        <div class="card-header">Fund Available <a href="#" class="btn btn-dark">paybills</a></div>
+        <div class="card-header">Fund Available</div>
         <div class="card-body">
           <h5 class="card-title">Your Current Balance</h5>
-          <p class="card-text h3 fw-bold text-primary">$ Balance</p>
-        </div>
-      </div>
-
-      <div class="card mx-auto" >
-        <div class="card-header">Payments</div>
-        <div class="card-body">
-          <form>
-            <div class="form-group row">
-              <label for="duedate" class="col-sm-4 col-form-label">Bill Due Date:</label>
-              <div class="col-sm-8">
-                <input type="text" readonly class="form-control-plaintext" id="duedate" value="may 15th 2022">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="payday" class="col-sm-4 col-form-label">Next Pay Day:</label>
-              <div class="col-sm-8">
-                <input type="text" readonly class="form-control-plaintext" id="payday" value="may 10th 2022">
-              </div>
-            </div>
-          </form>
-          <p class="card-text mt-2">You Have 5 days for your Payday</p>
-          <a href="#" class="btn btn-dark">Fund My Bill</a>
+          <p class="card-text h3 fw-bold text-dark">${{data.balance}}</p>
         </div>
       </div>
     </div>

@@ -74,7 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'Survey.context_processors.surveyquestions',
+                'membership.context_processors.membership',
                 
             ],
         },
@@ -93,7 +93,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-AUTH_USER_MODEL = 'User_Account.SLTAuth' 
+AUTH_USER_MODEL = 'User_Account.User' 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
