@@ -4,36 +4,20 @@
 
 {% block body %}
 
-<div class="container h-100"> 
+<div class="container"> 
   <div class="bill">
+ 
       <div class="card mx-auto mt-7 border-right">
-        <div class="card-header"> <h5>Welcome,{{user.first_name}}</h5></div>
+        <!-- <h3>Good day {{user.first_name}}</h3> -->
+        <div class="card-header"> <h4>Good Day {{user.first_name}}</h4></div>
        
         <div class="card-body">
           {% if messages %}
             {% include 'includes/alerts.html' %}
           {% else %}
-          <!-- <div class="card-text mb-4">
-            <h5>Loan Type is {{data.loanType}}</h5>
-           </div>
-           <div class="card-text mb-4">
-            <h5>Mortgage loan amount from transactions {{data.mortgage_due_amount}}. </h5>
-           </div>
-           <div class="card-text mb-4">
-            <h5>Your next payday is {{data.mortgage_due_date}} date</h5>
-           </div>
-
-           <div class="card-text mb-4">
-            <h5>Loan Type is Auto</h5>
-           </div>
-           <div class="card-text mb-4">
-            <h5>Mortgage loan amount from transactions {{data.auto_loan_amount}}. </h5>
-           </div>
-           <div class="card-text mb-4">
-            <h5>Your next payday is {{data.mortgage_due_date}} date</h5>
-           </div> -->
+         
            <div class="card-text mb-4"> 
-            <label class="col-sm-7" for="label3">Your current loans:</label>
+            <label class="col-md-7" for="label3">Your current loans:</label>
                
           </div>
            <div class="card-text mb-4">
@@ -42,16 +26,16 @@
                 {% for i in data1 %} 
                 <tr><td>
                     <!-- <input type="radio" id="check_1" name="check_box1" value="{{i.Loan_Type}}"> -->
-                    <label class="col-sm" for="check_1" > {{i.Loan_Type}}</label>
+                    <label class="col-md" for="check_1" > {{i.Loan_Type}}</label>
                     </td>
                     <td>
-                        <label class="col-sm" for="check_1"> {{i.PaymentDue_amount}}</label>
+                        <label class="col-md" for="check_1"> {{i.PaymentDue_amount}}</label>
                     </td>
                     <td>
-                      <label class="col-sm" for="check_1"> {{i.Due_date}}</label>
+                      <label class="col-md" for="check_1"> {{i.Due_date}}</label>
                   </td>
                   <td>
-                    <label class="col-sm" for="check_1"> {{i.days_more}}</label>
+                    <label class="col-md" for="check_1"> {{i.days_more}}</label>
                 </td>
                 </tr>
                 {%endfor%} 
@@ -60,7 +44,7 @@
            {% endif %}
 
           <div class="card-text mb-4"> 
-            <label class="col-sm-7" for="label3">Your current bank balance</label>
+            <label class="col-md-7" for="label3">Your current bank balance</label>
               <input type="button" id="balance"  value="{{data.balance}}">    
           </div>
           <div class="card-text mb-4"> 
@@ -70,11 +54,12 @@
             <div class="card-text mt-2">
                   <input type="checkbox" id="loan_correct" name="correct" value="correct">
                   <label for="correct"> That Sounds Correct</label><br>
-                  <input type="checkbox" id="checkbox_2" name="Addtional_spend" value="Addtional_spend" onclick="popup()">
-                  <label for="Addtional_spend"> I have a upcomming Addtional spend</label><br> 
+                   
+                  <input type="checkbox" class="mt-4" id="checkbox_2" name="Addtional_spend" value="Addtional_spend" onclick="popup()">
+                  <label for="Addtional_spend"> No,I may have more expenses</label><br> 
            </div>
            <div class="mx-auto"  id="checkBundle" style="display:none;float:right">
-            <label for="addtionalspend"><b>Addtional Spend:</b></label>
+            <label for="addtionalspend"><b>Estimated spend:</b></label>
             <input type="text" class="mt-2" name="addtionalspend" id="extra_amount"  required onchange="totalamount()"><br>
           </div>
         </div>
@@ -138,8 +123,9 @@
     var bal3=parseInt(document.getElementById("balance").value);
     
     if (checkBox.checked == true) {
-  
-      shortagevalue =((value2+value) - bal3);
+      // if (value2 == 0) 
+      shortagevalue =(value - bal3);
+      document.getElementById("add_amount").value=value
       if (shortagevalue > 0){document.getElementById("shortage").value =shortagevalue; }
       else{document.getElementById("shortage").value =0}
     }
@@ -160,7 +146,21 @@
                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
             },
             success:function(){
-                  alert('Saved');
+                  // alert('Saved');
+                  Swal.fire({  
+                        title: 'upadated',  
+                        //  showCancelButton: true,  
+                        confirmButtonText: `ok`,  
+                        // denyButtonText: `Don't save`,
+                        }).then((result) => {  
+                            /* Read more about isConfirmed, isDenied below */  
+                            if (result.isConfirmed) {    
+                                
+                                window.location.href="#"
+                            } else if (result.isDenied) {    
+                                // Swal.fire('Changes are not saved', '', 'info')  
+                            }
+                        });
                     }
             })
         });

@@ -8,7 +8,7 @@
         <div class="card-header h5">Hi,{{user.email}}<a href="#" class="btn btn-dark">{{paysum.days_more}} days more to next pay</a></div>
         <div class="card-body">
           <div class="form-group row">
-            <label for="duedate" class="col-sm-4 col-form-label"><h5>Upcomming bills:</h5></label>
+            <label for="duedate" class="col-sm-4 col-form-label"><h5>Upcoming bills:</h5></label>
             <div class="col-sm-8">
               <input type="text" readonly class=" text-center btn-light" id="duedate" value="{{paysum.Loan_Type}}">
             </div>
@@ -28,10 +28,15 @@
           <div class="form-group row">
             <label for="duedate" class="col-sm-4 col-form-label"><h5>Next Pay Day:</h5></label>
             <div class="col-sm-8">
-              <input type="text" readonly class=" text-center  btn-light" id="duedate" value="{{paysum.fund_return_date}}">
+              <input type="text" readonly class=" text-center  btn-light" id="duedate" value="{{paysum.Due_date}}">
             </div>
           </div>
-          
+          <!-- <div class="form-group row">
+            <label for="duedate" class="col-sm-4 col-form-label"><h5>Next Pay Day:</h5></label>
+            <div class="col-sm-8">
+              <input type="text" readonly class=" text-center  btn-light" id="duedate" value="{{paysum.fund_return_date}}">
+            </div>
+          </div> -->
           
         </div>
       </div>

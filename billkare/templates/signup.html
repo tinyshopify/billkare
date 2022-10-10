@@ -10,7 +10,7 @@
 
 <div class="container h-100 mt-5">
     <div class="row d-flex  justify-content-center align-items-center h-100">
-      <div class="col-sm-6">
+      <div class="col-lg-6">
          <!-- {% include 'includes/alerts.html' %} -->
         <form class="mx-1 mx-md-4 mt-3" action="{% url 'signup' %}" method="POST" enctype="multipart/form-data" autocomplete="off">
           {% csrf_token %}
@@ -23,7 +23,7 @@
                     I agree all statements in <a href="#!">Terms of service</a>
                   </label>
                 </div>
-              <div class="col-lg-6">
+              <div class="col-md-6">
                   <button class="btn btn-dark  w-100 py-3" type="submit">Join now</button>
               </div>
         

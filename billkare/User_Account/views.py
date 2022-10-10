@@ -39,11 +39,10 @@ from django.core.mail import EmailMessage
 
 time=datetime.datetime.utcnow().strftime('%H:%M:%S')
 dt=datetime.datetime.utcnow()
-
 def home(request):
-    print('dead line',datetime.date.today()+ datetime.timedelta(days=30))
-    # logout(request)
-    return render(request,"home.html",{'nbar': 'home'})
+    return render(request,"homepage.html")
+def services(request):
+    return render(request,"services.html")
 
 @login_required
 def user_logout(request):

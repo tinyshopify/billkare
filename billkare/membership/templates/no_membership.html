@@ -15,16 +15,16 @@
             <div class="card-body">
             
                 <div class="card-text mb-4">
-                <p class="col-sm "><b>Basic membership:</b> Catche will gap the shortage of your bill up to $200 with a guaranteed minimum of $50 when you meet our income deposit criteria.</p>
+                <p class="col-sm "><b>Basic membership:</b> Catche will bridge gap the shortage of your bill up to $300 with a guaranteed minimum of $50.</p>
                 </div>
                 <div class="card-text mb-4">
-                    <p class="col-sm ""><b>Premium membership:</b>Catche will gap the shortage of your bill up to $800 with a guaranteed minimum of $200 when you meet our income deposit criteria.</p>
+                    <p class="col-sm ""><b>Premium membership:</b>Catche will bridge gap the shortage of your bill up to $1000 with a guaranteed minimum of $200.</p>
                     </div>
                <form  action="{% url 'add_membership' %}" method="POST" id="form1" enctype="multipart/form-data" autocomplete="off" >
                         {% csrf_token %}
                 <div class="card-text mb-4">
                     <input type="checkbox" id="premium" name="check_box1" class="chk" value="Premium">
-                    <label for="premium">Upgrade to premium membership ($18.99 per month) to cover up to $800?
+                    <label for="premium">Upgrade to premium membership ($15.99 per month) to cover up to $1000?
                     </label>
                 </div>
                 <div class="text-center">
@@ -32,7 +32,7 @@
                 </div>
                 <div class="card-text mb-4">
                     <input type="checkbox" id="basic" class = "chk" name="check_box1" value="Basic">
-                    <label class="col-sm" for="basic" >Upgrade to our basic  membership ($2.99 per month) to cover up to $300?
+                    <label class="col-sm" for="basic" >Upgrade to our basic  membership ($9.99 per month) to cover up to $300?
                     </label>
                 </div>
                 <div class="text-center">
@@ -48,7 +48,7 @@
                 </div>
             </form>
             </div>
-            <p>Premium membership make you qualify up to $800. Your actual eligible funding each time depend on your cash flow, needs and payment history with Catche</p>
+            
         </div>
 
         </div>
