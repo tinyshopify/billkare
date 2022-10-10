@@ -28,7 +28,7 @@ class plaidUserHistory(TimeStampModel):
     EventID        =models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4)
     catche_id      =models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
     plaid_id       =models.ForeignKey(plaidUser,on_delete=models.CASCADE,default=uuid.uuid4)
-    access_token   =models.ForeignKey(plaidUser,on_delete=models.CASCADE,related_name='accesstoken',null=True)
+    access_token   =models.CharField(max_length=50,blank=True,null=True)
     linkReason     =models.CharField(max_length=50,blank=True)
     StartDate      =models.DateTimeField(auto_now_add=True)
     EndDate        =models.DateTimeField(auto_now_add=True)

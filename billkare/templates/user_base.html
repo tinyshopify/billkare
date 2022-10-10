@@ -46,37 +46,32 @@
     <!-- Spinner End -->
 
 
-    <div class="content">
-            <!-- Navbar Starts-->
-        <nav class="navbar navbar-expand-lg navbar-light sticky-top  box-shadow mb-3 p-0">
-            <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5 py-lg-0">
-                <h2 class="m-0 text-dark ">Catche</h2>
-            </a>
-            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav  ms-auto p-4 p-lg-0">
-                    {% if paid %}
-                    <a href="{% url 'billing_details' %}" class="nav-item nav-link {% if nbar == 'home' %}active{% endif %}"><i class="fa fa-home fa-1x" aria-hidden="true"></i>Home</a>
-                    {% else %} 
-                    <a href="{% url 'transaction_details' %}" class="nav-item nav-link {% if nbar == 'home' %}active{% endif %}"><i class="fa fa-home fa-1x" aria-hidden="true"></i>Home</a> 
-                    {% endif %}
-                    <!-- <a href="#" class="nav-item nav-link {% if nbar == 'user' %}active{% endif %}">Profile</i></a> -->
-                    <a href="#" class="nav-item nav-link   {% if nbar == 'user' %}active{% endif %}"><i class="fa fa-user fa-1x"></i>Profile</a>
-                    <!-- <a href="#" class="nav-item nav-link   {% if nbar == 'pay_summary' %}active{% endif %}">Payment summary</a> -->
-                    <a href="{% url 'subscription' %}" class="nav-item nav-link  {% if nbar == 'sub' %}active{% endif %}">Subscription</a>
-                    <a href="#" class="nav-item nav-link">Dashboard</a>
-                    <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-share-square fa-1x"></i>({{user.email}})({{catcheuser.SubscriptionName}})</a>  
-                  
-                </div>
-            </div>
-            
-         </nav>
-            <!-- Navbar End -->
-     </div>
-   
+     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top  px-4 px-lg-5 py-lg-0">
+        <a href="{% url 'home' %}"  class="navbar-brand d-flex align-items-center">
+          <h1 class="m-0 catchename">Catche</h1>
+        </a>
+        <button
+          type="button"
+          class="navbar-toggler"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <div class="navbar-nav ms-auto py-3 py-lg-0">
+            {% if paid %}
+            <a href="{% url 'billing_details' %}" class="nav-item nav-link {% if nbar == 'home' %}active{% endif %}">Payment Details</a>
+            {% else %} 
+            <a href="{% url 'transaction_details' %}" class="nav-item nav-link {% if nbar == 'home' %}active{% endif %}">Payment Details</a> 
+            {% endif %}
+            <!-- <a href="#" class="nav-item nav-link {% if nbar == 'user' %}active{% endif %}">Profile</i></a> -->
+            <!-- <a href="#" class="nav-item nav-link   {% if nbar == 'user' %}active{% endif %}"><i class="fa fa-user fa-1x"></i>Profile</a> -->
+            <!-- <a href="#" class="nav-item nav-link   {% if nbar == 'pay_summary' %}active{% endif %}">Payment summary</a> -->
+            <a href="{% url 'subscription' %}" class="nav-item nav-link  {% if nbar == 'sub' %}active{% endif %}">Subscription</a>
+            <!-- <a href="#" class="nav-item nav-link">Dashboard</a> -->
+            <a href="{% url 'logout' %}" class="nav-item nav-link"><i class="fa fa-share-square fa-1x"></i>({{user.email}})({{catcheuser.SubscriptionName}})</a>  
+        </div>
+  </nav>
         {% block body %}
         {% endblock body %}
         

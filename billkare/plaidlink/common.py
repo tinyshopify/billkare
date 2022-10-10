@@ -54,13 +54,7 @@ def get_link_token(client_user_id):
         # webhook='https://sample-webhook-uri.com',
         link_customization_name='default',
         user=LinkTokenCreateRequestUser(client_user_id=client_user_id),
-        account_filters=LinkTokenAccountFilters(
-            depository=DepositoryFilter(
-                account_subtypes=DepositoryAccountSubtypes(
-                    [DepositoryAccountSubtype('checking'), DepositoryAccountSubtype('savings'), DepositoryAccountSubtype('hsa')]
-                )
-            )
-        )
+        
     )
     # create link token
     response = client.link_token_create(request)
@@ -68,11 +62,11 @@ def get_link_token(client_user_id):
     return link_token
 
 def insertPlaidHistory(id,username):
-    instance=plaidUser(catche_id=id)
+    instance=plaidUser.objects.get(catche_id=id)
     pobj=plaidUserHistory.objects.create(
             catche_id_id      =id,
             plaid_id_id      =instance.plaid_id,
-            access_token_id   =instance.access_token,
+            access_token   =instance.access_token,
             linkReason     ="connecting bank",
             creUser=username,
             CreatedTs = dt,

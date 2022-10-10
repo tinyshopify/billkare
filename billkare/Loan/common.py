@@ -1,5 +1,5 @@
 from .models import PaymentSummaryHistory, customer_loan_decision_attrs,customerLoan,PaymentSummary
-from datetime import date
+from datetime import date, timedelta
 
 
 def  get_customerLoan(id):
@@ -38,13 +38,21 @@ def  get_customerLoan(id):
     print("Credit")
 
 def calculate_days(duedate):
-  
-   days=abs((date.today()).day-(duedate).day)
+   print( "Due date:",duedate)
+   # print(date.today())
+   # days=abs((date.today()).day-(duedate).day)
+   days=abs(date.today()-(duedate)).days
+   print("days_more",days)
    return days
 
 def is_paid(id):
     try:
         obj=PaymentSummary.objects.get(catche_id_id=id) 
+        if obj.is_paid=='Y':
+         return True
+        else:
+         obj.delete()
+         return False
     except PaymentSummary.DoesNotExist: 
         return False
-    return True
+   

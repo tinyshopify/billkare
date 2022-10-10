@@ -13,17 +13,17 @@
                 
             </div>
             <div class="card-body">
-            
+                <form method="POST" id='form1' action="{% url 'shortage_membership' %}" enctype="multipart/form-data" >
+                    {% csrf_token %}
                <h5 class=" text-danger"> <div class="card-text mb-4">
-                    <input type="checkbox" id="premium" name="check_box1" value="Premium" data-target="{% url 'no_membership' %}">
+                    <input type="checkbox" id="premium" name="check_box1" class = "chk" value="Premium">
                     <label class="col-sm " for="check_2" >Upgrade to premium membership ($18.99 per month) to cover up to $800?
                     </label>
                 </div>
                 <div class="text-center">
                     <h5>OR</h5> 
                 </div>
-                <form method="POST" id='form1' action="{% url 'shortage_membership' %}" enctype="multipart/form-data" >
-                    {% csrf_token %}
+                
                 <div class="card-text mb-4">
                     <input type="checkbox" id="basic" class = "chk" name="check_box1" value="Basic">
                     <input type="hidden" name="Procced" value="Basic"/>
@@ -44,17 +44,46 @@
               $("input[name='check_box1']").change(function()
         {
                 value=$("input[name='check_box1']:checked").val();
-
-            if (value==='Premium'){window.location.href= $(this).data("target")}
+                
+                $(".chk").prop('checked', false);
+                $(this).prop('checked', true);
+              
+            if (value==='Premium'){
+                Swal.fire({
+                                    title: 'warning!',
+                                    text: 'You are eligible for funding all your bills up to  $1000 dollars with no additional fees',
+                                    // customClass: 'swal-wide',
+                                    confirmButtonText: 'ok',
+                }).then((result) => {  
+                            /* Read more about isConfirmed, isDenied below */  
+                            if (result.isConfirmed) {    
+                                
+                                $('#form1').submit();
+                            } else if (result.isDenied) {    
+                                // Swal.fire('Changes are not saved', '', 'info') 
+                                
+                            }
+                                    });
+                // window.location.href= $(this).data("target")
+            }
             else{
                 // alert("You are eligible for funding all your bills up to  $200 dollars with no additional fees");
                 Swal.fire({
                                     title: 'warning!',
-                                    text: 'You are eligible for funding all your bills up to  $200 dollars with no additional fees',
-                                    customClass: 'swal-wide',
+                                    text: 'You are eligible for funding all your bills up to  $300 dollars with no additional fees',
+                                    // customClass: 'swal-wide',
                                     confirmButtonText: 'ok',
+                }).then((result) => {  
+                            /* Read more about isConfirmed, isDenied below */  
+                            if (result.isConfirmed) {    
+                                
+                                $('#form1').submit();
+                            } else if (result.isDenied) {    
+                                // Swal.fire('Changes are not saved', '', 'info') 
+                                
+                            }
                                     });
-            $('#form1').submit();
+          
         }
         });
         

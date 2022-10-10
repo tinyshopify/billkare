@@ -84,7 +84,7 @@ class User(AbstractBaseUser,TimeStampModel):
     first_name      = models.CharField(max_length=50)
     last_name       = models.CharField(max_length=50)
     email           = models.EmailField(max_length=100, unique=True,validators=[WhitelistEmailValidator(whitelist=['gmail.com', 'yahoo.com', 'hotmail.com'])])
-    phone_number    = models.CharField(max_length=15,validators=[numeric],help_text="Phone number must be entered in the format:'+1234567890'")
+    phone_number    = models.CharField(max_length=15,unique=True,validators=[numeric])
     catche_id         =models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
     CreatedDate    = models.DateTimeField(auto_now_add=True)
  

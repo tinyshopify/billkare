@@ -61,6 +61,7 @@ def update_shortage(request):
     print(request.method)
     if request.method == 'POST':
         shortage=request.POST.get('shortage')
+        print("Shortage",shortage)
         extra_amount=request.POST.get('extra_amount')
         id=function.get_user(request.user.email)
         s=function.get_customer_loan_decision_attrs(id)
@@ -78,6 +79,7 @@ def billing_details(request):
     context["paid"] =True
     context["data"] = ctx
     context["paysum"]=paysum
+    context['nbar']='home'
     return render(request,"billing_details.html",context)
 
 def connect_bank(request):
@@ -167,14 +169,27 @@ def paymentInfo(request):
          print(request.method)
          if request.method == 'POST':
             accno=request.POST.get('accno')
-            address=request.POST.get('address')
+            company=request.POST.get('company')
+            street=request.POST.get('street')
+            zip=request.POST.get('zip')
+            state=request.POST.get('state')
+            country=request.POST.get('country')
+            # print("accno:",accno)
+            # print(request.POST.get('street'))
+            # print(request.POST.get('company'),request.POST.get('zip'),request.POST.get('state'),request.POST.get('country'))
+            # print(request.POST.get('check_box1'))
             deliveryoption=request.POST.get('check_box1')
             PaymentInfo.objects.update_or_create(
                                 catche_id_id=id,
                                 loan_type=obj.Loan_Type,
                                 account_number=accno,
-                                Due_date=obj.Due_date,
-                                Payment_address=address,
+                                company=company,
+                                firstname=request.user.first_name,
+                                lastname=request.user.last_name,
+                                street=street,
+                                zip=zip,
+                                state=state,
+                                country=country,
                                 delivery_option= deliveryoption,
                                 creUser="live_user",
                                 InsUpdFlag ='I',

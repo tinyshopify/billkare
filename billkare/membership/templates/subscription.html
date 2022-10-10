@@ -18,11 +18,11 @@
                         {% csrf_token %}
                     <div class="card-text mb-4">
                     <input type="checkbox" id="basic" class = "chk" name="check_box1" value="Basic">
-                    <label for="basic" >Basic membership: 6.99/month </label>
+                    <label for="basic" >Basic membership: 9.99/Month </label>
                     </div>
                     <div class="card-text mb-4">
                         <input type="checkbox" id="premium" class = "chk" name="check_box1" value="Premium">
-                        <label for="check_box1" >Premium membership:18.99/month</label>
+                        <label for="check_box1" >Premium membership:15.99/Month</label>
                         </div>
                 
                     <div id="change" style="display:none ;">
@@ -33,7 +33,7 @@
                 
                 </div>
               <p>* Your eligibility depends on your repay history, cash flow and income </p>
-              <p>*  if you want to change membership,please uncheck the current subscription,and select the new memberhsip.then click to confirm the change membership button.</p>
+             
             </div>
             
         </div>
@@ -67,11 +67,12 @@
                         }      
                 }
                 });
-              $("input[type='checkbox'].chk").click(function()
+              $("input[type='checkbox'].chk").change(function()
         {
+                $(".chk").prop('checked', false);
+                $(this).prop('checked', true);
                 value=$('.chk:checked').val();
                 membership=$('#membership').val();
-                
                 if (value===membership){document.getElementById('change').style.display='none';}
                 else{document.getElementById('change').style.display='block';}
                 // document.getElementById('change').style.display='block';

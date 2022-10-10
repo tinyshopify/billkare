@@ -51,7 +51,8 @@ def shortage_membership(request):
     s=function.get_customer_loan_decision_attrs(id)
     print("shortage")
     if request.method == 'POST':
-        membership=request.POST.get('Procced')
+        membership=request.POST.get('check_box1')
+        print(membership)
         obj=CatcheSubscriptionlookup.objects.get(SubscriptionName=membership)
         membership_function.addmembership(id,obj,request.user.first_name)
         return redirect('loan_payment')
