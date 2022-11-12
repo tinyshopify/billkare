@@ -22,7 +22,7 @@ def update_membership(request):
         membership=request.POST.get('check_box1')
         print(membership)
         obj=CatcheSubscriptionlookup.objects.get(SubscriptionName=membership)
-        print(obj.SubscriptionAmount)
+        print(obj.Subscription_limit)
         membership_function.addmembership(id,obj,request.user.first_name)
         return redirect('subscription')
     return redirect('subscription')
@@ -37,8 +37,8 @@ def add_membership(request):
         # procced=request.POST.get('check_box1')
         print(membership)
         obj=CatcheSubscriptionlookup.objects.get(SubscriptionName=membership)
-        print(obj.SubscriptionAmount)
-        if s.shortage_bill_amount > obj.SubscriptionAmount and membership == obj.SubscriptionName:
+        print(obj.Subscription_limit)
+        if s.shortage_bill_amount > obj.Subscription_limit and membership == obj.SubscriptionName:
             print("no eligible")
             return render(request,'need_upgrade.html',{'data':s.shortage_bill_amount})
         membership_function.addmembership(id,obj,request.user.first_name)
@@ -76,12 +76,14 @@ def check_membership(request):
       print("currently no membership")
       return redirect('transaction_details')
     obj=membership_function.get_base(membership_id)
-    print("obj.SubscriptionAmount",obj.SubscriptionAmount)
+    print("obj.Subscription_limit",obj.Subscription_limit)
     print( int(membership_id) == 2)
-    if membership_id == "1" and s.shortage_bill_amount> obj.SubscriptionAmount:
+    if membership_id == "1" and s.shortage_bill_amount<=0:
+         return redirect('loan_payment')
+    if membership_id == "1" and s.shortage_bill_amount> obj.Subscription_limit:
             print("no eligible")
             return redirect('no_membership')
-    if membership_id == "2" and s.shortage_bill_amount> obj.SubscriptionAmount:
+    if membership_id == "2" and s.shortage_bill_amount> obj.Subscription_limit:
             print("upgrde to basic to premium")
             return render(request,'need_upgrade.html',{'data':s.shortage_bill_amount})
     return redirect('loan_payment')

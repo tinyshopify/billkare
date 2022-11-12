@@ -7,8 +7,8 @@
     <div class="bill">
         
         <div class="card align-items-center mx-auto mt-7">
-            <div class="text-center">
-               <h4 > <p>You choose basic membership that provide $300 funding</p>
+            <div class="text-center mt-5">
+               <h4 > <p>You choose Basic membership that provide upto $300 funding.</p>
                     <p>Your potential shortage is {{data|currency}} shortage.</p></h4>
                 
             </div>
@@ -17,7 +17,7 @@
                     {% csrf_token %}
                <h5 class=" text-danger"> <div class="card-text mb-4">
                     <input type="checkbox" id="premium" name="check_box1" class = "chk" value="Premium">
-                    <label class="col-sm " for="check_2" >Upgrade to premium membership ($18.99 per month) to cover up to $800?
+                    <label class="col-sm " for="check_2" >Upgrade to Premium Membership ($15.99 per month) to cover up to $1000?
                     </label>
                 </div>
                 <div class="text-center">
@@ -27,7 +27,7 @@
                 <div class="card-text mb-4">
                     <input type="checkbox" id="basic" class = "chk" name="check_box1" value="Basic">
                     <input type="hidden" name="Procced" value="Basic"/>
-                    <label class="col-sm" for="check_3" >Proceed
+                    <label class="col-sm" for="check_3" >Proceed with Basic
                     </label>
                 </div>
             </form>

@@ -8,7 +8,6 @@ from User_Account.models import User
 
 
 def get_deadline():
-    print(datetime.date.today()+ datetime.timedelta(days=30))
     return datetime.date.today()+ datetime.timedelta(days=30)
 
 class TimeStampModel(models.Model):
@@ -28,6 +27,7 @@ class CatcheSubscriptionlookup(TimeStampModel):
     Subscription_Type=models.CharField(primary_key=True,max_length=50,blank=True,unique=True)
     SubscriptionName=models.CharField(max_length=50,blank=True)
     SubscriptionAmount=models.FloatField(default=0)
+    Subscription_limit=models.FloatField(default=0)
     Description=models.CharField(max_length=50,blank=True)
 
 class Subscription(TimeStampModel):
@@ -44,7 +44,7 @@ class SubscriptionHistory(TimeStampModel):
     SubscriptionType=models.ForeignKey(CatcheSubscriptionlookup,on_delete=models.CASCADE)
     Subscription_Reason=models.CharField(max_length=50,blank=True)
     SubscriptionStartDate=models.DateTimeField(auto_now_add=True,db_index=True)
-    SubscriptionEndDate=models.DateField(default=get_deadline(),db_index=True)
+    SubscriptionEndDate=models.CharField(default=get_deadline(),db_index=True,max_length=50)
     Refund_Amount=models.FloatField(default=0)
 
 

@@ -38,7 +38,7 @@
    
   
 </head>
-<body>
+<body style="background-color:white ;">
   
     
       <!-- Spinner Start -->
@@ -52,37 +52,10 @@
       <!-- Topbar Start -->
 
         
-    <!-- <div class="container-fluid  p-0" style="background-color:rgb(226, 134, 21); color: white;">
-      <div class="row gx-0 d-none d-lg-flex">
-        <div class="col-lg-7 px-5 text-start">
-          <div
-            class="h-100 d-inline-flex align-items-center border-start border-end px-3">
-            <small class="fa fa-phone-alt me-2"></small>
-            <small>+012 345 6789</small>
-          </div>
-          <div class="h-100 d-inline-flex align-items-center border-end px-3">
-            <small class="far fa-envelope-open me-2"></small>
-            <small>Catche@gmail..com</small>
-          </div>
-          <div class="h-100 d-inline-flex align-items-center border-end px-3">
-            <small class="far fa-clock me-2"></small>
-            <small>Mon - Fri : 09 AM - 09 PM</small>
-          </div>
-        </div>
-        <div class="col-md-5 px-5 text-end">
-          <div class="h-100 d-inline-flex align-items-center">
-            <a class="btn btn-square border-end border-start" href=""><i class="fab fa-facebook-f"></i></a>
-            <a class="btn btn-square border-end" href=""><i class="fab fa-twitter"></i></a>
-            <a class="btn btn-square border-end" href="" ><i class="fab fa-linkedin-in"></i></a>
-            <a class="btn btn-square border-end" href=""><i class="fab fa-instagram"></i></a>
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!-- Topbar End -->
+   
 <section>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top px-4 px-lg-5 py-lg-0">
-        <a href="{% url 'home' %}"  class="navbar-brand d-flex align-items-center">
+    <nav class="navbar navbar-expand-lg bg-white navbar-light  fixed-top px-4 px-lg-5 py-lg-0" >
+        <a href="{% url 'account_summary' %}"  class="navbar-brand d-flex align-items-center">
           <h1 class="m-0 catchename">Catche</h1>
         </a>
         <button
@@ -98,22 +71,22 @@
             <a href="{% url 'services' %}" class="nav-item nav-link">Our Services</a>
             <!-- <a href="contact.html" class="nav-item nav-link">Contact Us</a>  -->
             <a href="{% url 'LoginPage' %}" class="nav-item nav-link">Login</a>
-          
+            <a href="{% url 'signup' %}" class="nav-item nav-link " style="border: 5px solid;"><b>Join Catche</b><i class="fa fa-arrow-right ms-3"></i></a>
           </div>
-          <a href="{% url 'signup' %}"  class="btn py-4 mt-3 h2 text-white">Join Catche<i class="fa fa-arrow-right ms-3"></i></a>
+          <!-- <a href="{% url 'signup' %}"  class="btn">Join Catche<i class="fa fa-arrow-right ms-3"></i></a> -->
         </div>
   </nav>
   <div class="container-xxl py-5">
     <div class="row ">
       <div class="col-lg-6 mt-5" >
-        <img src="{%static 'images\home.png' %}" class="img-fluid" alt="Sample image">
+        <img src="{%static 'images\home3.png' %}" class="img-fluid" alt="Sample image">
       </div>
       <div class="col-lg-6" id="home" >
       <div class="container" >
         <h1 class="display-5 mb-3">Get up to $1000* Instantly  to Pay the Bill.</h1>
         <h5 style="color: rgb(155, 153, 151);">Catche will help you by monitoring your transactions and detect any potential cash shortage in your bank account.</h5>
           <div class="col-sm-6 mt-5">
-            <a href="{% url 'signup' %}" class="btn btn-dark py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="{% url 'signup' %}" class="btn">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
           </div>
         
       </div>
@@ -121,15 +94,7 @@
     </div>
 </div>
 
-<div  class="slider hidden-xs">
-  <div id="da-slider" class="da-slider">
-  <div class="da-slide">   
-                <!-- <h1> To help millions of consumers trying to achieve greater stability and control in their financial lives.</h1> -->
-                
-  </div>      
-</div>
 
-</div> 
  
 </section>
 <div class="container mt-3"> 
@@ -142,7 +107,7 @@
       <div class="row mt-5" >
         <div class="col-md-6 wow fadeInUp"  id="one" data-wow-delay="0.1s">
           <div id="image1">
-            <img class="img" src="{% static 'images\home1.png' %}"  alt="" style="object-fit: cover;"/>
+            <img class="img" src="{% static 'images\home3.png' %}"  alt="" style="object-fit: cover;"/>
             
           </div>
         </div>
@@ -168,7 +133,7 @@
       <div class="row g-5" >
         <div class="col-md-6 wow fadeInUp" id="home" data-wow-delay="0.5s">
          
-          <h1 class="display-6 mb-0" ">
+          <h1 class="display-6 mb-0">
             Pay your bills on time.
          </h1>
         <ul  class='h5'style="display: table; margin: 0 auto;">    
@@ -180,7 +145,7 @@
     </div>
         <div class="col-md-6 wow fadeInUp" id="two" data-wow-delay="0.1s">
           <div id="image2">
-            <img class="img" src="{% static 'images\home1.png' %}"  alt="" style="object-fit: cover;"/>
+            <img class="img" src="{% static 'images\dashboardpage.png' %}"  alt="" style="object-fit: cover;"/>
             
           </div>
         </div>
@@ -195,7 +160,7 @@
     
     <div class="col-md-6 wow fadeInUp" id="two" data-wow-delay="0.1s">
       <div id="image2">
-        <img class="img" src="{% static 'images\website images.png' %}"  alt="" style="object-fit: cover;"/>
+        <img class="img" src="{% static 'images\home3.png' %}"  alt="" style="object-fit: cover;"/>
         
       </div>
     </div>
@@ -229,21 +194,22 @@
   </div>
   <div class="col-md-6 wow fadeInUp" id="two" data-wow-delay="0.1s">
     <div id="image2">
-      <img class="img" src="{% static 'images\website images.png' %}"  alt="" style="object-fit: cover;"/>
+      <img class="img" src="{% static 'images\select_bank.png' %}"  alt="" style="object-fit: cover;"/>
       
     </div>
   </div>
 </div>
 </div>
 <div style="border-bottom: 2px;"></div>
-<div class="services">
+
+<div class="services"> 
 <div class ="container">
 <div class=" pricing row">
   <div class="headline"><h2 style="font-size:20px;color: rgb(168, 117, 49);">Subscription Plans</h2></div>
     
     <div class="col-md-4">
       <div style="margin-top:5px;" class="card pls">
-        <div class="pls-hd dfdd1">
+        <div class="pls-hd">
           <b>Free</b>
             <p>Zero Cost</p>
         </div>
@@ -253,14 +219,14 @@
                         <li class="new">Financial Insights </li> 
                         <li class="new">Bill Payment</li>    
                         <li class="new">Unlimited Payment Checking</li> 
-                        <li class="new last">And many other features</li>   
+                        <!-- <li class="new last">And many other features</li>    -->
                         
                                                             
                     </ul>
-                  <div class="row center">
+                  <!-- <div class="row center">
                   <a href="#">
-                    <button class="btn mt-2">Subscribe now</button></a>
-                  </div>
+                    <button class="btn mt-2 mb-2 new">Subscribe now</button></a>
+                  </div> -->
       </div>
     </div>
       <div class="col-md-4">
@@ -276,10 +242,10 @@
                         <li class="new">Borrow up to $300 towards Bill Payment</li>
                         <li class="new last">And many other features</li>                                            
                     </ul>
-                  <div class="row center">
+                  <!-- <div class="row center">
                   <a href="#">
                     <button class="btn mt-2">Subscribe Now</button></a>
-                  </div>
+                  </div> -->
       </div>
     </div>
     <div class="col-md-4">
@@ -295,16 +261,16 @@
                         <li class="new">Borrow up to $1000 towards Bill Payment</li>
                         <li class="new last">And many other features</li>                                             
           </ul>
-                  <div class="row center">
+                  <!-- <div class="row center">
                   <a href="#">
                     <button class="btn mt-2">Subscribe Now</button></a>
-                  </div>
+                  </div> -->
       </div>
     </div>
 
   </div>
 </div>
-</div>
+</div> 
     <!-- footer -->
      {% include 'includes/footer.html' %}
 

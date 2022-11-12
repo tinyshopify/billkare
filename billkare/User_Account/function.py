@@ -1,7 +1,10 @@
 from email import message
+from Loan.loanfunctions import get_total_avail_currrent_balance, put_customerLoan
+
+import plaidlink
 from .models import User
 from plaidlink.models import  plaidUser
-from Loan.models import PaymentSummary, customer_loan_decision_attrs
+from Loan.models import PaymentSummary, customer_loan_decision_attrs, customer_loan_decision_attrs_active, customer_loan_decision_attrs_history
 
 from membership.models import Subscription
 
@@ -161,3 +164,70 @@ def get_Testdata():
                         10:(1700,'',0,None,0,None,0,0,None,'Y',0,0,0,0,None,20,0,None)
                     }
    return dict(testData)
+
+def get_customer_data(id):
+
+    obj=plaidUser.objects.get(catche_id_id=id)
+    accessToken=obj.access_token
+    xs,xs1=plaidlink.common.getAccountsDetails(accessToken)
+    # print("xs1:",xs1)
+    xs2=[ i.split("|") for i in xs1]
+    # print("xs2:",xs2[1])
+    xs3=[[i[10],i[9],i[8],i[7],i[1],i[2]] for i in xs2[1:]]
+    # print(xs3) 
+    for i in xs2[1:]:
+        account_id=i[0]
+        available=float(0 if i[1] == 'None' else i[1] )
+        current=float(0 if i[2] == 'None' else i[2] )
+        iso_currency_code=i[3]
+        limit=i[4]
+        unofficial_currency_code=i[5]
+        mask=i[6]
+        name=i[7]      
+        official_name=i[8]
+        subtype=i[9]
+        type  =i[10]
+        customer_loan_decision_attrs_active.objects.update_or_create(
+            catche_id_id=id,
+            plaid_id_id=obj.plaid_id,
+            access_token=accessToken,
+            account_id= account_id,
+            available_balance=available,
+            current_balance=current,
+            iso_currency_code=iso_currency_code,
+            limit= limit,
+            unofficial_currency_code=unofficial_currency_code,
+            mask=mask,
+            name=name,
+            official_name= official_name,
+            subtype=subtype,
+            type  = type, creUser="live_user",
+            InsUpdFlag ='I',
+        )
+        customer_loan_decision_attrs_history.objects.update_or_create(
+            catche_id_id=id,
+            plaid_id_id=obj.plaid_id,
+            access_token=accessToken,
+            account_id= account_id,
+            available_balance=available,
+            current_balance=current,
+            iso_currency_code=iso_currency_code,
+            limit= limit,
+            unofficial_currency_code=unofficial_currency_code,
+            mask=mask,
+            name=name,
+            official_name= official_name,
+            subtype=subtype,
+            type  = type, creUser="live_user",
+            InsUpdFlag ='I',
+        )
+    put_customerLoan(id)
+    total_avail_balance,total_current_balance=get_total_avail_currrent_balance(id)
+    try:
+            s=get_customer_loan_decision_attrs(id)  
+    except customer_loan_decision_attrs.DoesNotExist:
+            customer_loan_decision_attrs.objects.create(catche_id_id=id,
+            balance=total_current_balance,
+            loan_eligiblity_flag="yes",  estimated_balance=0.0,
+            shortage_bill_amount=0.0,)
+    return
