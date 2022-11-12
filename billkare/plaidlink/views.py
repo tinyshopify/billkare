@@ -1,13 +1,14 @@
 from django.shortcuts import render,redirect
 import datetime
 from datetime import date
-
+from Loan.models import customer_loan_decision_attrs_active
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from . import common
 
 from User_Account import function
 # from .models import User
 from .models import plaidUser
+
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
@@ -83,6 +84,10 @@ def exchange_public_token(request, public_token):
     print("access_token:" + access_token)
     common.insertPlaidHistory(id,username)
     print("history Updated")
+
+    obj=plaidUser.objects.get(catche_id_id=id)
+    accessToken=obj.access_token
+    
     # # loading customer balance 
     # ############################
     # # loan_obj=SLTLoan.objects.get(catche_id=id)

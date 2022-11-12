@@ -4,166 +4,274 @@
 
 {% block body %}
 
-<div class="container"> 
-  <div class="bill">
- 
-      <div class="card mx-auto mt-7 border-right">
-        <!-- <h3>Good day {{user.first_name}}</h3> -->
-        <div class="card-header"> <h4>Good Day {{user.first_name}}</h4></div>
-       
-        <div class="card-body">
-          {% if messages %}
-            {% include 'includes/alerts.html' %}
-          {% else %}
+<div class="container px-5 mt-3"> 
+  {% if messages %}
+  <h3>Hi, {{user.first_name}} Congrats Your dont have any Payments!</h3>
+{% else %}
+  
+        <div class="mt-2"> <h4>Hi, {{user.first_name}}</h4></div>
          
-           <div class="card-text mb-4"> 
-            <label class="col-md-7" for="label3">Your current loans:</label>
+           <div class=" mb-4"> 
+            <label class="col-md-7" for="label3">Your Upcoming Payments:</label>
                
           </div>
-           <div class="card-text mb-4">
+           <div class=" mb-4">
             <table id="example"> 
-                <tr class="mb-4"><th>Loan Type</th><th>Payments Due</th><th>Due date</th><th>days more</th></tr>
+                <tr ><th >Loan Type</th><th>Payments Due</th><th>Due date</th><th>days more</th></tr>
                 {% for i in data1 %} 
-                <tr><td>
-                    <!-- <input type="radio" id="check_1" name="check_box1" value="{{i.Loan_Type}}"> -->
+              
+                <tr ><td>
+                
                     <label class="col-md" for="check_1" > {{i.Loan_Type}}</label>
                     </td>
                     <td>
-                        <label class="col-md" for="check_1"> {{i.PaymentDue_amount}}</label>
+                        <label class="col-md" name='dueamount' id="due_amount_{{ forloop.counter }}" for="check_1"> {{i.PaymentDue_amount}}</label>
                     </td>
-                    <td>
-                      <label class="col-md" for="check_1"> {{i.Due_date}}</label>
+                    <td id="date_{{ forloop.counter }}">
+                      <!-- <input type="text" name='counter' id="counter" value=" {{i.Loan_Type}}"> -->
+                      <label class="col-md" name="duedate" id="due_date_{{ forloop.counter }}" for="check_1"> {{i.Due_date}}</label>
                   </td>
                   <td>
-                    <label class="col-md" for="check_1"> {{i.days_more}}</label>
+                    <label class="col-md" id="days_more_{{ forloop.counter }}" for="check_1"> {{i.days_more}}</label>
                 </td>
+                
+                <!-- <td> <button class=" col-sm-3 btn" style="border-radius: 4px;" id="edit_{{forloop.counter}}" >Edit</button></td> --> 
                 </tr>
                 {%endfor%} 
             </table>
+          
+            <input type="hidden" name='loopcounter' id="loopcounter" value="{{data1|length}}">
         </div>
-           {% endif %}
+        {% include 'includes/alerts.html' %}
+        <div class="card-body mb-5">
+                <div class="col-sm-6 mb-5" id="update">
+                    
+                </div>
+                
+                <div  class="row mt-4" id="conformloan">
+                  <h6 class="mb-4">Does it sounds Correct?</h6>
+                 <div class="col-sm-6">
+                  <button class="btn w-50 py-3" id="yes" style="border-radius: 4px;" onclick="disable()">Yes,Correct.</button>
+                 </div>
+                 
+                 <div class="col-sm-6">
+                  <button class="btn  w-50 py-3" style="border-radius: 4px;" id="no" onclick="enable()">No,I need to edit</button>
+                 </div>
+              </div>     
+      </div>
 
-          <div class="card-text mb-4"> 
+          <div class="card-text mt-5 mb-4"> 
             <label class="col-md-7" for="label3">Your current bank balance</label>
-              <input type="button" id="balance"  value="{{data.balance}}">    
+            
+              <input type="button" id="balance"  value="{{current_balance}}">    
           </div>
           <div class="card-text mb-4"> 
             <label class="col-sm-7" for="label2">Based on your transaction history, Your estimated spend before next payday is 
             </label>
-            <input type="button"  id="add_amount" name="add_amount" value="{{data.estimated_balance}}">   
+            <input type="button"  id="estimatedspend" name="estimatedspend" value='{{data.estimated_balance}}'>   
             <div class="card-text mt-2">
-                  <input type="checkbox" id="loan_correct" name="correct" value="correct">
+                  <input type="checkbox" id="loan_correct" name="correct" value="correct" checked>
                   <label for="correct"> That Sounds Correct</label><br>
                    
                   <input type="checkbox" class="mt-4" id="checkbox_2" name="Addtional_spend" value="Addtional_spend" onclick="popup()">
-                  <label for="Addtional_spend"> No,I may have more expenses</label><br> 
+                  <label for="Addtional_spend"> No,My Estimated Spend would be</label><br> 
            </div>
-           <div class="mx-auto"  id="checkBundle" style="display:none;float:right">
+           <div class="mx-auto col-md-4"  id="checkBundle" style="display:none;">
             <label for="addtionalspend"><b>Estimated spend:</b></label>
-            <input type="text" class="mt-2" name="addtionalspend" id="extra_amount"  required onchange="totalamount()"><br>
+            <input type="text" class="mt-2" name="addtionalspend" id="txtestimatedspend" value="0" required onchange="totalamount()"><br>
           </div>
         </div>
-        </div>
-      </div>
-    
-      <div class="card mx-auto">
-        <div class="card-body">
-          <div class="card-footer">
+       
+          <div >
             <form method="post" id="task-form">
               {% csrf_token %}
             <label class="col-sm-7">Your potential shortage before next paycheck is
             </label>
-              <input type="button" class="btn btn-light text-dark btn-lg" id="shortage" name="shortage" value="{{data.shortage_bill_amount}}"> 
-              <input type="submit"  class="btn btn-secondary" style="border-radius: 4px;display:none;float:right;"  id="update_shortage" value="update"></button>
+              <input type="button" class="btn" id="shortage" name="shortage" value="{{data.shortage_bill_amount}}"> 
+              <!-- <input type="submit"  class="btn " style="border-radius: 4px;display:none;float:right;"  id="update_shortage" value="update"></button> -->
         </form>
       </div>
         </div>
         {% if messages %}
-        <div class="col-sm-7" id="btnfundmybill" style="float:right;" >
+        <div class="col-sm-7" id="btnfundmybill" style="float:right; display:none;" >
           <a href="{% url 'check_membership' %}"  class="btn btn-dark w-50 py-3 disabled" style="border-radius: 4px;">Fund my bill</a>  
         </div>
           {% else %}
         <div class="col-sm-7" id="btnfundmybill" style="float:right;" >
-          <a href="{% url 'check_membership' %}"  class="btn btn-dark w-50 py-3" style="border-radius: 4px;">Fund my bill</a>  
+          <a href="#"  class="btn btn-dark w-50 py-3" style="border-radius: 4px;">Fund my bill</a>  
       </div>
       {%endif%}
-      </div>
+     
       
       
-      
-    </div>
+ 
+    {%endif%}
   </div>
-  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+  <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   <script>
-     function popup() {
+    var checkBox=document.getElementById('checkbox_2');
+    var $j = jQuery.noConflict();
+    //  Edit loan
+    var value=$('#loopcounter').val();
+   
+   function disable(){
+              $("#conformloan").css("display","none");
+             }
+   function enable()
+                      {
+                       
+                        for(var i=1;i<=value;i++){
+                            // alert(("#due_amount_"+i)) 
+                            $( "#due_amount_"+i ).replaceWith( function() {
+                                return "<input type=\"text\"  id=\"due_user_amt_"+i+"\"  value=\"" + $( this ).html() + "\" />";
+                                    });
+                                   
+                             $("#due_date_"+i).replaceWith( function() {
+                                   
+                                    return "<input type='text' name='duedate' id=\"due_user_date_"+i+"\" onchange=\"getdate(this,"+i+")\" class=\"datepicker\" value=\"" +$( this ).html() + "\" />";
+                                   }); 
+                                  // alert($("#due_user_date_"+i).val()) 
+                                 
+                            // $( "#days_more_"+i).html(0);
+  
+                        }
+ 
+                            $(".datepicker").each(function () {
+                                                    $j(this).datepicker({ dateFormat: 'yy-mm-dd' });
+                                                    
+                                                  });        
+                            $("#conformloan").hide();
+                            $("#update").append($('<button class="btn" id="update" style="float:right;" onclick="disable();" >update</button>'));
+
+                      }
+                
+  function getdate(dat,inc){
+                          
+                           var date1 = new Date();
+                           var date2 =new Date(dat.value);
+                            // To calculate the time difference of two dates
+                           var Difference_In_Time =Math.abs(date1.getTime() - date2.getTime());
+                         // // To calculate the no. of days between two dates
+                           var Difference_In_Days = Math.ceil(Difference_In_Time / (1000 * 3600 * 24));
+                           $( "#days_more_"+inc).html(Difference_In_Days);
+                           return
+                          }
+
+$("#update").click(function(e){
+
+           var values=get_user_data();
+           var user_due_amt=values[0];
+           var user_due_date=values[1];
+           var days_more=values[2];
+            // loan_stmt=$('#loan_stmt').val();
+            
+            function get_user_data()
+            {
+              // alert("getuserdata"+value)
+              var user_due_amt=[];
+              var user_due_date=[];
+              var days_more=[];
+              for(var i=1;i<=value;i++){
+                user_due_date.push($("#due_user_date_"+i).val());
+                user_due_amt.push($("#due_user_amt_"+i).val());
+	              days_more.push($("#days_more_"+i).text());
+                }
+                return [user_due_amt,user_due_date,days_more];
+            }
+            // alert(user_due_amt);
+            e.preventDefault();
+            $.ajax({
+                type:'POST',
+                url:"{% url 'update_loan' %}",
+                enctype: 'multipart/form-data',
+                data:
+                {   
+                    user_due_amt1:user_due_amt,
+                    user_due_date1:user_due_date,
+                  
+                    days_more1: days_more,
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
+                },
+                success:function(){
+                  window.location.href="#";
+                  Swal.fire({
+                                    title:"Thank You!",
+                                    text: "Your Loan Details Updated Successfully!",
+                                    customClass: 'swal-wide',
+                                    confirmButtonText: 'ok',
+                                    timer: 90000,
+                                    });
+                  document.getElementById("update").style.display="none";
+                    
+                    }
+                })
+              
+            });
+            
+  function popup() {
        var popwindow = document.getElementById("checkBundle");
-       var checkBox=document.getElementById('checkbox_2');
+       
        var shortagevalue;
        if (checkBox.checked == true) {
+                $("#loan_correct").prop('checked', false);
+                $("#loan_correct").prop('disabled',true);
+                // $(this).prop('checked', true);
+              
            popwindow.style.display = "block";
-           document.getElementById("extra_amount").value=0;
-           document.getElementById("update_shortage").style.display="block";
+           document.getElementById("txtestimatedspend").value=0;
+           document.getElementById("txtestimatedspend").oninput = function() {myFunc()};
+          //  $("input[name='addtionalspend']").oninput(function(){
+            function myFunc() {
+                  var value=parseInt(document.getElementById("txtestimatedspend").value);
+                  var value2=parseInt(document.getElementById("estimatedspend").value);
+                  var bal3=parseInt(document.getElementById("balance").value);
+                  shortagevalue =(value - bal3);
+                  // document.getElementById("estimatedspend").value=value
+                  if (shortagevalue > 0){document.getElementById("shortage").value =shortagevalue; }
+                  else{document.getElementById("shortage").value =0}
+            }
+          //  });
       } else {
+            
+            $("#loan_correct").prop('checked', true);
+            $("#checkbox_2").prop('checked', false);
             popwindow.style.display = "none";
-            document.getElementById("update_shortage").style.display="none";
-        //     shortagevalue=(parseInt(document.getElementById("add_amount").value) - parseInt(document.getElementById("balance").value));
-        //     if (shortagevalue > 0){document.getElementById("shortage").value =shortagevalue; 
-            
-        //   }
-        //     else{document.getElementById("shortage").value =0}
-            
+            document.getElementById("shortage").value="{{data.shortage_bill_amount}}";
+            document.getElementById("estimatedspend").value= '{{data.estimated_balance}}';
+            document.getElementById("update_shortage").style.display="none";  
         }
       
    };
-   function totalamount()
-   {
-    var checkBox=document.getElementById('checkbox_2');
-    var value=parseInt(document.getElementById("extra_amount").value);
-    var value2=parseInt(document.getElementById("add_amount").value);
-    var bal3=parseInt(document.getElementById("balance").value);
-    
-    if (checkBox.checked == true) {
-      // if (value2 == 0) 
-      shortagevalue =(value - bal3);
-      document.getElementById("add_amount").value=value
-      if (shortagevalue > 0){document.getElementById("shortage").value =shortagevalue; }
-      else{document.getElementById("shortage").value =0}
-    }
-    // else
-    // {
-    //   document.getElementById("shortage").value =(value2 - bal3);
-    // }
-   }
-   $(document).on('submit','#task-form',function(e){
+
+ 
+   $("#btnfundmybill").click(function(e){
+
+      let estimatedspend= $("#txtestimatedspend").val() ;
+       if(estimatedspend==0){estimatedspend='{{data.estimated_balance}}'}
+      //  alert(estimatedspend)
         e.preventDefault();
         $.ajax({
             type:'POST',
             url:"{% url 'update_shortage' %}" ,
             data:
             {   
-                extra_amount:$("#extra_amount").val(),
+                txtestimatedspend:estimatedspend,
                 shortage:$("#shortage").val(),
                 csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
             },
             success:function(){
-                  // alert('Saved');
-                  Swal.fire({  
-                        title: 'upadated',  
-                        //  showCancelButton: true,  
-                        confirmButtonText: `ok`,  
-                        // denyButtonText: `Don't save`,
-                        }).then((result) => {  
-                            /* Read more about isConfirmed, isDenied below */  
-                            if (result.isConfirmed) {    
-                                
-                                window.location.href="#"
-                            } else if (result.isDenied) {    
-                                // Swal.fire('Changes are not saved', '', 'info')  
-                            }
-                        });
+              window.location.href="{% url 'check_membership' %}";
+              $("#loan_correct").prop('checked', true);
+               $("#checkbox_2").prop('checked', false);
+               document.getElementById("checkBundle").style.display="none";
+                 
                     }
             })
-        });
+          
+    });
+
        
   </script>
  {% endblock body %}

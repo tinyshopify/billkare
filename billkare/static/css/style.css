@@ -1,5 +1,10 @@
 /********** Template CSS **********/
-
+* html .ui-helper-hidden-accessible 
+{
+ position: absolute !important; 
+ clip: rect(1px 1px 1px 1px); 
+ clip: rect(1px,1px,1px,1px); 
+}
 enable-extended-color-palette:false
 
 :root {
@@ -17,14 +22,9 @@ enable-extended-color-palette:false
 .fw-semi-bold {
     font-weight: 700 !important;
 }
-/* body{font-family: 'Open Sans';font-size: 22px;} */
-/* body{
-    font-family: "Roboto", Helvetica, Arial, sans-serif; 
-    /* background-color:#fff4db; */
-    /* font-family: Consolas, Monaco, Courier New, Courier, monospace; */
-
-
-body{font-family: Poppins,Helvetica,sans-serif}
+body{ font-family: 'Open Sans', sans-serif;
+      background-color:rgb(245, 236, 210);
+}
 /*** Spinner ***/
 #spinner {
     opacity: 0;
@@ -42,27 +42,26 @@ body{font-family: Poppins,Helvetica,sans-serif}
 
 /*** Button ***/
 .btn {
-    /* background-color: #c57308; Green */
-  border: none;
-  color: white;
-  padding: 12px 28px;;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 600;
-  background-image: linear-gradient(to bottom, #eb8613 0%, #6b3f05bd 100%); 
- 
-  font-family: Poppins,Helvetica,sans-serif
+   
+    margin-top: 1rem;
+	height: 2.6rem;
+	width: 13.3rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 4px;
+    background-image: linear-gradient(to bottom, #eb8613 0%, #6b3f05bd 100%); 
+    color: #fff;
+    outline: none;
+    border: 0;
+    padding: 5px;
+    font-weight: bold;
+    font-family: arial;
    
 }
 
-
-
-
-
 .services{margin-top: 10px; align-items:center;}
-pls{background-color: #FFF; padding: 5px; margin-top: 5px;}
+.pls{background-color: #FFF; padding: 5px; margin-top: 5px;}
 .pls-hd{ background-image: linear-gradient(to bottom, #585858 0%, #212121 100%); padding: 5px; color: #FFF; font-size: 18px; text-align: center; padding-top: 20px;}
 .pls-hd b{font-size: 22px; color: #FFF;}
 .plan-list li{ padding: 10px; border-bottom: 1px solid #ebebeb; text-align: center;list-style: none;}
@@ -76,7 +75,7 @@ pls{background-color: #FFF; padding: 5px; margin-top: 5px;}
 .container-fluid{padding: 0px; margin: 0px;}
 .row{margin: 0px; margin: 0px;}
 .hid{display: none;}
-btn-ico{ padding: 5px; height: 25px; line-height: 4px; font-size: 12px;}
+.btn-ico{ padding: 5px; height: 25px; line-height: 4px; font-size: 12px;}
 .texsgg small, b{ color: #808080;}
 strike{color: #525252}
 a:hover{text-decoration: none !important;}
@@ -101,16 +100,15 @@ a:hover{text-decoration: none !important;}
     margin-top:auto;
     margin-bottom: auto;
     animation-name: slideInUp;
-    /* font-family: 'BebasNeueRegular', 'Arial Narrow', Arial, sans-serif; */
-   
     line-height: 30px;
 }
 #home h1{
     color: rgb(145, 78, 3);
-    /* font-family: 'Economica', Arial, sans-serif;   */
+ 
 }
 #home ul li{
     color:#808080;
+    font-family: "op";
 }
  /* #one{  
     width: 100%;
@@ -118,14 +116,18 @@ a:hover{text-decoration: none !important;}
     animation-duration: 10s;
     animation-name: slideInUp; 
    }  */
-#image1,#image2,#image3{
-    background-size: auto;
-    background-repeat: no-repeat;
-  
-    width:50%;
-	height:100vh;
-    transition-timing-function: linear;
-}
+   img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border-radius: 8px;
+ 
+   
+    -moz-box-shadow: inset 10px 10px 50px #fff;
+-webkit-box-shadow: inset 10px 10px 50px #fff;
+box-shadow: inset 10px 10px 50px #fff;
+    }
 section{
 	width: 100%;
 	min-height: 1px;
@@ -142,49 +144,59 @@ section{
     padding:5px
  
 }
+/* .bill .card table tr{border-bottom: 1px solid rgb(233, 230, 230);} */
 .bill .card .loantable
 {
     border-collapse:separate;
     border-spacing:0 15px;
+    
+}
+#example  tr{
+        border-spacing:0 15px;
+        /* border-bottom: 1px solid rgb(211, 209, 209); */
+
 }
 
 /* box */
 .box {
-    background: #fff;
+  
     margin: 0 0 30px;
+    
+	background-color:rgb(247, 245, 245);
     border: solid 1px #e6e6e6;
     padding: 30px;
     -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   }
+  .accountsum .box {
+    float: left;
+    width: 33.33%;
+    
+    padding: 50px;
+  }
   
+  .accountsum .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
 /**card **/
 
-.card
-{ border: solid 1px #e6e6e6;
-    padding: 30px;
-    -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    font-family: "Roboto", Helvetica, Arial, sans-serif;
-}
+
 .bill .card{
     width: 100%; 
-    margin-top:50px;
-    border-radius: 25px;
-
-   
+    margin-top:50px;  
 }
 .bill .card .card-header{
-    background-color:#FFF;
+    background-color:transparent;
     
 }
 .bill .card a{
     float:right;
 }
 /**endcard **/
-.btn{
-    border-radius: 12px
-   
+@media screen and (max-width: 600px) {
+    .services{margin-top: 40px !important;}
 }
 /* hide in mobile screen */
 @media screen and (max-width: 600px) {
@@ -207,7 +219,10 @@ section{
     }
     .bill .card{ width:auto;
         height: auto;}
-
+    #fund_table{
+        display: inline-flex;
+        flex-direction: column;
+    }
   }
 /* hide in mobile screen */
 /*** Section Title ***/
@@ -259,7 +274,9 @@ section{
     color: rgb(1, 20, 24)!important;
 }
 /* swal alert */
+/* user forms */
 
+/* userforms css */
 /*** Footer ***/
 footer {
     background: #151616f3 ;
@@ -316,3 +333,12 @@ address {
     font-weight: 900;
     margin-right: 10px;
 }
+
+
+
+
+  
+
+  
+  
+  

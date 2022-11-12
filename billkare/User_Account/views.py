@@ -10,12 +10,13 @@ from django.shortcuts import render
 
 import datetime
 
-from Loan import common
-from .forms import AuthForm,LoginForm
-
-from .models import User,login_history
+from Loan import loanfunctions
+from .forms import AuthForm,LoginForm,catche_wishlistform
+from plaidlink.models import plaidUser
+import plaidlink 
+from .models import User, current_login,login_history,catche_wishlist
 from . import function
-from Loan.models import customer_loan_decision_attrs,PaymentSummaryHistory
+from Loan.models import customer_loan_decision_attrs,PaymentSummaryHistory, customer_loan_decision_attrs_active
 
 from membership import membership_function
 from membership.models import CatcheSubscriptionlookup
@@ -28,6 +29,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 
 # Verification email
 from django.contrib.sites.shortcuts import get_current_site
@@ -40,29 +43,73 @@ from django.core.mail import EmailMessage
 time=datetime.datetime.utcnow().strftime('%H:%M:%S')
 dt=datetime.datetime.utcnow()
 def home(request):
-    return render(request,"homepage.html")
+   return render(request,"homepage.html")
+def conform_waiting_list(request):
+    return render(request,"conform_waiting_list.html")
+
+def pre_launch(request):
+    user_form1 = catche_wishlistform()
+
+    if request.method == 'POST':
+       
+        user_form1 =catche_wishlistform(data=request.POST)
+      
+        if user_form1.is_valid():
+                user = user_form1.save(commit=False)
+                user.email=request.POST.get('email')
+                user.creUser="live_user"
+                user.CreatedTs = dt
+                user.UpdateTs =dt
+                user.InsUpdFlag ="I"
+                user.save()
+                # messages.success(request, "Thank You for Your Interest,We will contact you shortly")
+                return HttpResponseRedirect('conform_waiting_list')
+
+        else:
+            # One of the forms was invalid if this else gets called.
+            # print(user_form1.errors)
+            return HttpResponse('<b><h2>You Already Added to Wishlist!<h2></b>')
+    else:
+        # Was not an HTTP post so we just render the forms as blank.
+        print("form")
+        user_form1 =catche_wishlistform()
+    
+    return render(request,"prelaunch.html",{'user_form1':user_form1})
+
 def services(request):
     return render(request,"services.html")
 
 @login_required
 def user_logout(request):
     # Log out the user.
-    logout(request)
-    user1 = login_history()
+   
+    id=function.get_user(request.user.email)
+    user1 = current_login.objects.get(catche_id_id=id)
     user1.log_outtime=dt
     user1.save()
-    # Return to homepage.
+    login_history.objects.update_or_create( catche_id_id=id,
+                                user_email=user1.user_email,
+                                last_login=user1.last_login,
+                                log_outtime=user1.log_outtime,
+                                InsUpdFlag ="I",
+                                creUser="live user",)
+    
+    obj=current_login.objects.get(catche_id_id=id)
+    obj.delete()
+                
+    logout(request)
     return HttpResponseRedirect(reverse('home'))
 
 def no_fund(request):
    return render(request,"no_fund.html")
-   
+
+
 
 
 def signup(request):
 
     registered=False
-    print(request.method)
+   
     if request.method == 'POST':
        
         user_form =AuthForm(data=request.POST)
@@ -90,7 +137,9 @@ def signup(request):
 
         else:
             # One of the forms was invalid if this else gets called.
-            print(user_form.errors)
+            # print(user_form.errors)
+            render(request,'signup.html',
+                          {'user_form':user_form,})
 
     else:
         # Was not an HTTP post so we just render the forms as blank.
@@ -100,6 +149,7 @@ def signup(request):
                           {'user_form':user_form,
                            'registered':registered})
 
+
 def user_login(request):
     if request.user.is_authenticated:
         logout(request)
@@ -108,47 +158,57 @@ def user_login(request):
         login_form=LoginForm(data=request.POST)
         email = request.POST.get('user_email')
         password = request.POST.get('password')
-        user = authenticate(email=email,password=password)
         if login_form.is_valid():
-        # If we have a user
-            if user:
-                #Check it the account is active
-                if user.is_active:
-                    login(request,user)
-                    print(request.user.email)
-                    catcheid=function.get_user(request.user.email)
-                    print("id,",catcheid)
-                    # login history model
-                    user1 = login_history()
-                    user1.user_email=email
-                    user1.save()
+           
+            #   from exceptions import LockedOut
+              user = authenticate(email=email,password=password)
+          
+              if user:
+                    #Check it the account is active
+               if user.is_active:
+                        login(request,user)
+                        print(request.user.email)
+                        catcheid=function.get_user(request.user.email)
+                        print("id,",catcheid)
+                        # login history model
+                       
+                        current_login.objects.update_or_create(catche_id_id=catcheid,
+                                user_email=email,
+                                InsUpdFlag ="I",
+                                creUser="live user",)
+                        
                     # user attribute model entry
                    
-            # check the customer plaid user
-                 
-                    if not function.is_plaidUser(user.catche_id):
-                         messages.error(request, 'Before Login Please connect in Plaid!.')
-                         return redirect('connect_bank')
-                    print(common.is_paid(user.catche_id))
-                    if  common.is_paid(user.catche_id):
-                         return redirect('billing_details')
-                    testData=function.get_Testdata()
-                    randomNumber = random.randint(0,10)
-                    print("random number:",randomNumber)
-                    message=function.Put_Testdata(catcheid,randomNumber,testData)
-                    common.get_customerLoan(user.catche_id)
-                    messages.info(request,message)
-                    return redirect('transaction_details' )
-                    # If account is not active:
-                return HttpResponse("Your account is not active.")
-            else:
+                     # check the customer plaid user
+                        if not function.is_plaidUser(user.catche_id):
+                            messages.error(request, 'Before Login Please connect in Plaid!.')
+                            return redirect('connect_bank')
+                        print(loanfunctions.is_paid(user.catche_id))
+                        if  loanfunctions.is_paid(user.catche_id):
+                             return redirect('account_summary')
+                        # testData=function.get_Testdata()
+                        # randomNumber = random.randint(0,10)
+                        # print("random number:",randomNumber)
+                        # message=function.Put_Testdata(catcheid,randomNumber,testData)
+                       
+                        # messages.info(request,message)
+                    
+                        active_obj=customer_loan_decision_attrs_active.objects.filter(catche_id_id = user.catche_id)
+                        active_obj.delete()
+
+                        function.get_customer_data(user.catche_id)
+                        return redirect('account_summary')
+                        # If account is not active:
+               return HttpResponse("Your account is not active.")
+              else:
                 print("Someone tried to login and failed.")
                 print("They used username: {} and password: {}".format(email,password))
                 messages.error(request, 'Invalid username or password.')
                 return render(request,'LoginPage.html',{'login_form':login_form })
         else:
             # One of the forms was invalid if this else gets called.
-            print(login_form.errors)
+            # print(login_form.errors)
+               return render(request, 'LoginPage.html', {'login_form':login_form})
 
     else:
        

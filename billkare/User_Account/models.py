@@ -11,6 +11,7 @@ from django.core.validators import RegexValidator
 
 
 
+
 numeric = RegexValidator(r'^(\+\d{1,3})?,?\s?\d{8,13}$', message="Phone number must be entered in the format:'+99999'.upto 15 digits allowed.")
 from django.core.validators import EmailValidator
 from django.utils.deconstruct import deconstructible
@@ -105,15 +106,23 @@ class User(AbstractBaseUser,TimeStampModel):
     def has_module_perms(self, add_label):
         return True
   
-    
-class login_history(models.Model):
+class current_login(TimeStampModel):
+    Eventid=models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
+    catche_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
+    user_email      =models.EmailField(max_length=100)
+    last_login      = models.DateTimeField(auto_now_add=True)
+    log_outtime     =models.DateTimeField(null=True,blank=True)
+       
+class login_history(TimeStampModel):
+    Eventid=models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
+    catche_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
     user_email      =models.EmailField(max_length=100)
     last_login      = models.DateTimeField(auto_now_add=True)
     log_outtime     =models.DateTimeField(null=True,blank=True)
    
-   
-
-
+class catche_wishlist(TimeStampModel):
+    Eventid=models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
+    email=models.EmailField(max_length=100,null=True,blank=True,unique=True)
 
 
   

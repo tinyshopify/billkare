@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static %}
+<head>
+    <meta charset="utf-8">
+    
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+     <!-- Favicon -->
+     
+     <link href="images/favicon.ico" rel="icon">
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <!-- Icon Font Stylesheet -->
+ 
+  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+rel = "stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+ 
+  <!-- Libraries Stylesheet -->
+  <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{%static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{%static 'css/style.css' %}" rel="stylesheet">
+    <link href="{%static 'css/navbarstyles.css' %}" rel="stylesheet">
+    <link href="{%static 'css/usermenu.css' %}" rel="stylesheet">
+   
+      
+</head>
+<body style="background-color:white ;">   
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="container-xxl py-3 wow fadeInUp" data-wow-delay="0.1s">
+        <marquee style="color:rgb(145, 85, 6);font-size: 40px;  text-shadow: 1px 1px 2px white">Struggling to pay the bill, Don't worry! Catche will keep you on track </marquee>
+        <div class="container">
+            <h1 class="m-0 text-center catchename" style="font-size: 70px;">Catche</h1>
+            <h1 class="text-center mb-3">Get up to $1000* Instantly  to Pay the Bill.</h1>
+                <div class="row text-center "style="display: flex;justify-content: center;">
+                
+                
+                      <div class=" mt-5 mb-5"id="home">
+                        <div class="container">
+                            <h1 class="mt-5 mb-3"><i>Thank You!</i></h1>
+                            <i class="fa fa-handshake-o" style="font-size:48px;color:#cebd5e"></i>
+                        <h3 class="mt-5"><i>Thank you for choosing us. We are so happy to serve customers like you.!</i></h3>
+                        <h3><i>We Will contact you shortly!</i></h3>
+                      
+                      
+                            <div class="mb-5"style="display: flex;justify-content: center;">
+                                <a href="{% url 'pre_launch' %}" class="btn btn-primary btn-block"> Back to home</a>
+                            </div> 
+                       
+                      </div>
+                      </div>
+                   
+                  
+                </div>
+
+                  </div>
+           </div>
+                
+                    
+      
+<style>
+      img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+       
+        border-radius: 8px;
+     
+       
+        -moz-box-shadow: inset 10px 10px 50px #fff;
+  -webkit-box-shadow: inset 10px 10px 50px #fff;
+  box-shadow: inset 10px 10px 50px #fff;
+        }
+         
+    input[type=email] {
+   
+          
+            border-radius: 25px;
+            
+            -moz-box-shadow: inset 10px 10px 50px #fff;
+  -webkit-box-shadow: inset 10px 10px 50px #fff;
+  box-shadow: inset 10px 10px 50px #fff;
+            border-radius: 25px;
+            border: 2px solid #609;
+            padding: 20px; 
+            width: 500px;
+            height: 50px; 
+          
+      
+            border: 3px solid #ccc;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+            outline: none;
+}
+
+</style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+ 
+   
+ 
+</body>
+</html>

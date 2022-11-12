@@ -3,33 +3,41 @@
 .catchename{
   /* color: rgb(201, 119, 11); */
   color: rgb(145, 78, 3);
-  font-size: 50px;
-  font-family: sans-serif;
+  font-size: 40px;
+  padding: 16px 24px;
+  font-family: arial;
 }
 
    /*** Navbar ***/
+   .navbar{
+    background-color:rgb(245, 236, 210)
+   }
  .navbar .dropdown-toggle::after {
     border: none;
     content: "\f107";
-    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-weight: 900;
     vertical-align: middle;
     margin-left: 8px;
 }
 
 .navbar-light .navbar-nav .nav-link {
-    margin-right: 30px;
-    padding: 10px 0;
-    color:rgb(116, 114, 114);
-    font-weight: 900; font-size: 22px;
+    text-decoration: none;
+	font-size: 16px;
+	font-family: 'Open Sans', sans-serif;
+	padding: 16px 24px;
+
+	color: rgb(145, 78, 3);
     align-items: center;
-    
-    
+    font-size: 18px;
+    -webkit-transition: color 2s;
+    transition: color 2s;
+      
     
 }
 .navbar-light {
     border-bottom: 0;
-    
+  
 }
 
 @media (min-width: 992px) {
@@ -37,28 +45,32 @@
     .navbar .nav-item:hover {
         transform:scale(1) ;
         z-index:100;
-       background: rgb(230, 203, 144);
+        background-color:rgb(252, 228, 197);
         transition: 0.5s;
         opacity:2;
+        
     }
    
 }
 
 .navbar-light .navbar-nav .nav-link.active
 {
-     color: rgb(236, 185, 127);;
+     color: rgb(124, 59, 6);
 }
 
 @media (max-width: 991.98px) {
     .navbar-light .navbar-nav .nav-link  {
         margin-right: 0;
         padding: 10px 0;
-        color:rgb(116, 114, 114);
-       
+        color: rgb(145, 78, 3);
+        font-size: 16px;
+     
     }
 
     .navbar-light .navbar-nav {
-        border-bottom: 1px solid rgb(107, 109, 110);
+        border-bottom: 1px solid rgba(95, 96, 97, 0.425);
+        height:auto;
+    
     }
 }
 
@@ -69,8 +81,10 @@
 
 .navbar-light .navbar-nav .nav-link {
     /* color:rgb(116, 114, 114); */
-    color:rgb(116, 114, 114);
-    font-weight:bolder;
+   
+    -webkit-transition: color 2s;
+         transition: color 2s;
+           
 }
 .navbar-light .sticky-top {
     top: -100px;
@@ -80,13 +94,6 @@
 
 
 
-userheader
-{
-    position: relative;
-    z-index: 1;
-    margin: 0 auto;
-    max-width: 900px;
-}
 
 
 

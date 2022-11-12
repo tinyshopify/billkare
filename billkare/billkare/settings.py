@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 #from decouple import config
 import os
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+   
 ]
 
 ROOT_URLCONF = 'billkare.urls'
@@ -133,6 +135,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+USE_L10N = False
+DATE_FORMAT = "Y-m-d"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -177,3 +181,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #Writes e-mail content in files
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend" 
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
