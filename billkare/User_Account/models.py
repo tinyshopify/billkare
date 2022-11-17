@@ -86,7 +86,7 @@ class User(AbstractBaseUser,TimeStampModel):
     last_name       = models.CharField(max_length=50)
     email           = models.EmailField(max_length=100, unique=True,validators=[WhitelistEmailValidator(whitelist=['gmail.com', 'yahoo.com', 'hotmail.com'])])
     phone_number    = models.CharField(max_length=15,unique=True,validators=[numeric])
-    catche_id         =models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
+    Sugan_id         =models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
     CreatedDate    = models.DateTimeField(auto_now_add=True)
  
     USERNAME_FIELD = 'email'
@@ -108,19 +108,19 @@ class User(AbstractBaseUser,TimeStampModel):
   
 class current_login(TimeStampModel):
     Eventid=models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
-    catche_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
+    Sugan_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
     user_email      =models.EmailField(max_length=100)
     last_login      = models.DateTimeField(auto_now_add=True)
     log_outtime     =models.DateTimeField(null=True,blank=True)
        
 class login_history(TimeStampModel):
     Eventid=models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
-    catche_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
+    Sugan_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
     user_email      =models.EmailField(max_length=100)
     last_login      = models.DateTimeField(auto_now_add=True)
     log_outtime     =models.DateTimeField(null=True,blank=True)
    
-class catche_wishlist(TimeStampModel):
+class Sugan_wishlist(TimeStampModel):
     Eventid=models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
     email=models.EmailField(max_length=100,null=True,blank=True,unique=True)
 

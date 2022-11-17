@@ -1,5 +1,5 @@
 
-from .models import Subscription,CatcheSubscriptionlookup,SubscriptionHistory
+from .models import Subscription,SuganSubscriptionlookup,SubscriptionHistory
 import datetime
 
 dt=datetime.datetime.utcnow()
@@ -7,7 +7,7 @@ dt=datetime.datetime.utcnow()
 def addmembership(id,membership,username):
      print("add membership",id,membership,username)
      try:
-          s=Subscription.objects.get(catche_id_id=id)
+          s=Subscription.objects.get(Sugan_id_id=id)
           s.SubscriptionType_id=membership.Subscription_Type
           s.creUser         =username
           s.CreatedTs       =dt
@@ -15,12 +15,12 @@ def addmembership(id,membership,username):
           s.InsUpdFlag =  "U"
           s.save()
           reason="Update"
-          obj=Subscription.objects.get(catche_id_id=id)
+          obj=Subscription.objects.get(Sugan_id_id=id)
           print("subcription",obj)
           insertSubscriptionHistory(id,obj,reason,username)
           
      except Subscription.DoesNotExist:
-         s=Subscription.objects.update_or_create(catche_id_id=id,
+         s=Subscription.objects.update_or_create(Sugan_id_id=id,
                SubscriptionType_id=membership.Subscription_Type, 
                # SubscriptionStartDate=None,
                # SubscriptionEndDate=null,
@@ -28,14 +28,14 @@ def addmembership(id,membership,username):
                InsUpdFlag =  "I")
          reason="Create"
          print("create")
-         obj=Subscription.objects.get(catche_id_id=id)
+         obj=Subscription.objects.get(Sugan_id_id=id)
          print("subcription",obj)
          insertSubscriptionHistory(id,obj,reason,username)
 
 def cancelmembership(id,username): 
-     obj=CatcheSubscriptionlookup.objects.get(Subscription_Type=1)
+     obj=SuganSubscriptionlookup.objects.get(Subscription_Type=1)
      try:
-          s=Subscription.objects.get(catche_id_id=id)
+          s=Subscription.objects.get(Sugan_id_id=id)
           s.SubscriptionType_id=obj.Subscription_Type
           s.save()
           reason="Cancel"
@@ -47,14 +47,14 @@ def cancelmembership(id,username):
 
 def get_base(membership):
     try:
-          obj=CatcheSubscriptionlookup.objects.get(Subscription_Type=membership)
+          obj=SuganSubscriptionlookup.objects.get(Subscription_Type=membership)
           print(obj)
           return obj
-    except CatcheSubscriptionlookup.DoesNotExist: return None
+    except SuganSubscriptionlookup.DoesNotExist: return None
 
 def get_membership(id):
      try:
-          s=Subscription.objects.get(catche_id_id=id)
+          s=Subscription.objects.get(Sugan_id_id=id)
      except Subscription.DoesNotExist:
          return None
      return s.SubscriptionType_id
@@ -82,7 +82,7 @@ def insertSubscriptionHistory(id,s,reason,username):
    
      instance=SubscriptionHistory.objects.create(
           SubscriptionID_id=s.SubscriptionID,
-          catche_id_id    = id,
+          Sugan_id_id    = id,
           SubscriptionType_id=s.SubscriptionType_id,
           Subscription_Reason=Subscription_Reason,
           SubscriptionStartDate=s.SubscriptionStartDate,

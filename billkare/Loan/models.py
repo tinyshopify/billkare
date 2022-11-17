@@ -13,6 +13,12 @@ def get_duedate():
     
     duedate= datetime.date.today()+ datetime.timedelta(days=20)
     return duedate.strftime('%Y-%m-%d')
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'uploads/loanstatements/'+ datetime.date.today().strftime('%Y-%m-%d')+'/user_{0}/{1}'.format(instance.Sugan_id_id, filename)
+    #  return 'uploads/loanstatements/%Y/%m/%d/user_{0}/{1}'
+
+
 
 
 class TimeStampModel(models.Model):
@@ -26,9 +32,16 @@ class TimeStampModel(models.Model):
 
     class Meta:
         abstract = True
+
+class user_uploaded_statments(TimeStampModel):
+    EventID=models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
+    Sugan_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4) 
+    Upload_statement= models.FileField(upload_to =user_directory_path,null=True,validators=[FileExtensionValidator(['pdf'])]) 
+    # Upload_statement= models.FileField(upload_to='uploads/loanstatements/',null=True,validators=[FileExtensionValidator(['pdf'])]) 
+
         
 class customer_loan_decision_attrs(TimeStampModel):
-    catche_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
+    Sugan_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
     balance  =models.FloatField(default=0)
     loanType=models.CharField(max_length=50,default=None,null=True,blank=True,db_index=True)
     mortgage_due_amount=models.FloatField(default=0)
@@ -39,18 +52,17 @@ class customer_loan_decision_attrs(TimeStampModel):
     creditcard_statment_balance_amount=models.FloatField(default=0)
     creditcard_due_date=models.CharField(default=get_duedate(),null=True,db_index=True,blank=True,max_length=50,)
     loan_eligiblity_flag=models.CharField(max_length=50,default=None,db_index=True,blank=True)
-    max_loan_amount_from_catche=models.FloatField(default=0)
-    min_loan_amount_from_catche=models.FloatField(default=0)
+    max_loan_amount_from_Sugan=models.FloatField(default=0)
+    min_loan_amount_from_Sugan=models.FloatField(default=0)
     estimated_balance=models.FloatField(default=0.0)
     shortage_bill_amount=models.FloatField(default=0.0)
     paycheck_date=models.CharField(default=get_duedate(),max_length=50,null=True,db_index=True,blank=True)
-    catche_risk_score_0_100=models.IntegerField(default=0)
+    Sugan_risk_score_0_100=models.IntegerField(default=0)
     customer_entered_bill_amount=models.FloatField(default=0)
-    catche_bill_due_date=models.CharField(default=get_deadline(),max_length=50,null=True,db_index=True,blank=True) 
-    Upload_statement= models.FileField(upload_to ='uploads/loanstatements/%Y/%m/%d',null=True,validators=[FileExtensionValidator(['pdf'])]) 
-
+    Sugan_bill_due_date=models.CharField(default=get_deadline(),max_length=50,null=True,db_index=True,blank=True) 
+   
 class customerLoan(TimeStampModel):
-     catche_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4 )
+     Sugan_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4 )
      Loan_Type=models.CharField(max_length=50,default=0)
      PaymentDue_amount=models.FloatField(("Minimum Due amount"),default="$")
      Due_date = models.CharField(("Due Date"),blank=True,max_length=50,null=True,default=get_duedate())
@@ -59,7 +71,7 @@ class customerLoan(TimeStampModel):
 
 class customer_loan_history(TimeStampModel):
      EventID=models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
-     catche_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4 )
+     Sugan_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4 )
      Loan_Type=models.CharField(max_length=50,default=0)
      PaymentDue_amount=models.FloatField(("Minimum Due amount"),default="$")
      Due_date = models.CharField(("Due Date"),blank=True,max_length=50,null=True,default=get_duedate())
@@ -67,13 +79,13 @@ class customer_loan_history(TimeStampModel):
     
 
 class PaymentSummary(TimeStampModel):
-    catche_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
+    Sugan_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
     Loan_Type=models.CharField(max_length=50,default=0)
     next_Duedate = models.CharField(("Due Date"),blank=True,max_length=50,null=True)
     PaymentDue_amount=models.FloatField(("Minimum Due amount"))
     Planned_payment=models.FloatField(("Your Planned Payment"))
     user_payment=models.FloatField(("Your Payment"))
-    catche_fund=models.FloatField(("Fund From Catche"),default=0)
+    Sugan_fund=models.FloatField(("Fund From Sugan"),default=0)
     fund_return_date=models.CharField(("Fund return Date"),max_length=50,default=str((datetime.date.today()+datetime.timedelta(days=10))))
     fund_return_amount =models.FloatField(default=0)
     current_paydate=models.CharField(default=now,max_length=50)
@@ -81,20 +93,20 @@ class PaymentSummary(TimeStampModel):
     days_more=models.IntegerField(default=0)
 
 class PaymentSummaryHistory(TimeStampModel):
-    catche_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
+    Sugan_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
     Loan_Type=models.CharField(max_length=50,default=0)
     PaymentDue_amount=models.FloatField(("Minimum Due amount"))
     next_Duedate = models.CharField(("Due Date"),max_length=50,default=get_deadline(),blank=True,null=True)
     Planned_payment=models.FloatField(("Your Planned Payment"))
     user_payment=models.FloatField(("Your Payment"))
-    catche_fund=models.FloatField(("Fund From Catche"),default=0)
+    Sugan_fund=models.FloatField(("Fund From Sugan"),default=0)
     fund_return_date=models.CharField(("Fund return Date"),max_length=50,default=(get_deadline()+datetime.timedelta(days=10)))
     fund_return_amount =models.FloatField(default=0)
     current_paydate=models.CharField(default=now,max_length=50,)
     is_paid=models.CharField(max_length=10,blank=True,null=True)
 
 class PaymentInfo(TimeStampModel):
-    catche_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
+    Sugan_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
     loan_type=models.CharField(max_length=50,default=0)
     account_number=models.CharField(max_length=50,default=0)
     company=models.CharField(max_length=50,default=0)
@@ -109,7 +121,7 @@ class PaymentInfo(TimeStampModel):
 class customer_loan_decision_attrs_active(TimeStampModel):  
     
     EventID=models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
-    catche_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
+    Sugan_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
     plaid_id =models.ForeignKey(plaidUser,on_delete=models.CASCADE,default=uuid.uuid4)
     access_token=models.CharField(max_length=50,blank=True,null=True)
     account_id=models.CharField(max_length=50,blank=True,null=True)
@@ -128,7 +140,7 @@ class customer_loan_decision_attrs_active(TimeStampModel):
 class customer_loan_decision_attrs_history(TimeStampModel):  
     
     EventID=models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
-    catche_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
+    Sugan_id= models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
     plaid_id =models.ForeignKey(plaidUser,on_delete=models.CASCADE,default=uuid.uuid4)
     access_token=models.CharField(max_length=50,blank=True,null=True)
     account_id=models.CharField(max_length=50,blank=True,null=True)

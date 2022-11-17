@@ -4,18 +4,20 @@
 
 {% block body %}
 
-<div class="container px-5 mt-3"> 
+<div class="container mt-3"> 
   {% if messages %}
   <h3>Hi, {{user.first_name}} Congrats Your dont have any Payments!</h3>
 {% else %}
   
-        <div class="mt-2"> <h4>Hi, {{user.first_name}}</h4></div>
-         
+        <div class= mt-2"> <h4>Hi, {{user.first_name}}</h4></div>
+       
            <div class=" mb-4"> 
             <label class="col-md-7" for="label3">Your Upcoming Payments:</label>
                
           </div>
-           <div class=" mb-4">
+          {%if paid %}
+          {%else%}
+           <div class="mb-4">
             <table id="example"> 
                 <tr ><th >Loan Type</th><th>Payments Due</th><th>Due date</th><th>days more</th></tr>
                 {% for i in data1 %} 
@@ -41,32 +43,46 @@
             </table>
           
             <input type="hidden" name='loopcounter' id="loopcounter" value="{{data1|length}}">
+           
         </div>
         {% include 'includes/alerts.html' %}
-        <div class="card-body mb-5">
-                <div class="col-sm-6 mb-5" id="update">
-                    
-                </div>
+        {%if upload %}
+              <div class="card-body mb-5">
+                      <div class="col-sm-6" id="update">
+                          
+                      </div>
+                      
+                      <div  class="row " id="conformloan">
+                        <h6 class="mb-4">Does it sounds Correct?</h6>
+                      <div class="col-sm-3">
+                        <button class="btn " id="yes" style="border-radius: 4px;" onclick="disable()">Yes,Correct.</button>
+                      </div>
+                      
+                      <div class="col-sm-3">
+                        <button class="btn  " style="border-radius: 4px;" id="no" onclick="enable()">No,I need to edit</button>
+                      </div>
+                    </div>     
+            </div>
+          
+          <div class="card col-md-6 ">
+            <form class="px-3 mt-3"  id='stmt_form'  method = "POST"  enctype='multipart/form-data'>
+              {% csrf_token %}
                 
-                <div  class="row mt-4" id="conformloan">
-                  <h6 class="mb-4">Does it sounds Correct?</h6>
-                 <div class="col-sm-6">
-                  <button class="btn w-50 py-3" id="yes" style="border-radius: 4px;" onclick="disable()">Yes,Correct.</button>
-                 </div>
-                 
-                 <div class="col-sm-6">
-                  <button class="btn  w-50 py-3" style="border-radius: 4px;" id="no" onclick="enable()">No,I need to edit</button>
-                 </div>
-              </div>     
-      </div>
-
+              {% include 'includes/alerts.html' %}
+                <div class="px-3 ">
+                  {{ form.as_p}}
+                  <input type="submit" value="Upload" id="stmt_upload" class="btn mb-3" onclick="submitstmtform()"> </input>
+                </div>
+            </form>
+            </div>
+      {% endif %}
           <div class="card-text mt-5 mb-4"> 
             <label class="col-md-7" for="label3">Your current bank balance</label>
             
               <input type="button" id="balance"  value="{{current_balance}}">    
           </div>
           <div class="card-text mb-4"> 
-            <label class="col-sm-7" for="label2">Based on your transaction history, Your estimated spend before next payday is 
+            <label class="col-md-7" for="label2">Based on your transaction history, Your estimated spend before next payday is 
             </label>
             <input type="button"  id="estimatedspend" name="estimatedspend" value='{{data.estimated_balance}}'>   
             <div class="card-text mt-2">
@@ -76,36 +92,34 @@
                   <input type="checkbox" class="mt-4" id="checkbox_2" name="Addtional_spend" value="Addtional_spend" onclick="popup()">
                   <label for="Addtional_spend"> No,My Estimated Spend would be</label><br> 
            </div>
-           <div class="mx-auto col-md-4"  id="checkBundle" style="display:none;">
+           <div class="col-md-7"  id="checkBundle" style="display:none;">
             <label for="addtionalspend"><b>Estimated spend:</b></label>
             <input type="text" class="mt-2" name="addtionalspend" id="txtestimatedspend" value="0" required onchange="totalamount()"><br>
           </div>
         </div>
        
-          <div >
-            <form method="post" id="task-form">
+        
+          
+        <form method="post" id="task-form">
               {% csrf_token %}
             <label class="col-sm-7">Your potential shortage before next paycheck is
             </label>
-              <input type="button" class="btn" id="shortage" name="shortage" value="{{data.shortage_bill_amount}}"> 
+              <input type="text" id="shortage" name="shortage" value="{{data.shortage_bill_amount}}"disabled> 
               <!-- <input type="submit"  class="btn " style="border-radius: 4px;display:none;float:right;"  id="update_shortage" value="update"></button> -->
         </form>
-      </div>
-        </div>
+      
+      
         {% if messages %}
-        <div class="col-sm-7" id="btnfundmybill" style="float:right; display:none;" >
-          <a href="{% url 'check_membership' %}"  class="btn btn-dark w-50 py-3 disabled" style="border-radius: 4px;">Fund my bill</a>  
+        <div class="col-md-7" id="btnfundmybill" style=" display:none;" >
+          <a href="{% url 'check_membership' %}"  class="btn disabled">Fund my bill</a>  
         </div>
           {% else %}
-        <div class="col-sm-7" id="btnfundmybill" style="float:right;" >
-          <a href="#"  class="btn btn-dark w-50 py-3" style="border-radius: 4px;">Fund my bill</a>  
+        <div class="col-md-7" id="btnfundmybill" style="display: flex;justify-content: center;" >
+          <a href="#"  class="btn btn-dark w-50 py-3">Fund my bill</a>  
       </div>
       {%endif%}
-     
-      
-      
- 
-    {%endif%}
+  {%endif%}
+  {%endif%}
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
   <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -137,7 +151,7 @@
                             // $( "#days_more_"+i).html(0);
   
                         }
- 
+                           
                             $(".datepicker").each(function () {
                                                     $j(this).datepicker({ dateFormat: 'yy-mm-dd' });
                                                     
@@ -158,6 +172,38 @@
                            $( "#days_more_"+inc).html(Difference_In_Days);
                            return
                           }
+$( "#stmt_form" ).on( "submit", function(e){
+      e.preventDefault();
+      var dataString =new FormData($('#stmt_form').get(0));;
+    
+      $.ajax({
+          type: "POST",
+          url:"{% url 'transaction_details' %}",
+          enctype: 'multipart/form-data',
+          data: dataString,
+          cache: false,
+          processData: false,
+          contentType: false,
+          success: function(response) {
+             window.location.href="#";
+           
+                  Swal.fire({
+                                    title:"Thank You!",
+                                    text: "Your Account Statement Uploaded Successfully!",
+                                    customClass: 'swal-wide',
+                                    confirmButtonText: 'ok',
+                                    timer: 90000,
+                                    });
+                  // document.getElementById("update").style.display="none";
+ // $('#stmt_form').css("display","none");
+             
+                }
+                
+                });
+    
+                return false;    
+      });
+
 
 $("#update").click(function(e){
 
@@ -181,6 +227,8 @@ $("#update").click(function(e){
                 return [user_due_amt,user_due_date,days_more];
             }
             // alert(user_due_amt);
+            // var frm = document.getElementsById('stmt_form');
+            // frm.submit(true);
             e.preventDefault();
             $.ajax({
                 type:'POST',
@@ -195,6 +243,7 @@ $("#update").click(function(e){
                     csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
                 },
                 success:function(){
+
                   window.location.href="#";
                   Swal.fire({
                                     title:"Thank You!",
@@ -204,12 +253,14 @@ $("#update").click(function(e){
                                     timer: 90000,
                                     });
                   document.getElementById("update").style.display="none";
+                  
                     
                     }
                 })
               
             });
             
+ 
   function popup() {
        var popwindow = document.getElementById("checkBundle");
        

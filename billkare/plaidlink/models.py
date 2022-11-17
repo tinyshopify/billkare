@@ -19,14 +19,14 @@ class TimeStampModel(models.Model):
         abstract = True
 
 class plaidUser(TimeStampModel):
-     catche_id      = models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4 )
+     Sugan_id      = models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4 )
      plaid_id       =models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
      access_token   =models.CharField(max_length=50,blank=True)
      created_date   =models.DateTimeField(auto_now_add=True)
    
 class plaidUserHistory(TimeStampModel):
     EventID        =models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4)
-    catche_id      =models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
+    Sugan_id      =models.ForeignKey(User,on_delete=models.CASCADE,default=uuid.uuid4)
     plaid_id       =models.ForeignKey(plaidUser,on_delete=models.CASCADE,default=uuid.uuid4)
     access_token   =models.CharField(max_length=50,blank=True,null=True)
     linkReason     =models.CharField(max_length=50,blank=True)

@@ -67,9 +67,9 @@ def get_link_token(client_user_id):
     return link_token
 
 def insertPlaidHistory(id,username):
-    instance=plaidUser.objects.get(catche_id=id)
+    instance=plaidUser.objects.get(Sugan_id=id)
     pobj=plaidUserHistory.objects.create(
-            catche_id_id      =id,
+            Sugan_id_id      =id,
             plaid_id_id      =instance.plaid_id,
             access_token   =instance.access_token,
             linkReason     ="connecting bank",

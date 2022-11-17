@@ -4,7 +4,7 @@ from User_Account import function
 from Loan.models import customer_loan_decision_attrs
 
 from . import membership_function
-from .models import Subscription,CatcheSubscriptionlookup
+from .models import Subscription,SuganSubscriptionlookup
 
 def subscription_details(request):
      return render(request,'subscription_details.html',{'nbar': 'sub'})
@@ -21,7 +21,7 @@ def update_membership(request):
         print("postmethod")
         membership=request.POST.get('check_box1')
         print(membership)
-        obj=CatcheSubscriptionlookup.objects.get(SubscriptionName=membership)
+        obj=SuganSubscriptionlookup.objects.get(SubscriptionName=membership)
         print(obj.Subscription_limit)
         membership_function.addmembership(id,obj,request.user.first_name)
         return redirect('subscription')
@@ -36,7 +36,7 @@ def add_membership(request):
         membership=request.POST.get('check_box1')
         # procced=request.POST.get('check_box1')
         print(membership)
-        obj=CatcheSubscriptionlookup.objects.get(SubscriptionName=membership)
+        obj=SuganSubscriptionlookup.objects.get(SubscriptionName=membership)
         print(obj.Subscription_limit)
         if s.shortage_bill_amount > obj.Subscription_limit and membership == obj.SubscriptionName:
             print("no eligible")
@@ -53,7 +53,7 @@ def shortage_membership(request):
     if request.method == 'POST':
         membership=request.POST.get('check_box1')
         print(membership)
-        obj=CatcheSubscriptionlookup.objects.get(SubscriptionName=membership)
+        obj=SuganSubscriptionlookup.objects.get(SubscriptionName=membership)
         membership_function.addmembership(id,obj,request.user.first_name)
         return redirect('loan_payment')
     print("form submited")

@@ -11,15 +11,15 @@ from django.shortcuts import render
 import datetime
 
 from Loan import loanfunctions
-from .forms import AuthForm,LoginForm,catche_wishlistform
+from .forms import AuthForm,LoginForm,Sugan_wishlistform
 from plaidlink.models import plaidUser
 import plaidlink 
-from .models import User, current_login,login_history,catche_wishlist
+from .models import User, current_login,login_history,Sugan_wishlist
 from . import function
 from Loan.models import customer_loan_decision_attrs,PaymentSummaryHistory, customer_loan_decision_attrs_active
 
 from membership import membership_function
-from membership.models import CatcheSubscriptionlookup
+from membership.models import SuganSubscriptionlookup
 from django.shortcuts import render, redirect, get_object_or_404
 # import csv,os,json
 # from billkare.settings import Filepath
@@ -48,11 +48,11 @@ def conform_waiting_list(request):
     return render(request,"conform_waiting_list.html")
 
 def pre_launch(request):
-    user_form1 = catche_wishlistform()
+    user_form1 = Sugan_wishlistform()
 
     if request.method == 'POST':
        
-        user_form1 =catche_wishlistform(data=request.POST)
+        user_form1 =Sugan_wishlistform(data=request.POST)
       
         if user_form1.is_valid():
                 user = user_form1.save(commit=False)
@@ -72,7 +72,7 @@ def pre_launch(request):
     else:
         # Was not an HTTP post so we just render the forms as blank.
         print("form")
-        user_form1 =catche_wishlistform()
+        user_form1 =Sugan_wishlistform()
     
     return render(request,"prelaunch.html",{'user_form1':user_form1})
 
@@ -84,17 +84,17 @@ def user_logout(request):
     # Log out the user.
    
     id=function.get_user(request.user.email)
-    user1 = current_login.objects.get(catche_id_id=id)
+    user1 = current_login.objects.get(Sugan_id_id=id)
     user1.log_outtime=dt
     user1.save()
-    login_history.objects.update_or_create( catche_id_id=id,
+    login_history.objects.update_or_create( Sugan_id_id=id,
                                 user_email=user1.user_email,
                                 last_login=user1.last_login,
                                 log_outtime=user1.log_outtime,
                                 InsUpdFlag ="I",
                                 creUser="live user",)
     
-    obj=current_login.objects.get(catche_id_id=id)
+    obj=current_login.objects.get(Sugan_id_id=id)
     obj.delete()
                 
     logout(request)
@@ -128,11 +128,11 @@ def signup(request):
 
                 login(request, new_user)
                 membership=membership_function.get_base(1)
-                membership_function.addmembership(request.user.catche_id,membership,request.user.first_name)
+                membership_function.addmembership(request.user.Sugan_id,membership,request.user.first_name)
                 
                  #Registration Successful!
                 registered = True
-                messages.success(request, 'Catche signup succcessfully!.')
+                messages.success(request, 'Sugan signup succcessfully!.')
                 return redirect('connect_bank')
 
         else:
@@ -168,11 +168,11 @@ def user_login(request):
                if user.is_active:
                         login(request,user)
                         print(request.user.email)
-                        catcheid=function.get_user(request.user.email)
-                        print("id,",catcheid)
+                        Suganid=function.get_user(request.user.email)
+                        print("id,",Suganid)
                         # login history model
                        
-                        current_login.objects.update_or_create(catche_id_id=catcheid,
+                        current_login.objects.update_or_create(Sugan_id_id=Suganid,
                                 user_email=email,
                                 InsUpdFlag ="I",
                                 creUser="live user",)
@@ -180,23 +180,23 @@ def user_login(request):
                     # user attribute model entry
                    
                      # check the customer plaid user
-                        if not function.is_plaidUser(user.catche_id):
+                        if not function.is_plaidUser(user.Sugan_id):
                             messages.error(request, 'Before Login Please connect in Plaid!.')
                             return redirect('connect_bank')
-                        print(loanfunctions.is_paid(user.catche_id))
-                        if  loanfunctions.is_paid(user.catche_id):
+                        print(loanfunctions.is_paid(user.Sugan_id))
+                        if  loanfunctions.is_paid(user.Sugan_id):
                              return redirect('account_summary')
                         # testData=function.get_Testdata()
                         # randomNumber = random.randint(0,10)
                         # print("random number:",randomNumber)
-                        # message=function.Put_Testdata(catcheid,randomNumber,testData)
+                        # message=function.Put_Testdata(Suganid,randomNumber,testData)
                        
                         # messages.info(request,message)
                     
-                        active_obj=customer_loan_decision_attrs_active.objects.filter(catche_id_id = user.catche_id)
+                        active_obj=customer_loan_decision_attrs_active.objects.filter(Sugan_id_id = user.Sugan_id)
                         active_obj.delete()
 
-                        function.get_customer_data(user.catche_id)
+                        function.get_customer_data(user.Sugan_id)
                         return redirect('account_summary')
                         # If account is not active:
                return HttpResponse("Your account is not active.")

@@ -1,7 +1,7 @@
 from logging import PlaceHolder
 from django import forms
 from django.forms.widgets import HiddenInput
-from .models import User,login_history,catche_wishlist
+from .models import User,login_history,Sugan_wishlist
 
 class AuthForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(),)
@@ -64,12 +64,12 @@ class LoginForm(forms.ModelForm):
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].label = ""
 
-class catche_wishlistform(forms.ModelForm):
+class Sugan_wishlistform(forms.ModelForm):
     class Meta():
-        model = catche_wishlist
+        model = Sugan_wishlist
         fields = ('email',)
     def __init__(self, *args, **kwargs):
-        super( catche_wishlistform, self).__init__(*args, **kwargs)
+        super( Sugan_wishlistform, self).__init__(*args, **kwargs)
         self.fields['email'].widget.attrs['placeholder'] = 'Email Address'
   
         
