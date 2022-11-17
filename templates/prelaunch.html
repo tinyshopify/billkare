@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static %}
+<head>
+    <meta charset="utf-8">
+    
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+     <!-- Favicon -->
+     
+     <link href="images/favicon.ico" rel="icon">
+
+  <!-- Google Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <!-- Icon Font Stylesheet -->
+ 
+  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+rel = "stylesheet">
+ 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
+ 
+  <!-- Libraries Stylesheet -->
+  <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{%static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{%static 'css/style.css' %}" rel="stylesheet">
+    <link href="{%static 'css/navbarstyles.css' %}" rel="stylesheet">
+    <link href="{%static 'css/usermenu.css' %}" rel="stylesheet">
+   
+      
+</head>
+<body style="background-color:white ;">   
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="container-xxl py-3 wow fadeInUp" data-wow-delay="0.1s">
+        <marquee style="color:rgb(145, 85, 6);font-size: 40px;  text-shadow: 1px 1px 2px white">Struggling to pay the bill, Don't worry! Sugan will keep you on track </marquee>
+        <div class="container">
+            <h1 class="m-0 text-center Suganname" style="font-size: 70px;">Sugan</h1>
+            <h1 class="text-center mb-3">Get up to $1000* Instantly  to Pay the Bill.</h1>
+                <div class="row ">
+                  <div class="col-lg-6 mt-3 px-lg-5" >
+                    <img src="{%static 'images\home3.png' %}" class="img-fluid" alt="Sample image">
+                   
+                  </div>
+                
+                      <div class="col-sm-6 mt-5 mb-5"id="home">
+                        <div class="container">
+                        <h5 class="mt-5 py-5" style="color: rgb(155, 153, 151);">Sugan will help you by monitoring your transactions and detect any potential cash shortage in your bank account and pay your bill.</h5>
+                        
+                        <form action="{% url 'pre_launch' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="col-sm-12 mb-5 mt-4" style="display: flex;justify-content: center;">
+                                <table>
+                                    {{user_form1.as_table }}
+                                </table>
+                            </div>
+                            <div class="mb-5"style="display: flex;justify-content: center;">
+                                <button type="submit" class="btn btn-primary btn-block"> Join the waitinglist</button>
+                            </div> 
+                        </form>
+                      </div>
+                      </div>
+                   
+                  
+                </div>
+                <hr>
+<div class="container  px-5 my-3"> 
+  <div class="text-center wow fadeInUp mb-4" data-wow-delay="0.1s">
+    <h1 style="color: rgb(155, 153, 151);" >To help millions of consumers trying to achieve greater stability and control in their financial lives.
+    </h1>
+</div>
+
+</div>
+<hr>
+  <div class="container  px-5 mt-3"> 
+      <div class="row mt-5" >
+        <div class="col-md-6 wow fadeInUp">
+          <div >
+            <img src="{% static 'images\home3.png' %}"  alt="" style="object-fit: cover;"/>
+            
+          </div>
+        </div>
+        <div class="col-md-6 py-3" id="home" data-wow-delay="0.5s">
+         
+              <h1 class="display-6 mb-0" >
+                ALL IN ONE PLACE
+             </h1>
+            <ul  class='h5'style="display: table; margin: 0 auto;">
+              <li class="mt-3"> Manage budget…</li>
+                <li class="mt-3">Pay your bills </li> 
+                   <li class="mt-3" >Short Term Funding if needed </li> 
+              <div class="col-md-12 mt-3">
+                <a href="{% url 'signup' %}" class="btn">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+              </div>
+            </ul>  
+        </div>
+    
+    </div>
+  
+  
+   
+      <div class="row mt-5" >
+        <div class="col-md-6 " id="home" >
+         
+              <h1 class="display-6 mb-0">
+                Pay your bills on time.
+            </h1>
+            <ul  class='h5'style="display: table; margin: 0 auto;">    
+                      <li class="mt-3">No Interest !</li></br>
+                      <li>No Credit Check !</li> </br>
+                        <li>No More Late Fees !</li></br>
+                      <li> No More Overdraft Fees !</li>  
+            </ul> 
+      </div>
+        <div class="col-md-6  mt-5">
+            <img class="img" src="{% static 'images\dashboardpage.png' %}"  alt="" style="object-fit: cover;"/>
+        </div>
+        
+      
+    </div>
+    <hr>
+
+  <div class="row mt-5" >
+    
+      <div class="col-md-6 mb-3">
+          <img  src="{% static 'images\home3.png' %}"  alt="" style="object-fit: cover;"/>
+      </div>
+      <div class="col-md-6 mt-5" id="home">
+      
+        <h1 class="display-6 mb-0">
+          Close the gap between income and cashflow.
+        </h1>
+        <ul  class='h5'style="display: table; margin: 0 auto;">    
+                <li class="mt-3">Magic way to build your credit  and avoid negative impact on your Credit Score
+                </li>    
+       </ul> 
+    </div>
+                
+                    <div class="container" >
+                        <h1 class="mt-5 text-center py-5" style="color: rgb(155, 153, 151);">Time to catch up with your life not worry about your bills.</h1>
+                        {% include 'includes/alerts.html' %}
+                        <form action="{% url 'pre_launch' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="h1" style="display: flex;justify-content: center;">
+                                <table>
+                                    {{user_form1.as_table }}
+                                </table>
+                            </div>
+                            <div class="mb-5 mx-1 mx-md-2 mt-2"style="display: flex;justify-content: center;">
+                                <button type="submit" class="btn btn-primary btn-block"> Join the wishlist</button>
+                            </div> 
+                        </form>
+                      </div>
+                      
+                   
+    
+        </div>
+    </div>   
+
+      
+<style>
+      img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+       
+        border-radius: 8px;
+        
+       
+        }
+         
+    input[type=email] {
+   
+          
+            border-radius: 25px;
+            
+            -moz-box-shadow: inset 10px 10px 50px #fff;
+            -webkit-box-shadow: inset 10px 10px 50px #fff;
+            box-shadow: inset 10px 10px 50px #fff;
+            border-radius: 25px;
+            border: 2px solid #609;
+            padding: 20px; 
+            width: 300px;
+            height: 50px; 
+          
+      
+            border: 3px solid #ccc;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+            outline: none;
+}
+
+</style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}" type="text/javascript"></script>
+ 
+   
+ 
+</body>
+</html>
