@@ -1,17 +1,19 @@
 
-/* catche name */
-.catchename{
+/* Sugan name */
+.Suganname{
   /* color: rgb(201, 119, 11); */
   color: rgb(145, 78, 3);
-  font-size: 40px;
+  font-size: 60px;
   padding: 16px 24px;
   font-family: arial;
+  text-transform:capitalize;
+ 
 }
 
    /*** Navbar ***/
-   .navbar{
+   /* .navbar{
     background-color:rgb(245, 236, 210)
-   }
+   } */
  .navbar .dropdown-toggle::after {
     border: none;
     content: "\f107";
@@ -26,7 +28,7 @@
 	font-size: 16px;
 	font-family: 'Open Sans', sans-serif;
 	padding: 16px 24px;
-
+    font-weight: 900;
 	color: rgb(145, 78, 3);
     align-items: center;
     font-size: 18px;

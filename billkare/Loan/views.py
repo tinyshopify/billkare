@@ -1,5 +1,5 @@
-from ast import Str
-from json import dump, dumps
+
+import json
 import pandas as pd
 
 from datetime import date, datetime,timedelta
@@ -14,11 +14,11 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from .forms import customerLoanForm
+from .forms import customerLoanForm,user_uploaded_statmentsForm
 from .models import PaymentInfo, customer_loan_decision_attrs, customer_loan_decision_attrs_history, customer_loan_history, customerLoan,PaymentSummary,PaymentSummaryHistory,customer_loan_decision_attrs_active
 from User_Account import function
 from .loanfunctions import calculate_days, put_customerLoan, get_total_avail_currrent_balance, is_paid
-from membership.models import Subscription,CatcheSubscriptionlookup
+from membership.models import Subscription,SuganSubscriptionlookup
 from django.contrib import messages
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -48,8 +48,8 @@ def dash_board(request):
     labels = []
     data = []
    
-    ctx = customer_loan_decision_attrs.objects.get(catche_id_id = id)
-    loan= customerLoan.objects.order_by('Loan_Type','PaymentDue_amount').filter(catche_id_id=id)
+    ctx = customer_loan_decision_attrs.objects.get(Sugan_id_id = id)
+    loan= customerLoan.objects.order_by('Loan_Type','PaymentDue_amount').filter(Sugan_id_id=id)
    
     for i in loan:
          labels.append(i.Loan_Type)
@@ -73,9 +73,9 @@ def loan_payment(request):
     id=function.get_user(request.user.email)
     # get_customerLoan(id)
     context ={}
-    context["data"] = customerLoan.objects.filter(catche_id_id=id)
-    obj= Subscription.objects.get(catche_id_id=id)
-    sub=CatcheSubscriptionlookup.objects.get(Subscription_Type=obj.SubscriptionType_id)
+    context["data"] = customerLoan.objects.filter(Sugan_id_id=id)
+    obj= Subscription.objects.get(Sugan_id_id=id)
+    sub=SuganSubscriptionlookup.objects.get(Subscription_Type=obj.SubscriptionType_id)
     context["sub"]=sub
     return render(request,"loan_payment.html",context)
 
@@ -86,26 +86,51 @@ def transaction_details(request):
     id=function.get_user(request.user.email)
     context ={}
     messages=False
-
+    upload=True
+    uploadstatement_form=user_uploaded_statmentsForm()
+    if request.method == 'POST':
+        uploadstatement_form=user_uploaded_statmentsForm(request.POST,request.FILES)
+       
+        if uploadstatement_form.is_valid():
+            obj=uploadstatement_form.save(commit=False)
+            obj.Sugan_id_id=id
+            obj.creUser="live_user"
+            obj.InsUpdFlag ='U'
+            obj.save()
+            upload=False
+            # return render(request,"transaction_details.html")
+        else :
+              print("form not valid")
+              messages.success(request, 'Password reset email has been sent to your email address.')
+              return redirect('home')
+              
+           
+    else:
+        form = user_uploaded_statmentsForm()
+   
     total_avail_balance,total_current_balance=get_total_avail_currrent_balance(id)
-    data = customer_loan_decision_attrs.objects.get(catche_id_id = id)
-    if customerLoan.objects.filter(catche_id_id=id).exists():
-         ctx = customerLoan.objects.filter(catche_id_id=id)
+    data = customer_loan_decision_attrs.objects.get(Sugan_id_id = id)
+    if customerLoan.objects.filter(Sugan_id_id=id).exists():
+         ctx = customerLoan.objects.filter(Sugan_id_id=id)
     else:
         ctx=None
         messages=True
     
-    context = {"avail_balance":total_avail_balance,"current_balance":total_current_balance,"data1":ctx,"data":data,'messages':messages}
+    context = {"avail_balance":total_avail_balance,
+                "current_balance":total_current_balance,
+                "data1":ctx,"data":data,'messages':messages
+                ,'paid':is_paid(id),
+                'form':uploadstatement_form,'upload':upload}
     context['nbar']='payments'
     return render(request,"transaction_details.html",context)
 
 def update_shortage(request):
-    print(request.method)
+    
     id=function.get_user(request.user.email)
     total_avail_balance,total_current_balance=get_total_avail_currrent_balance(id)
     if request.method == 'POST':
         shortage=request.POST.get('shortage')
-        print("Shortage",shortage)
+      
         txtestimatedspend=request.POST.get('txtestimatedspend')
         id=function.get_user(request.user.email)
        
@@ -118,7 +143,7 @@ def update_shortage(request):
         s.save()
         
         # except customer_loan_decision_attrs.DoesNotExist:
-        #     customer_loan_decision_attrs.objects.create(catche_id_id=id,
+        #     customer_loan_decision_attrs.objects.create(Sugan_id_id=id,
         #     balance=total_current_balance,
         #     loan_eligiblity_flag="yes",
         #     estimated_balance= float(txtestimatedspend),
@@ -131,15 +156,15 @@ def update_loan(request):
      print("updateloan")
      id=function.get_user(request.user.email)
      
-     ctx = customerLoan.objects.filter(catche_id_id=id)
-     print(ctx)
+     ctx = customerLoan.objects.filter(Sugan_id_id=id)
+     
      if request.method == 'POST':
         user_due_amt=request.POST.getlist('user_due_amt1[]')
         user_due_date=request.POST.getlist('user_due_date1[]')
         
         days_more= request.POST.getlist('days_more1[]')
-        print(user_due_amt,user_due_date,days_more)
-        # dec_obj = customer_loan_decision_attrs.objects.get(catche_id_id = id)
+       
+        # dec_obj = customer_loan_decision_attrs.objects.get(Sugan_id_id = id)
         # dec_obj.Upload_statement=user_loan_stmt.getvalue()
         # dec_obj.save()
         x=0
@@ -155,7 +180,7 @@ def update_loan(request):
              i.save()
              x=x+1
         for s in ctx:
-             customer_loan_history.objects.create(catche_id_id=id,
+             customer_loan_history.objects.create(Sugan_id_id=id,
                                     Loan_Type=s.Loan_Type,
                                     PaymentDue_amount=s.PaymentDue_amount,
                                     Due_date=s.Due_date,days_more=s.days_more,
@@ -186,23 +211,23 @@ def Payment_summary(request):
     if request.method == 'POST':
         bill1=request.POST.get('bill1')
         due=request.POST.get('due')
-        fund_catche=request.POST.get('fund_catche')
+        fund_Sugan=request.POST.get('fund_Sugan')
         Plan_pay=request.POST.get('Plan_pay')
         fund_you=request.POST.get('fund_you')
-        # print(bill1,fund_catche,Plan_pay,fund_you)
-        loanobj=customerLoan.objects.get(Loan_Type=bill1,catche_id_id=id)
-        print("next due date:",datetime.strptime(loanobj.Due_date,'%Y-%m-%d')+timedelta(days=30))
-        next_due_date=(datetime.strptime(loanobj.Due_date,'%Y-%m-%d')+timedelta(days=30)).date()
+        # print(bill1,fund_Sugan,Plan_pay,fund_you)
+        loanobj=customerLoan.objects.get(Loan_Type=bill1,Sugan_id_id=id)
+        print("next due date:",datetime.strptime(loanobj.Due_date.replace(" ", ""),'%Y-%m-%d')+timedelta(days=30))
+        next_due_date=(datetime.strptime(loanobj.Due_date.replace(" ", ""),'%Y-%m-%d')+timedelta(days=30)).date
         try:
-          obj=PaymentSummary.objects.get(catche_id_id=id)
+          obj=PaymentSummary.objects.get(Sugan_id_id=id)
         #   messages.info(request,"Your Payment already proccessed")
           obj.Loan_Type=loanobj.Loan_Type
           obj.next_Duedate=next_due_date
           obj.PaymentDue_amount=loanobj.PaymentDue_amount
           obj.Planned_payment= Plan_pay
           obj.user_payment= fund_you
-          obj.catche_fund=fund_catche
-          obj.fund_return_amount=float(fund_catche)
+          obj.Sugan_fund=fund_Sugan
+          obj.fund_return_amount=float(fund_Sugan)
           obj.creUser="live_user"
           obj.InsUpdFlag ='I'
           obj. is_paid='N'
@@ -211,16 +236,16 @@ def Payment_summary(request):
           return redirect("view_Payment_summary")
         except PaymentSummary.DoesNotExist:
           print("object not created")
-          PaymentSummary.objects.update_or_create(catche_id_id=id,
+          PaymentSummary.objects.update_or_create(Sugan_id_id=id,
                                 Loan_Type=loanobj.Loan_Type,
                                 next_Duedate=next_due_date,
                                 PaymentDue_amount=loanobj.PaymentDue_amount,
                                 Planned_payment= Plan_pay,
-                                user_payment= fund_you,catche_fund=fund_catche,
-                                fund_return_amount=float(fund_catche),
+                                user_payment= fund_you,Sugan_fund=fund_Sugan,
+                                fund_return_amount=float(fund_Sugan),
                                 creUser="live_user",
                                 InsUpdFlag ='I',is_paid='N')
-        #   s=PaymentSummary.objects.get(catche_id_id=id)
+        #   s=PaymentSummary.objects.get(Sugan_id_id=id)
          
         #   print(type(s.next_Duedate))
         #   s.days_more=abs(date.today()-s.next_due_date).days
@@ -255,12 +280,12 @@ def PaymentHistory(request):
         return redirect('account_summary')
     obj.is_paid="Y"
     obj.save()
-    PaymentSummaryHistory.objects.update_or_create(catche_id_id=id,
+    PaymentSummaryHistory.objects.update_or_create(Sugan_id_id=id,
                                 Loan_Type=obj.Loan_Type,
                                 PaymentDue_amount=obj.PaymentDue_amount,
                                 Planned_payment= obj.Planned_payment,
                                 user_payment= obj.user_payment,
-                                catche_fund=obj.catche_fund,
+                                Sugan_fund=obj.Sugan_fund,
                                 fund_return_amount=obj.fund_return_amount,
                                 is_paid="Y",
                                 creUser="live_user",
@@ -272,7 +297,7 @@ def paymentInfo(request):
     id=function.get_user(request.user.email)
     obj=function.get_payment_summary(id)
     try:
-        payinfo=PaymentInfo.objects.get(catche_id_id=id)
+        payinfo=PaymentInfo.objects.get(Sugan_id_id=id)
         return redirect('view_Payment_summary')
     except PaymentInfo.DoesNotExist:
          print(request.method)
@@ -289,7 +314,7 @@ def paymentInfo(request):
             # print(request.POST.get('check_box1'))
             deliveryoption=request.POST.get('check_box1')
             PaymentInfo.objects.update_or_create(
-                                catche_id_id=id,
+                                Sugan_id_id=id,
                                 loan_type=obj.Loan_Type,
                                 account_number=accno,
                                 company=company,

@@ -4,26 +4,26 @@ from django.db.models import Q
 
 def  put_customerLoan(id):
 
- if customerLoan.objects.filter(catche_id_id=id).exists():
-    # delloan=customerLoan.objects.filter(catche_id_id=id)
+ if customerLoan.objects.filter(Sugan_id_id=id).exists():
+    # delloan=customerLoan.objects.filter(Sugan_id_id=id)
     # delloan.delete()
-    days=customerLoan.objects.filter(catche_id_id=id)
+    days=customerLoan.objects.filter(Sugan_id_id=id)
     for i in days:
       i.days_more=calculate_days(i.Due_date)
       i.save()
     return
 
  try:
-            customer_loans=customer_loan_decision_attrs_active.objects.filter(Q(type='loan') | Q(type='credit') ).filter(catche_id_id = id)
+            customer_loans=customer_loan_decision_attrs_active.objects.filter(Q(type='loan') | Q(type='credit') ).filter(Sugan_id_id = id)
         
             for i in customer_loans:
                 print(i.subtype)
-                s=customerLoan.objects.create(catche_id_id=id,
+                s=customerLoan.objects.create(Sugan_id_id=id,
                                     Loan_Type=i.subtype.replace(" ", ""),
                                     PaymentDue_amount=i.current_balance,creUser="live_user",InsUpdFlag ='I',)
                 s.days_more=calculate_days(s.Due_date)
                 s.save()
-                customer_loan_history.objects.create(catche_id_id=id,
+                customer_loan_history.objects.create(Sugan_id_id=id,
                                     Loan_Type=s.Loan_Type,
                                     PaymentDue_amount=s.PaymentDue_amount,Due_date=s.Due_date,days_more=s.days_more,creUser="live_user",InsUpdFlag ='I')
                 
@@ -42,7 +42,7 @@ def calculate_days(duedate):
 
 def is_paid(id):
     try:
-        obj=PaymentSummary.objects.get(catche_id_id=id) 
+        obj=PaymentSummary.objects.get(Sugan_id_id=id) 
         if obj.is_paid=='Y':
          return True
         else:
@@ -54,7 +54,7 @@ def get_total_avail_currrent_balance(id):
     
     total_avail_balance=0
     total_current_balance=0
-    avail_current_balances= customer_loan_decision_attrs_active.objects.values_list("available_balance","current_balance").filter(catche_id_id = id).filter(type='depository')
+    avail_current_balances= customer_loan_decision_attrs_active.objects.values_list("available_balance","current_balance").filter(Sugan_id_id = id).filter(type='depository')
  
     for ele in range(0, len(avail_current_balances)):
         for j in range(0,1):

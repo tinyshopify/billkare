@@ -38,12 +38,12 @@
                         {% csrf_token %}
                     <table id="fund_table"> 
                         <tr class="mb-4"><th>Bill</th><th>Payments Due</th><th> Your planned payments 
-                        </th><th>Funding from Catche</th><th>Funding from you</th></tr>
+                        </th><th>Funding from Sugan</th><th>Funding from you</th></tr>
                         <tr class="mt-3">
                             <td id="bill1"></td>
                             <td id="due"></td>
                             <td id="Plan_pay"></td>
-                            <td id="fund_catche"></td>
+                            <td id="fund_Sugan"></td>
                             <td><input type="text" name="fund_you" id="fund_you" size="6" value="0" required></td>
                         </tr>
                     </table>
@@ -69,12 +69,12 @@
             let value=$("input[name='check_box1']:checked").val();
             let due=$('#pay_due_'+value).text();
             limit=$('#limit').val();
-         // fund_catche=$('#fund_catche').text();
+         // fund_Sugan=$('#fund_Sugan').text();
                 
             function reload_input() {
                     $("#fund_you").html(0);
                     $("#fund_you").focus();
-                    $('#fund_catche').html(limit);
+                    $('#fund_Sugan').html(limit);
                     $('#Plan_pay').html(0);
                 }
                 reload_input();
@@ -93,7 +93,7 @@
                     $('#bill1').html(value);
                     $('#due').html(due);
                     $('#Plan_pay').html(due);
-                    $('#fund_catche').html(due);
+                    $('#fund_Sugan').html(due);
                     $('#fund_you').val(0);
                     document.getElementById('fund_you').disabled = true;
                     
@@ -103,23 +103,23 @@
                         $('#bill1').html(value);
                         $('#due').html(due);
                         
-                        $('#fund_catche').html(limit);
+                        $('#fund_Sugan').html(limit);
                         document.getElementById('fund_you').disabled = false;
                         $("input[name='fund_you']").change(function()
                         {
                             fund_you=$('#fund_you').val();
-                         // fund_catche= parseInt(due) - parseInt(fund_you);
-                            fund_catche= limit
-                            fund_catche=fund_catche<0?0 :fund_catche;
-                            $('#fund_catche').html(fund_catche);
-                            Plan_pay=parseInt(fund_catche)+ parseInt(fund_you);
+                         // fund_Sugan= parseInt(due) - parseInt(fund_you);
+                            fund_Sugan= limit
+                            fund_Sugan=fund_Sugan<0?0 :fund_Sugan;
+                            $('#fund_Sugan').html(fund_Sugan);
+                            Plan_pay=parseInt(fund_Sugan)+ parseInt(fund_you);
                             // alert(Plan_pay)
                             $('#Plan_pay').html(Plan_pay);
                                 // if( fund_you >parseInt(due)){swalalert("$"+parseInt(fund_you)+" Your Fund is higher than due");reload_input();}
                              setTimeout(function() 
                              {
                                     if(fund_you == 0){swalalert("Enter your fund");reload_input();}
-                                    if (fund_catche > limit){swalalert("your are eligilble to fund your bills upto "+"$"+limit+" increase your fund or upgrade");reload_input();}
+                                    if (fund_Sugan > limit){swalalert("your are eligilble to fund your bills upto "+"$"+limit+" increase your fund or upgrade");reload_input();}
                                     if( Plan_pay < parseInt(due)){
                                         swalalert("scheduled payment is less than Payments due. it may cause late fee from biller, you want to change the amount of contribution")
                                         // swal(" ","scheduled payment is less than Payments due. it may cause late fee from biller, you want to change the amount of contribution ", " ");
@@ -154,7 +154,7 @@
             data:
             {   
                 bill1:$("#bill1").html(),
-                fund_catche:$('#fund_catche').html(),
+                fund_Sugan:$('#fund_Sugan').html(),
                 Plan_pay:$("#Plan_pay").html(),
                 fund_you:$("#fund_you").val(),
                 due:$('#due').html(),

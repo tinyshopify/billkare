@@ -74,7 +74,7 @@ def exchange_public_token(request, public_token):
     
     print("bank connection success")
     plaidUser.objects.update_or_create(
-         catche_id_id=id,
+         Sugan_id_id=id,
          access_token=access_token,
           creUser=username,
           CreatedTs = dt,
@@ -85,13 +85,13 @@ def exchange_public_token(request, public_token):
     common.insertPlaidHistory(id,username)
     print("history Updated")
 
-    obj=plaidUser.objects.get(catche_id_id=id)
+    obj=plaidUser.objects.get(Sugan_id_id=id)
     accessToken=obj.access_token
     
     # # loading customer balance 
     # ############################
-    # # loan_obj=SLTLoan.objects.get(catche_id=id)
-    # s=Customer_balance.objects.create(catche_id_id=id,current_balace=10000,Estimated_spend=10500)
+    # # loan_obj=SLTLoan.objects.get(Sugan_id=id)
+    # s=Customer_balance.objects.create(Sugan_id_id=id,current_balace=10000,Estimated_spend=10500)
     # s.shortage= s.Estimated_spend-s.current_balace
    
     # s.days_more=abs((date.today()).day-(s.Due_date).day)

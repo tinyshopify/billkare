@@ -10,28 +10,28 @@ from membership.models import Subscription
 
 def get_user(email):
      user=User.objects.get(email=email)
-     return user.catche_id
+     return user.Sugan_id
 
 def get_customer_loan_decision_attrs(id):
-     return customer_loan_decision_attrs.objects.get(catche_id_id=id)
+     return customer_loan_decision_attrs.objects.get(Sugan_id_id=id)
 
 
 def get_payment_summary(id):
      try:
-        obj=PaymentSummary.objects.get(catche_id_id=id)
+        obj=PaymentSummary.objects.get(Sugan_id_id=id)
      except PaymentSummary.DoesNotExist:
         return None
      return obj
 def is_plaidUser(id):
      try:
-        obj=plaidUser.objects.get(catche_id_id=id)
+        obj=plaidUser.objects.get(Sugan_id_id=id)
      except  plaidUser.DoesNotExist:
         return False
      return True
-def Put_Testdata(catcheid,randomNumber,testData):
+def Put_Testdata(Suganid,randomNumber,testData):
                   try :
-                        customerLoanAttr = customer_loan_decision_attrs.objects.get(catche_id_id = catcheid)
-                        # customerLoanAttr.catche_id_id = catcheid
+                        customerLoanAttr = customer_loan_decision_attrs.objects.get(Sugan_id_id = Suganid)
+                        # customerLoanAttr.Sugan_id_id = Suganid
                         (customerLoanAttr.balance,
                         customerLoanAttr.loanType,
                         customerLoanAttr.mortgage_due_amount,
@@ -42,16 +42,16 @@ def Put_Testdata(catcheid,randomNumber,testData):
                         customerLoanAttr.creditcard_statment_balance_amount,
                         customerLoanAttr.creditcard_due_date,
                         customerLoanAttr.loan_eligiblity_flag,
-                        customerLoanAttr.max_loan_amount_from_catche,
-                        customerLoanAttr.min_loan_amount_from_catche,
+                        customerLoanAttr.max_loan_amount_from_Sugan,
+                        customerLoanAttr.min_loan_amount_from_Sugan,
                         customerLoanAttr.estimated_balance,
                         customerLoanAttr.shortage_bill_amount,
                         customerLoanAttr.paycheck_date,
-                        customerLoanAttr.catche_risk_score_0_100,
+                        customerLoanAttr.Sugan_risk_score_0_100,
                         customerLoanAttr.customer_entered_bill_amount,
                         # bilamt for mort
                         # auto credit
-                        customerLoanAttr.catche_bill_due_date
+                        customerLoanAttr.Sugan_bill_due_date
                         ) = testData[randomNumber]
 
                         customerLoanAttr.creUser="live_user",
@@ -61,7 +61,7 @@ def Put_Testdata(catcheid,randomNumber,testData):
 
                   except  customer_loan_decision_attrs.DoesNotExist:
                         customerLoanAttr = customer_loan_decision_attrs()
-                        customerLoanAttr.catche_id_id = catcheid
+                        customerLoanAttr.Sugan_id_id = Suganid
                         (customerLoanAttr.balance,
                         customerLoanAttr.loanType,
                         customerLoanAttr.mortgage_due_amount,
@@ -72,14 +72,14 @@ def Put_Testdata(catcheid,randomNumber,testData):
                         customerLoanAttr.creditcard_statment_balance_amount,
                         customerLoanAttr.creditcard_due_date,
                         customerLoanAttr.loan_eligiblity_flag,
-                        customerLoanAttr.max_loan_amount_from_catche,
-                        customerLoanAttr.min_loan_amount_from_catche,
+                        customerLoanAttr.max_loan_amount_from_Sugan,
+                        customerLoanAttr.min_loan_amount_from_Sugan,
                         customerLoanAttr.estimated_balance,
                         customerLoanAttr.shortage_bill_amount,
                         customerLoanAttr.paycheck_date,
-                        customerLoanAttr.catche_risk_score_0_100,
+                        customerLoanAttr.Sugan_risk_score_0_100,
                         customerLoanAttr.customer_entered_bill_amount,
-                        customerLoanAttr.catche_bill_due_date
+                        customerLoanAttr.Sugan_bill_due_date
                         ) = testData[randomNumber]
 
                         customerLoanAttr.creUser="live_user",
@@ -167,7 +167,7 @@ def get_Testdata():
 
 def get_customer_data(id):
 
-    obj=plaidUser.objects.get(catche_id_id=id)
+    obj=plaidUser.objects.get(Sugan_id_id=id)
     accessToken=obj.access_token
     xs,xs1=plaidlink.common.getAccountsDetails(accessToken)
     # print("xs1:",xs1)
@@ -188,7 +188,7 @@ def get_customer_data(id):
         subtype=i[9]
         type  =i[10]
         customer_loan_decision_attrs_active.objects.update_or_create(
-            catche_id_id=id,
+            Sugan_id_id=id,
             plaid_id_id=obj.plaid_id,
             access_token=accessToken,
             account_id= account_id,
@@ -205,7 +205,7 @@ def get_customer_data(id):
             InsUpdFlag ='I',
         )
         customer_loan_decision_attrs_history.objects.update_or_create(
-            catche_id_id=id,
+            Sugan_id_id=id,
             plaid_id_id=obj.plaid_id,
             access_token=accessToken,
             account_id= account_id,
@@ -226,7 +226,7 @@ def get_customer_data(id):
     try:
             s=get_customer_loan_decision_attrs(id)  
     except customer_loan_decision_attrs.DoesNotExist:
-            customer_loan_decision_attrs.objects.create(catche_id_id=id,
+            customer_loan_decision_attrs.objects.create(Sugan_id_id=id,
             balance=total_current_balance,
             loan_eligiblity_flag="yes",  estimated_balance=0.0,
             shortage_bill_amount=0.0,)
