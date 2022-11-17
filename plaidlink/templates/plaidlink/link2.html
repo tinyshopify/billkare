@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% csrf_token %}
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script type="text/javascript">
+const handler = Plaid.create({
+  token: '{{ link_token }}',
+  onSuccess: (public_token, metadata) => {},
+  onLoad: () => {},
+  onExit: (err, metadata) => {},
+  onEvent: (eventName, metadata) => {},
+  //required for OAuth; if not using OAuth, set to null or omit:
+  receivedRedirectUri: window.location.href,
+});
+handler.open();
+</script>
+</body>
+</html>
