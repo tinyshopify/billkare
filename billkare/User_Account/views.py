@@ -103,9 +103,6 @@ def user_logout(request):
 def no_fund(request):
    return render(request,"no_fund.html")
 
-
-
-
 def signup(request):
 
     registered=False
@@ -123,8 +120,7 @@ def signup(request):
                 user.InsUpdFlag ="I"
                 user.save()
                 new_user = authenticate(email=user_form.cleaned_data['email'],
-                                    password=user_form.cleaned_data['password'],
-                                    )
+                                    password=user_form.cleaned_data['password'],)
 
                 login(request, new_user)
                 membership=membership_function.get_base(1)

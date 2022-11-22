@@ -15,7 +15,7 @@
                 <div class="col-md-6">
                   <p class="text-center h1 fw-bold mb-5 mx-1 mt-4">Login</p>
                    {% include 'includes/alerts.html' %}
-                            <form class="mx-1 mx-md-4" action="{% url 'LoginPage' %}" method = "POST">
+                            <form  action="{% url 'LoginPage' %}" method = "POST">
                               {% csrf_token %}
                                   {{ login_form.as_p}}
                                 

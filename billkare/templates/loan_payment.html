@@ -3,12 +3,13 @@
 {% load userfilter %}
 
 {% block body %}
-<!-- <div class="row">
+<!--
     <div class="col-lg-6"> -->
-     <div class="container px-5 mt-5" > 
-       
+     <div class="container" > 
+        <div class="row justify-content-center align-items-center ">
+            <div class="col-sm-10">
                 <div class="text-center">
-                    <h3 class=" text-primary"></h3>
+                    <h3 class="text-primary"></h3>
                    <h4 class="mb-4">Your are eligible to fund your bills up to {{sub.Subscription_limit|currency}} without additional fees.</h4>
                 </div>
                 <p class="mb-4">Currently we are only able to fund <b class="text-danger">one</b> bill at a time.</p>
@@ -33,8 +34,8 @@
                               <label class="col-md" for="check_box1"> I don’t need funding</label>
                          </td></tr> 
                         </table>
-                <div class="mx-auto mb-4 mt-3" id="bill_table" style="display: none;">
-                    <form class="mx-1 mx-auto" method="post" id="task-form">
+                <div class="mb-4 mt-3" id="bill_table" style="display: none;">
+                    <form  method="post" id="task-form">
                         {% csrf_token %}
                     <table id="fund_table"> 
                         <tr class="mb-4"><th>Bill</th><th>Payments Due</th><th> Your planned payments 
@@ -56,7 +57,7 @@
                     <!-- <a class="btn btn-success btn-lg" style="float:right" href="#" onclick="return thefunction();">Next</a> -->
                 </div>
              
-          
+     </div>  </div>   
 </div>
 <!-- open excrow account -->
             

@@ -4,11 +4,9 @@
 
 {% block body %}
 
-<div class="row  ">
-    <!-- <div class="col-md-4">
-        <img src="{% static 'images/pay in time.jpg' %}" alt="Image" />
-    </div> -->
-    <div class=" col d-flex justify-content-center">
+<div class="container h-100"> 
+    <div class="row justify-content-center align-items-center ">
+     <div class="col-sm-10">
         <!-- <div class="container">  -->
           
         <div class="bill">
@@ -21,7 +19,7 @@
                  
                     <div class="card-text mb-4">
                         <label for="bill" class="col-sm-7"> Bill</label>
-                        <label id="bill" "> {{data.Loan_Type}}</label>
+                        <label id="bill"> {{data.Loan_Type}}</label>
                         <!-- <input type="text" id="fname" name="firstname" value=""> -->
                     </div>
                     <div class="card-text mb-4">
@@ -53,7 +51,7 @@
                     <div  class="row mt-4">
                         
                        <div class="col-sm-6">
-                        <a class="btn btn-success " style="border-radius: 4px;" id="confirm" href="{% url 'PaymentHistory' %}">Confirm Your Payment</a>
+                        <a class="btn btn-success " style="border-radius: 4px;" id="confirm" >Confirm Your Payment</a>
                        </div>
                        <div class="col-sm-6">
                         <button class="btn btn-success" style="border-radius: 4px;" id="cancel1" onclick="cancel1()"  >Cancel Payment</button>
@@ -66,7 +64,7 @@
             <!-- </div> -->
         </div>
       
-  </div>
+  </div></div>
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
   <script>$("#confirm").click(function() {
     Swal.fire({
@@ -75,13 +73,21 @@
                                     customClass: 'swal-wide',
                                     confirmButtonText: 'ok',
                                     timer: 90000,
+                                }).then((result) => {  
+                            /* Read more about isConfirmed, isDenied below */  
+                            if (result.isConfirmed) {    
+                                Swal.fire(' Your Payment Done!', '', 'success') 
+                                window.location.href="{% url 'PaymentHistory' %}"
+                            } else if (result.isDenied) {    
+                                // Swal.fire('Changes are not saved', '', 'info')  
+                            }
                                     });
                                    
-        e.preventDefault();
-        // $(this).hide();
-        $.ajax({
-            url:"{% url 'PaymentHistory' %}", 
-        });
+        // e.preventDefault();
+        // // $(this).hide();
+        // $.ajax({
+        //     url:"{% url 'PaymentHistory' %}", 
+        // });
     
 });
 
