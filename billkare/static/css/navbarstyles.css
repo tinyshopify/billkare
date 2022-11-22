@@ -2,7 +2,7 @@
 /* Sugan name */
 .Suganname{
   /* color: rgb(201, 119, 11); */
-  color: rgb(145, 78, 3);
+  color: rgb(3, 112, 39);
   font-size: 60px;
   padding: 16px 24px;
   font-family: arial;
@@ -27,9 +27,9 @@
     text-decoration: none;
 	font-size: 16px;
 	font-family: 'Open Sans', sans-serif;
-	padding: 16px 24px;
+	padding: 16px 50px;
     font-weight: 900;
-	color: rgb(145, 78, 3);
+	color: rgb(18, 19, 18);
     align-items: center;
     font-size: 18px;
     -webkit-transition: color 2s;
@@ -47,7 +47,6 @@
     .navbar .nav-item:hover {
         transform:scale(1) ;
         z-index:100;
-        background-color:rgb(252, 228, 197);
         transition: 0.5s;
         opacity:2;
         
@@ -57,15 +56,16 @@
 
 .navbar-light .navbar-nav .nav-link.active
 {
-     color: rgb(124, 59, 6);
+     color: rgb(5, 110, 14);
 }
 
 @media (max-width: 991.98px) {
     .navbar-light .navbar-nav .nav-link  {
         margin-right: 0;
         padding: 10px 0;
-        color: rgb(145, 78, 3);
+        color: rgb(18, 19, 18);
         font-size: 16px;
+        
      
     }
 

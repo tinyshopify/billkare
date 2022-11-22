@@ -2,7 +2,7 @@
 .sidebar {
 	height: 100%;
 	
-	position: fixed;
+	position: absolute;
 	z-index: 1;
 	top:0px;
 	left: 0;
@@ -17,38 +17,58 @@
   /* Style sidebar links */
   .sidebar .menu a {
 	border-bottom: 1px solid #455A64;
-
+	
 	text-decoration: none;
 	font-size: 16px;
 	font-family: 'Open Sans', sans-serif;
-	padding: 10px 20px;
+	/* padding: 10px 20px; */
 	padding-top: 50px;
-	color: rgb(145, 78, 3);
+	color: rgb(12, 12, 11);
 	display: block;
   }
   
   /* Style links on mouse-over */
   .sidebar .menu a:hover {
-	color: #694206;
+	color: #175e09;
   }
   .sidebar .menu a i,iconify-icon{
 	margin-right: 16px;
   }
   /* Style the main content */
-  .main {
-	padding-top: 5px;
-	margin-left: 160px; /* Same as the width of the sidenav */
-	/* padding: 0px 10px; */
-	background-color:rgb(245, 236, 210);
-  }
+  
   
   /* Add media queries for small screens (when the height of the screen is less than 450px, add a smaller padding and font-size) */
-  @media screen and (max-height: 450px) {
+  /* @media screen and (max-height: 450px) {
 	.sidebar {padding-top: 15px;}
 	.sidebar menu a {font-size: 18px;}
-  }
+  } */
 
+  @media screen and (max-height: 450px) , (max-width: 767px){
+	.sidebar .menu a .nav-text {
+		display: none;
+	  }
+	.sidebar .menu
+	{width:auto;
+		flex-flow:row nowrap;
+		display:flex;
+		padding-top:0px ;
+		
+		
+  }
+  .sidebar{
+	position: sticky;
+	flex-direction:column;
+	flex-flow:row nowrap;
+	width: 100%;
+   padding-top: 0px ;
  
+  
+   }
+   .sidebar .menu a {padding-top: 10px ;
+	float: left;
+	 border-right: 1px solid white;
+	}
+}
 
 
   

@@ -15,9 +15,8 @@
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <!-- <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;display=swap" rel="stylesheet"> -->
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <link type='text/css' href='http://fonts.googleapis.com/css?family=Lato:400,700' />
   <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
  
   <!-- Icon Font Stylesheet -->
@@ -38,7 +37,7 @@
    <style>p {clear: both}</style>
   
 </head>
-<body style="background-color:white ;">
+<body >
   
     
       <!-- Spinner Start -->
@@ -76,12 +75,12 @@
           <!-- <a href="{% url 'signup' %}"  class="btn">Join Sugan<i class="fa fa-arrow-right ms-3"></i></a> -->
         </div>
   </nav>
-  <div class="container-xxl ">
-    <div class="row ">
-      <div class="col-lg-6 mt-5" >
-        <img src="{%static 'images\home3.png' %}" class="img-fluid" alt="Sample image">
+  <div class="container ">
+    <div class="row d-flex  justify-content-center">
+      <div class="col-sm-4 mt-5" >
+        <img src="{%static 'images\sugan2.jpg' %}" class="img-fluid img1" alt="Sample image">
       </div>
-      <div class="col-lg-6 py-5" id="home" >
+      <div class="col-sm-6 py-5" id="home" >
      
         <h1 class="display-5 mb-3">Get up to $1000* Instantly  to Pay the Bill.</h1>
         <h5 style="color: rgb(155, 153, 151);">Sugan will help you by monitoring your transactions and detect any potential cash shortage in your bank account.</h5>
@@ -98,7 +97,7 @@
  
 </section>
 <hr>
-<div class="container  px-5 my-3"> 
+<div class="container  px-5 py-3"> 
   <div class="text-center wow fadeInUp mb-4" data-wow-delay="0.1s">
     <h1 style="color: rgb(155, 153, 151);" >To help millions of consumers trying to achieve greater stability and control in their financial lives.
     </h1>
@@ -107,88 +106,69 @@
 </div>
 <hr>
   <div class="container  px-5 mt-3"> 
-      <div class="row mt-5" >
-        <div class="col-md-6 wow fadeInUp">
-          <div >
-            <img src="{% static 'images\home3.png' %}"  alt="" style="object-fit: cover;"/>
+      <div class="row d-flex  justify-content-center mt-5" >
+        <div class="col-sm-5">
+          
+            <img src="{% static 'images\sugan21.jpg' %}" class="img-fluid img1"/>
             
-          </div>
+          
         </div>
-        <div class="col-md-6 py-3" id="home" data-wow-delay="0.5s">
+        <div class="col-sm-6 py-3" id="home" >
          
               <h1 class="display-6 mb-0" >
-                ALL IN ONE PLACE
+                All In One Place
              </h1>
             <ul  class='h5'style="display: table; margin: 0 auto;">
-              <li class="mt-3"> Manage budget…</li>
-                <li class="mt-3">Pay your bills </li> 
-                   <li class="mt-3" >Short Term Funding if needed </li> 
-              <div class="col-md-12 mt-3">
-                <a href="{% url 'signup' %}" class="btn">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
-              </div>
+              <li class="mt-3"> Manage Your Budget</li>
+              <li class="mt-3">Pay Your Bills </li> 
+              <li class="mt-3" >Short Term Funding </li> 
             </ul>  
+            <div class="col-md-12 mt-3">
+              <a href="{% url 'signup' %}" class="btn">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+            </div>
         </div>
     
     </div>
   
   
    
-      <div class="row mt-5" >
-        <div class="col-md-6 py-3" id="home" >
-         
-              <h1 class="display-6 mb-0">
-                Pay your bills on time.
-            </h1>
+      <div class="row d-flex  justify-content-center mt-5" >
+        <div class="col-sm-5 py-3" id="home" >
+          <h1 class="display-6 mb-3"> Pay your bills on time</h1>
             <ul  class='h5'style="display: table; margin: 0 auto;">    
-                      <li class="mt-3">No Interest !</li></br>
-                      <li>No Credit Check !</li> </br>
-                        <li>No More Late Fees !</li></br>
+                     
+                      <li >No Credit Check !</li> </br>
+                        <li >No More Late Fees !</li></br>
                       <li> No More Overdraft Fees !</li>  
             </ul> 
       </div>
-        <div class="col-md-6  mt-5">
-            <img class="img" src="{% static 'images\dashboardpage.png' %}"  alt="" style="object-fit: cover;"/>
+        <div class="col-sm-5  mt-5">
+            <img src="{% static 'images\select_bank.png' %}" class="img-fluid img1" alt=""/>
         </div>
-        
-      
     </div>
     <hr>
 
-  <div class="row mt-5" >
+  <div class="row d-flex  justify-content-center mt-5" >
     
-      <div class="col-md-6 mb-3">
-          <img  src="{% static 'images\home3.png' %}"  alt="" style="object-fit: cover;"/>
+      <div class="col-md-4 mb-3">
+          <img  src="{% static 'images\dashboardpage1.png' %}"  alt=""class="img-fluid img1"/>
       </div>
       <div class="col-md-6 py-3" id="home">
       
         <h1 class="display-6 mb-0">
-          Close the gap between income and cashflow.
+          Close the gap between Income and Cashflow.
         </h1>
-        <ul  class='h5'style="display: table; margin: 0 auto;">    
-                <li class="mt-3">Magic way to build your credit  and avoid negative impact on your Credit Score
-                </li>    
-       </ul> 
+        
     </div>
   
 </div>
-<div style="border-bottom: 2px;"></div>
-<div class="row mt-5" >
-  
-  <div class="col-md-6  py-3" id="home">
-   
-        <h1 class="display-6 mb-0" >
-          Magic way to build your credit  and avoid negative impact on your Credit Score.
 
-       </h1>
-      <!-- <ul  class='h5'style="display: table; margin: 0 auto;">    
-                <li class="mt-3">Your Mortgage, Credit Cards, Loan payments and other category spend are centralized at one place.</li></li></br>
-              
-      </ul>  -->
+<div class="row d-flex  justify-content-center mt-5" >
+  <div class="col-sm-5  py-3" id="home">
+   <h1 class="display-6"> Magic way to build your credit  and avoid negative impact on your Credit Score.</h1>
   </div>
-  <div class="col-md-6  mt-5">
-  
-      <img class="img" src="{% static 'images\select_bank.png' %}"  alt="" style="object-fit: cover;"/>
-      
+  <div class="col-sm-6 mt-5">
+      <img  src="{% static 'images\sugan21.jpg' %}" class="img-fluid img1"/>
   </div>
 </div>
 </div>
@@ -197,7 +177,7 @@
 <div class="services"> 
 <div class ="container">
 <div class=" pricing row">
-  <div class="headline"><h1 style="font-size:20px;color: rgb(168, 117, 49);">Subscription Plans</h1></div>
+  <div class="headline"><h1 >Subscription Plans</h1></div>
     
     <div class="col-md-4">
       <div style="margin-top:5px;" class="card pls">

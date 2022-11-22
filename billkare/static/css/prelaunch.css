@@ -1,0 +1,36 @@
+.is-align-center {
+    text-align: center;
+}
+body, p, .is-dark-text, .is-dark-text h1, .is-dark-text h2, .is-dark-text h3, .is-dark-text, h4, .is-dark-text h5, .is-dark-text h6, .is-dark-text p, .is-dark-text li {
+    color: #3c4a5b;
+}
+body, p, input {
+    font-family: Lato;
+}
+body {
+    color: #333;
+    font-weight: 400;
+    font-size: 1.22em;
+    line-height: 1.5;
+}
+div {
+    display: block;
+}
+h1,h2,h3,h4,h5,h6 { font-family: Lato;
+}
+a { color: #60cbd0; }
+
+a:hover { color: #43abb0; }
+
+ body { background-color: #ffffff; 
+background-image: none; 
+background-size: auto; 
+background-repeat: repeat; 
+background-position: 50% 50%, 50% 50%; 
+}
+.is-boxes { display:table; table-layout:fixed; width:100%; height:100%; position:relative; min-height:50px; float:left; }
+.is-boxes-flex { display:flex; align-items: stretch;}
+.is-boxes-flex .is-boxed-layout { height:auto; }
+.is-boxes-flex .is-box-content,
+.is-boxes-flex .is-container { height: 100%; }
+.is-boxes-flex .is-box-centered {display: inline-flex;}

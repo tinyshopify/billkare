@@ -4,17 +4,16 @@
 
 {% block body %}
 
-<div class="container mt-3"> 
-  {% if messages %}
-  <h3>Hi, {{user.first_name}} Congrats Your dont have any Payments!</h3>
-{% else %}
-  
-        <div class= mt-2"> <h4>Hi, {{user.first_name}}</h4></div>
-       
-           <div class=" mb-4"> 
-            <label class="col-md-7" for="label3">Your Upcoming Payments:</label>
-               
-          </div>
+<div class="container px-3 "> 
+  <div class="row justify-content-center align-items-center ">
+  <div class="col-sm-10">
+  <div class="card-body mb-5">
+      {% if messages %}
+      <h3>Hi, {{user.first_name}} Congrats Your dont have any Payments!</h3>
+      {% else %}
+          <h4 >Hi, {{user.first_name}}</h4>
+                <p class="col-md-7 mb-4" for="label3">Your Upcoming Payments:</p>
+ 
           {%if paid %}
           {%else%}
            <div class="mb-4">
@@ -55,11 +54,11 @@
                       <div  class="row " id="conformloan">
                         <h6 class="mb-4">Does it sounds Correct?</h6>
                       <div class="col-sm-3">
-                        <button class="btn " id="yes" style="border-radius: 4px;" onclick="disable()">Yes,Correct.</button>
+                        <button class="btn " id="yes"  onclick="disable()">Yes,Correct.</button>
                       </div>
                       
-                      <div class="col-sm-3">
-                        <button class="btn  " style="border-radius: 4px;" id="no" onclick="enable()">No,I need to edit</button>
+                      <div class=" mx-2 col-sm-3">
+                        <button class="btn "  id="no" onclick="enable()">No,I need to edit</button>
                       </div>
                     </div>     
             </div>
@@ -70,9 +69,10 @@
                 
               {% include 'includes/alerts.html' %}
                 <div class="px-3 ">
-                  {{ form.as_p}}
-                  <input type="submit" value="Upload" id="stmt_upload" class="btn mb-3" onclick="submitstmtform()"> </input>
+                  {{ form.as_table}}
+                 
                 </div>
+                <input type="submit" value="Upload" id="stmt_upload" class="btn mb-3" onclick="submitstmtform()"> </input>
             </form>
             </div>
       {% endif %}
@@ -115,12 +115,13 @@
         </div>
           {% else %}
         <div class="col-md-7" id="btnfundmybill" style="display: flex;justify-content: center;" >
-          <a href="#"  class="btn btn-dark w-50 py-3">Fund my bill</a>  
+          <a href="#"  class="btn ">Fund my bill</a>  
       </div>
+          {%endif%}
       {%endif%}
-  {%endif%}
-  {%endif%}
-  </div>
+      {%endif%}
+    </div>
+  </div></div></div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
   <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -197,7 +198,17 @@ $( "#stmt_form" ).on( "submit", function(e){
                   // document.getElementById("update").style.display="none";
  // $('#stmt_form').css("display","none");
              
-                }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+              
+                Swal.fire({
+                                    title:"Upload Failed",
+                                    text: "Please,Upload pdf formated file!",
+                                    customClass: 'swal-wide',
+                                    confirmButtonText: 'ok',
+                                    timer: 90000,
+                                    });
+                           }
                 
                 });
     

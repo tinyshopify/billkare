@@ -1,10 +1,6 @@
 /********** Template CSS **********/
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-    body {
-      background: rgb(212, 210, 210);
-      width: 100%;
-    }
-  }
+
+   
 
 :root {
     --primary: #06BBCC;
@@ -13,6 +9,13 @@
     
 }
 
+.latofont
+{
+    
+  align-items: center;
+  justify-content: center;
+    font-family: 'Lato', sans-serif;
+}
 
 .fw-medium {
     font-weight: 600 !important;
@@ -21,8 +24,17 @@
 .fw-semi-bold {
     font-weight: 700 !important;
 }
-body{ font-family: 'Open Sans', sans-serif;
-      background-color:rgb(248, 246, 241);
+body{ 
+    /* font-family: 'Open Sans', sans-serif; */
+    font-family: Lato;
+      background-color:rgb(253, 251, 247);
+      color: #3c4a5b;
+      font-weight: 400;
+      font-size: 1.22em;
+      line-height: 1.5
+ 
+}
+h1,h2,h3,h4,h5,h6,p { font-family: Lato;
 }
 /*** Spinner ***/
 #spinner {
@@ -43,22 +55,30 @@ body{ font-family: 'Open Sans', sans-serif;
 .btn {
    
     margin-top: 1rem;
-	height: 2.6rem;
+	height: 3rem;
 	width: 13.3rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border-radius: 4px;
-    background-image: linear-gradient(to bottom, #eb8613 0%, #6b3f05bd 100%); 
+	border-radius: 25px;
+    background-color: #428558;
+    /* background-image: linear-gradient(to bottom, #eb8613 0%, #6b3f05bd 100%);  */
     color: #fff;
     outline: none;
     border: 0;
     padding: 5px;
-    font-weight: bold;
-    font-family: arial;
+   
+    font-family: lato;
    
 }
-.joinSugan{ border: 2px solid; display: inline-block;}
+.btn:hover {
+    transform:scale(1) ;
+    z-index:100;
+    transition: 0.5s;
+    opacity:2;
+    
+}
+.joinSugan{ border: 3px solid; display: inline-block;border-radius: 15px; color: #076426;}
 .services{margin-top: 10px; align-items:center;}
 .pls{background-color: #FFF; padding: 5px; margin-top: 5px;}
 .pls-hd{ background-image: linear-gradient(to bottom, #585858 0%, #212121 100%); padding: 5px; color: #FFF; font-size: 18px; text-align: center; padding-top: 20px;}
@@ -71,8 +91,8 @@ body{ font-family: 'Open Sans', sans-serif;
 .norit-pad{ padding-right: 0px;}
 .csdffd img{width: 100%; margin-top: 47px;}
 
-.container-fluid{padding: 0px; margin: 0px;}
-.row{margin: 0px; margin: 0px;}
+
+.row{margin: 0px; margin: 0px; }
 .hid{display: none;}
 .btn-ico{ padding: 5px; height: 25px; line-height: 4px; font-size: 12px;}
 .texsgg small, b{ color: #808080;}
@@ -81,7 +101,7 @@ a:hover{text-decoration: none !important;}
 
 /*  */
 .container-fluid{padding: 0px; margin: 0px;}
-.row{margin: 0px; margin: 0px;}
+
 .card{
 	box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 	border-radius:2px;
@@ -100,35 +120,20 @@ a:hover{text-decoration: none !important;}
     margin-top:auto;
     margin-bottom: auto;
     animation-name: slideInUp;
-    line-height: 30px;
+   
 }
+.img1{width: 300px; height: 500px;
+    border-radius: 50px; }
 #home h1{
-    color: rgb(145, 78, 3);
+    color: rgb(41, 40, 39);
  
 }
+#home h1,h5,li{ line-height: 1.5em;}
 #home ul li{
     color:#808080;
-    font-family: "op";
+    
 }
- /* #one{  
-    width: 100%;
-    height: 100%;
-    animation-duration: 10s;
-    animation-name: slideInUp; 
-   }  */
-   img{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-    height: 100%;
-    border-radius: 8px;
- 
-   
-    -moz-box-shadow: inset 10px 10px 50px #fff;
--webkit-box-shadow: inset 10px 10px 50px #fff;
-box-shadow: inset 10px 10px 50px #fff;
-    }
+
 section{
 	width: 100%;
 	min-height: 1px;
@@ -150,10 +155,12 @@ section{
 {
     border-collapse:separate;
     border-spacing:0 15px;
+    font-family: lato;
     
 }
 #example  tr{
         border-spacing:0 15px;
+        font-family: lato;
         /* border-bottom: 1px solid rgb(211, 209, 209); */
 
 }
@@ -162,7 +169,7 @@ section{
 .box {
   
     margin: 0 0 30px;
-    
+    font-family: lato;
 	background-color:rgb(247, 245, 245);
     border: solid 1px #e6e6e6;
     padding: 30px;
@@ -185,7 +192,8 @@ section{
 
 
 .bill .card{
-    width: 100%; 
+    width:auto;
+    height: auto;
     margin-top:50px;  
 }
 .bill .card .card-header{
@@ -210,14 +218,8 @@ section{
       display: none;
     }
   }
-  @media only screen and (max-device-width: 480px) {
-    input[type=email] {
-        width: 50%;
-    }
-    #example{
-        width: 50%;
-    }
-}
+ 
+
   @media (max-width: 767px) {
     .da-slider, .hidemobile {
       display: none;

@@ -5,11 +5,12 @@
 {% block body %}
 
     <div class="container h-100"> 
-        <div class="row">
-        <div class="col-lg-8">
-            <div class="card align-items-center mx-auto mt-5">
-                <div class="text-center mt-5">
-                    <h4 class=" text-danger">SUBSCRIPTION</h4>
+    <div class="row justify-content-center  align-items-center">
+    <div class="col-sm-10">
+        <div class="col-sm-12">
+            <div class="card align-items-center">
+                <div class="text-center mt-3">
+                    <h4 class="text-danger">SUBSCRIPTION</h4>
                     <h5>You currently has <b class="text-primary">{{ membership}}</b> membership</h5>
                     <input type="hidden" id="membership" value="{{membership}}"/>
                 </div>
@@ -26,31 +27,30 @@
                         </div>
                 
                     <div id="change" style="display:none ;">
-                        <button type="submit" class="btn btn-success" id="button_click" style="border-radius: 4px; float:left;">Change membership</button> 
+                        <button type="submit" class="btn " id="button_click" >Change membership</button> 
                     </div>
                    
                 </form>
-                
+                <p>* Your eligibility depends on your repay history, cash flow and income </p>
                 </div>
-              <p>* Your eligibility depends on your repay history, cash flow and income </p>
+            
              
             </div>
             
         </div>
-        <div class="col-lg-4 mt-5">
+        <div class="col-sm-6 mt-5">
             <div class="box">
                 <h4 class="text-center text-success"><a  href="{% url 'subscription_details' %}"><i class="fa fa-hand-o-right">Subscription Help</i></a></h1>
                 <ul  class='h5'style="display: table; margin: 0 auto;"><li class="mt-3">Easy to upgrade !</li>
                     <li class="mt-3">Monthly subscription ! </li>
                     <li class="mt-3">You can cancel it ! </li>
-                    <button class="btn btn-success mt-3 mb-3" id="cancel1" onclick="cancel1()"  style="border-radius: 4px;float:right;">Cancel membership</button>
-                    
-                </ul>
+                
+                <button class="btn mt-3 mb-3" id="cancel1" onclick="cancel1()">Cancel membership</button></ul>
                 <p>* if you cancel the membership,the membership changed to free subscription.</p>
             </div>
         </div>
       </div>
-    </div>
+    </div></div>
         <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
         <script type="text/javascript">
         $(document).ready(function () 
