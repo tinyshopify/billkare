@@ -11,9 +11,9 @@
 }
 
    /*** Navbar ***/
-   /* .navbar{
-    background-color:rgb(245, 236, 210)
-   } */
+   .navbar{
+    background-color:rgb(253, 251, 247);
+   }
  .navbar .dropdown-toggle::after {
     border: none;
     content: "\f107";

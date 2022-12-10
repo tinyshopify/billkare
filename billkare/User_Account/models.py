@@ -16,14 +16,14 @@ numeric = RegexValidator(r'^(\+\d{1,3})?,?\s?\d{8,13}$', message="Phone number m
 from django.core.validators import EmailValidator
 from django.utils.deconstruct import deconstructible
 
-@deconstructible
-class WhitelistEmailValidator(EmailValidator):
+# @deconstructible
+# class WhitelistEmailValidator(EmailValidator):
 
-    def validate_domain_part(self, domain_part):
-        return False
+#     def validate_domain_part(self, domain_part):
+#         return False
 
-    def __eq__(self, other):
-        return isinstance(other, WhitelistEmailValidator) and super().__eq__(other)
+#     def __eq__(self, other):
+#         return isinstance(other, WhitelistEmailValidator) and super().__eq__(other)
 
 
 class UserManager(BaseUserManager):
@@ -84,7 +84,8 @@ class User(AbstractBaseUser,TimeStampModel):
   
     first_name      = models.CharField(max_length=50)
     last_name       = models.CharField(max_length=50)
-    email           = models.EmailField(max_length=100, unique=True,validators=[WhitelistEmailValidator(whitelist=['gmail.com', 'yahoo.com', 'hotmail.com'])])
+    # email           = models.EmailField(max_length=100, unique=True,validators=[WhitelistEmailValidator(whitelist=['gmail.com', 'yahoo.com', 'hotmail.com'])])
+    email           = models.EmailField(max_length=100, unique=True)
     phone_number    = models.CharField(max_length=15,unique=True,validators=[numeric])
     Sugan_id         =models.UUIDField(primary_key=True,editable=False,unique=True,default=uuid.uuid4 )
     CreatedDate    = models.DateTimeField(auto_now_add=True)

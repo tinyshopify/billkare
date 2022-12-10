@@ -1,10 +1,10 @@
 {% extends "user_base.html" %}
 {%load static %}
 {% load userfilter %}
-
+{% block title %} Sugan Financial {% endblock %}
 {% block body %}
 
-<div class="container px-3 "> 
+<div class="container"> 
   <div class="row justify-content-center align-items-center ">
   <div class="col-sm-10">
   <div class="card-body mb-5">
@@ -16,8 +16,9 @@
  
           {%if paid %}
           {%else%}
-           <div class="mb-4">
-            <table id="example"> 
+          <div class="table-responsive">
+            <table class="table table-hover">
+             
                 <tr ><th >Loan Type</th><th>Payments Due</th><th>Due date</th><th>days more</th></tr>
                 {% for i in data1 %} 
               
@@ -47,7 +48,7 @@
         {% include 'includes/alerts.html' %}
         {%if upload %}
               <div class="card-body mb-5">
-                      <div class="col-sm-6" id="update">
+                      <div class="col-sm-6 mb-5" id="update">
                           
                       </div>
                       
@@ -63,7 +64,7 @@
                     </div>     
             </div>
           
-          <div class="card col-md-6 ">
+          <div class="card col-md-6">
             <form class="px-3 mt-3"  id='stmt_form'  method = "POST"  enctype='multipart/form-data'>
               {% csrf_token %}
                 
@@ -193,6 +194,7 @@ $( "#stmt_form" ).on( "submit", function(e){
                                     text: "Your Account Statement Uploaded Successfully!",
                                     customClass: 'swal-wide',
                                     confirmButtonText: 'ok',
+                                    confirmButtonColor: '#428558',
                                     timer: 90000,
                                     });
                   // document.getElementById("update").style.display="none";
@@ -206,6 +208,7 @@ $( "#stmt_form" ).on( "submit", function(e){
                                     text: "Please,Upload pdf formated file!",
                                     customClass: 'swal-wide',
                                     confirmButtonText: 'ok',
+                                    confirmButtonColor: '#428558',
                                     timer: 90000,
                                     });
                            }
@@ -261,6 +264,7 @@ $("#update").click(function(e){
                                     text: "Your Loan Details Updated Successfully!",
                                     customClass: 'swal-wide',
                                     confirmButtonText: 'ok',
+                                    confirmButtonColor: '#428558',
                                     timer: 90000,
                                     });
                   document.getElementById("update").style.display="none";
