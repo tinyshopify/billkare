@@ -8,7 +8,10 @@
     --dark: #181d38;
     
 }
-
+*{
+	margin:0;
+	padding:0;
+ }
 .latofont
 {
     
@@ -31,9 +34,14 @@ body{
       color: #3c4a5b;
       font-weight: 400;
       font-size: 1.22em;
-      line-height: 1.5
+      line-height: 1.5;
  
 }
+.customer  {
+margin-bottom: 50px;
+font-size:1em;
+}
+
 h1,h2,h3,h4,h5,h6,p { font-family: Lato;
 }
 /*** Spinner ***/
@@ -67,7 +75,6 @@ h1,h2,h3,h4,h5,h6,p { font-family: Lato;
     outline: none;
     border: 0;
     padding: 5px;
-   
     font-family: lato;
    
 }
@@ -91,7 +98,6 @@ h1,h2,h3,h4,h5,h6,p { font-family: Lato;
 .norit-pad{ padding-right: 0px;}
 .csdffd img{width: 100%; margin-top: 47px;}
 
-
 .row{margin: 0px; margin: 0px; }
 .hid{display: none;}
 .btn-ico{ padding: 5px; height: 25px; line-height: 4px; font-size: 12px;}
@@ -108,7 +114,7 @@ a:hover{text-decoration: none !important;}
     background-color: white;
 }
 
-
+.container{overflow: visible;}
 /* ul li{list-style: none;} */
 .hid{display: none;}
 .no-padding{padding: 0px;}
@@ -120,50 +126,80 @@ a:hover{text-decoration: none !important;}
     margin-top:auto;
     margin-bottom: auto;
     animation-name: slideInUp;
+    
    
 }
-.img1{width: 300px; height: 500px;
-    border-radius: 50px; }
 #home h1{
     color: rgb(41, 40, 39);
  
 }
-#home h1,h5,li{ line-height: 1.5em;}
+#home p{color:#808080;line-height: 1.5em;}
+#home h1,h5{ line-height: 1.5em;}
 #home ul li{
     color:#808080;
+    line-height: 3em;
+}
+.img1{width: 350px; height: 600px;
+    border-radius: 50px; 
+   }
+.img2{
+    border-radius: 50px;
+    width: 300px; height: 500px;
+    padding: 10px;
+    bottom:15px;
+    position: sticky;
+    top:15vh;
+   
+   
+   }
+.scrollimage{
+  
+   position:relative;
+}
+/* .backimage{
+    width: 300px; height: 600px;
+    border-radius: 50px; 
+    background: url( '/static/images/Sugan2.jpg' ) ;
+    background-size:cover;
+    transition: 1000ms;
+} */
+.backimage{
+   
+    border-radius: 50px; 
+    background: url( '/static/images/Sugan2.jpg' ) ;
+    background-size:  200px 400px;
+    background-position: 250px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    transition: 1000ms;
     
 }
+
+
+.wave{ background-image: url( '/static/images/wave-3.png' );background-position:250px;
+    background-size: contain;
+     background-repeat: no-repeat;}
+
 
 section{
 	width: 100%;
 	min-height: 1px;
+  
+	}
+.content{
+    transition: 1000ms;
+    width:100%;
+	min-height:1px;
+    margin-top:10%;
+	
 	}
 
 
 /* table */
-.bill .card table {
-    border-collapse: collapse;
-    width: 100%; 
+ .table tbody tr td {
+    border: none;
 }
-.bill .card th, td {
-    width:200px;
-    padding:5px
- 
-}
-/* .bill .card table tr{border-bottom: 1px solid rgb(233, 230, 230);} */
-.bill .card .loantable
-{
-    border-collapse:separate;
-    border-spacing:0 15px;
-    font-family: lato;
-    
-}
-#example  tr{
-        border-spacing:0 15px;
-        font-family: lato;
-        /* border-bottom: 1px solid rgb(211, 209, 209); */
 
-}
 
 /* box */
 .box {
@@ -208,22 +244,10 @@ section{
     .services{margin-top: 40px !important;}
 }
 /* hide in mobile screen */
-@media screen and (max-width: 600px) {
-    .da-slider {
-      visibility: hidden;
-      clear: both;
-      float: left;
-      margin: 10px auto 5px 20px;
-      width: 28%;
-      display: none;
-    }
-  }
- 
+
 
   @media (max-width: 767px) {
-    .da-slider, .hidemobile {
-      display: none;
-    }
+   
     .card{
         width:auto;
         height: auto;
@@ -235,46 +259,21 @@ section{
         flex-direction: column;
     }
   }
-/* hide in mobile screen */
-/*** Section Title ***/
-.section-title {
-    position: relative;
-    display: inline-block;
-    text-transform: uppercase;
-    color: #e0740f;
-}
+  .mobile{
+    display: none;
+  }
+  
+  @media only screen and (max-width:960px){
+    .mobile{
+    display:block;
+   }
+   .mobileout{
+    display:none;
+   }
+   }
 
-.section-title::before {
-    position: absolute;
-    content: "";
-    width: calc(100% + 80px);
-    height: 2px;
-    top: 4px;
-    left: -40px;
-    background: var(--primary);
-    z-index: -1;
-}
 
-.section-title::after {
-    position: absolute;
-    content: "";
-    width: calc(100% + 120px);
-    height: 2px;
-    bottom: 5px;
-    left: -60px;
-    background: var(--primary);
-    z-index: -1;
-}
 
-.section-title.text-start::before {
-    width: calc(100% + 40px);
-    left: 0;
-}
-
-.section-title.text-start::after {
-    width: calc(100% + 60px);
-    left: 0;
-}
 
 /* swal alert */
 .swal-wide{

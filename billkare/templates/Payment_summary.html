@@ -1,7 +1,7 @@
 {% extends "user_base.html" %}
 {%load static %}
 {% load userfilter %}
-
+{% block title %} Sugan Payment Summary {% endblock %}
 {% block body %}
 
 <div class="container h-100"> 
@@ -18,43 +18,44 @@
                 <div class="card-body px-3">
                  
                     <div class="card-text mb-4">
-                        <label for="bill" class="col-sm-7"> Bill</label>
+                        
+                        <label for="bill" class="col-sm-7"> Bill:</label>
                         <label id="bill"> {{data.Loan_Type}}</label>
                         <!-- <input type="text" id="fname" name="firstname" value=""> -->
                     </div>
                     <div class="card-text mb-4">
-                            <label for="due_amount" class="col-sm-7">Total Due Amount</label>
+                            <label for="due_amount" class="col-sm-7">Total Due Amount:</label>
                             <label id="due_amount"> {{data.PaymentDue_amount|currency}}</label>
                     </div>
                      <div class="card-text mb-4">
-                                <label for="plan_pay" class="col-sm-7">Your planned payment </label>
+                                <label for="plan_pay" class="col-sm-7">Your planned payment: </label>
                                 <label id="plan_pay" >{{data.Planned_payment|currency}}</label>
                      </div>
                     <div class="card-text mb-4">
-                                    <label for="your_pay" class="col-sm-7">Your payment</label>
+                                    <label for="your_pay" class="col-sm-7">Your payment:</label>
                                     <label id="your_pay" >{{data.user_payment|currency}}</label>
                     </div> 
                     <div class="card-text mb-4">
-                                    <label for="Sugan_fund" class="col-sm-7">Funding from Sugan</label>
+                                    <label for="Sugan_fund" class="col-sm-7">Funding from Sugan:</label>
                                     <label id="Sugan_fund" >{{data.Sugan_fund|currency}}</label>   
                     </div> 
                     <div class="card-text mb-4">
-                                    <label for="return_date" class="col-sm-7">Fund return date</label>
+                                    <label for="return_date" class="col-sm-7">Fund return date:</label>
                                     <label id="return_date" >{{data.fund_return_date}}</label>
                     </div>   
                     <div class="card-text mb-4">
-                                    <label for="return_amt" class="col-sm-7">Fund return amount</label>
+                                    <label for="return_amt" class="col-sm-7">Fund return amount:</label>
                                     <label id="return_amt" >{{data.fund_return_amount|currency}}</label>
                     </div>   
                             
                    
-                    <div  class="row mt-4">
+                    <div  class="row d-flex justify-content-center align-items-center mt-4">
                         
                        <div class="col-sm-6">
-                        <a class="btn btn-success " style="border-radius: 4px;" id="confirm" >Confirm Your Payment</a>
+                        <button class="btn  "  id="confirm" >Confirm Your Payment</button>
                        </div>
                        <div class="col-sm-6">
-                        <button class="btn btn-success" style="border-radius: 4px;" id="cancel1" onclick="cancel1()"  >Cancel Payment</button>
+                        <button class="btn " id="cancel1" onclick="cancel1()"  >Cancel Payment</button>
                        </div>
                     </div>
                 </div>
@@ -72,6 +73,7 @@
                                     text: "You confirmed you payment",
                                     customClass: 'swal-wide',
                                     confirmButtonText: 'ok',
+                                    confirmButtonColor: '#428558',
                                     timer: 90000,
                                 }).then((result) => {  
                             /* Read more about isConfirmed, isDenied below */  
@@ -96,6 +98,7 @@
                         title: 'Do you want to cancel Payment?',  
                         showDenyButton: true,  showCancelButton: true,  
                         confirmButtonText: `yes`,  
+                        confirmButtonColor: '#428558',
                         // denyButtonText: `Don't save`,
                         }).then((result) => {  
                             /* Read more about isConfirmed, isDenied below */  

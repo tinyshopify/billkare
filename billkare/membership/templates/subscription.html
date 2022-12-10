@@ -1,7 +1,7 @@
 {% extends "user_base.html" %}
 {%load static %}
 {% load userfilter %}
-
+{% block title %} Sugan Financial {% endblock %}
 {% block body %}
 
     <div class="container h-100"> 
@@ -96,6 +96,7 @@
                         title: 'Do you want to cancel membership?',  
                         showDenyButton: true,  showCancelButton: true,  
                         confirmButtonText: `yes`,  
+                        confirmButtonColor: '#428558',
                         // denyButtonText: `Don't save`,
                         }).then((result) => {  
                             /* Read more about isConfirmed, isDenied below */  
@@ -114,6 +115,7 @@ function swalalert(text){
   text: text,
   customClass: 'swal-wide',
   confirmButtonText: 'ok',
+  confirmButtonColor: '#428558',
   showCancelButton: true,
  
   });

@@ -1,22 +1,22 @@
 {% extends "user_base.html" %}
 {%load static %}
 {% load userfilter %}
-
+{% block title %} Sugan Financial {% endblock %}
 {% block body %}
 
 
  <div class="container h-100">        
  <div class="row d-flex justify-content-center align-items-center ">
    <div class="col-sm-10">
-        <div class="text-center mt-5"><h3 class=" text-dark">Your Payment Information</h3></div>
+        <div class="text-center mb-3"><h3 class=" text-dark">Your Payment Information</h3></div>
                 
 <!-- sample -->
      <div class="box">
       
       <form  action="{% url 'paymentInfo' %}" onsubmit="myFunction();" method="POST" id="form1" enctype="multipart/form-data" autocomplete="off" >
           {% csrf_token %}
-          <div class="content py-3">
-            <div class="row">
+          
+            <div class="row mt-3">
               <div class="col-md-6">
                   <div class="form-group">
                     <label for="Bill">Bill</label>
@@ -90,17 +90,18 @@
               
             </div>
             <!-- /.row-->
-          </div>
+        
         
   
   <!-- sample -->
-          <div class="col-sm-12 mb-4">
-                      <label class="text-dark mb-4"><b>Delivery Options*:&nbsp;</b></label>
-                          <input type="radio" id="regular"  class = "chk" name="check_box1" value="regular">
-                          <label for="basic" >Regular (5-7 days) no additional cost</label>&nbsp;&nbsp;&nbsp;&nbsp;
+  <div  class="row">
+          <div class="col-sm-12 mt-3 mb-4">
+                      <label class="text-dark mb-4"><b>Delivery Options*:&nbsp;</b></label><br>
+                          <input type="radio" id="regular"  class = "chk" name="check_box1" value="regular"  required="required">
+                          <label for="basic" >Regular (5-7 days) no additional cost</label><br>
                           <input type="radio" id="Expedited" class = "chk" name="check_box1" value="Expedited">
                           <label for="check_box1" >Expedited (3 days)  $5.99</label>
-           </div> 
+           </div> </div>
             <div  class="row mt-4">
                    <div class="col-sm-6">
                           <a class="btn "  id="back" href="{% url 'loan_payment' %}">Go Back</a>

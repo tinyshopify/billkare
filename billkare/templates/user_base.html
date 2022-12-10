@@ -2,14 +2,16 @@
 <html lang="en">
 {%load static %}
 <head>
+  <title>
+    {% block title %} Sugan {% endblock %}
+</title>
     <meta charset="utf-8">
     
     <meta content="width=device-width, initial-scale=1,minimum-scale=1" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
      <!-- Favicon -->
-     
-     <link href="images/favicon.ico" rel="icon">
+      <link rel="icon" type="image/x-icon" href="{%static 'images\favicon.ico' %}">
 
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,8 +19,7 @@
  
   <!-- Icon Font Stylesheet -->
  
-  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-rel = "stylesheet">
+  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css"/>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -81,11 +82,11 @@ rel = "stylesheet">
         </div>
   </nav>
  
- <div class="container-xxl py-2 px-lg-5" >
+ <div class="container py-3 customer">
   
         {% block body %}
         {% endblock body %}
-     </div> 
+     
         <!-- footer -->
         
         <div class="sidebar">
@@ -99,7 +100,7 @@ rel = "stylesheet">
                    <a href="{%url 'dash_board' %}" class="nav-item nav-link">  <iconify-icon icon="zmdi:view-dashboard"></iconify-icon><span class="nav-text">Dashboard</span></a>
                    <a href="{% url 'logout' %}" class="nav-item nav-link"><iconify-icon icon="uiw:logout"></iconify-icon><span class="nav-text">Logout</span></a> 
                  </div>       
-         </div>
+         </div> </div>
      <!-- JavaScript Libraries -->
          <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
